@@ -1,0 +1,13 @@
+@mixin smooth($element: all, $time: 0.66s) {
+    transition: $element $time cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@mixin hover($shadow: true) {
+    transform: translateY(-5px);
+
+    @include smooth;
+
+    @if $shadow {
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+    }
+}

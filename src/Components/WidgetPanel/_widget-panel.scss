@@ -1,0 +1,9 @@
+.widget-panel {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-right: 1px solid gray;
+    max-width: 256px;
+    min-width: 256px;
+    gap: 16px;
+}

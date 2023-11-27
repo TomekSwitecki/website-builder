@@ -1,0 +1,19 @@
+$mobile-small: 360px;
+$mobile-medium: 375px;
+$mobile-large: 415px;
+$small-tablet: 650px;
+$tablet: 800px;
+$laptop: 1024px;
+$high-res: 1300px;
+$desktop: 1920px;
+
+//  map holding breakpoint values
+$breakpoints: (
+    mobile-small: $mobile-small,
+    mobile-medium: $mobile-medium,
+    mobile-large: $mobile-large,
+    tablet: $tablet,
+    laptop: $laptop,
+    high-res: $high-res,
+    desktop: $desktop
+);

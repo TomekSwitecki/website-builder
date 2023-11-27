@@ -1,5 +1,22 @@
-body {
-  background-color: #01ff80;
+.canvas {
+  margin: auto;
+  margin-block: 64px;
+  width: 1000px;
+  min-height: 1200px;
+  height: fit-content;
+  border: 1px solid gray;
+  background-color: #ffffff;
+  padding: 32px;
+}
+
+.widget-panel {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-right: 1px solid gray;
+  max-width: 256px;
+  min-width: 256px;
+  gap: 16px;
 }
 
 img {

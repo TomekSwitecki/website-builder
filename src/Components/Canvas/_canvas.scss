@@ -1,0 +1,12 @@
+@import "../../mixins";
+
+.canvas {
+    margin: auto;
+    margin-block: 64px;
+    width: 1000px;
+    min-height: 1200px;
+    height: fit-content;
+    border: 1px solid gray;
+    background-color: $white;
+    padding: 32px;
+}
