@@ -4,7 +4,7 @@ function Paragraph({ value }) {
 
   return (
     <div className={'paragraph'}>
-      <p>{value}</p>
+      <p>{value} paragraph</p>
     </div>
   );
 }
