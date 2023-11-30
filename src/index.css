@@ -19,6 +19,10 @@
   gap: 16px;
 }
 
+.header.header--selected {
+  border: 2px solid red;
+}
+
 img {
   pointer-events: none;
   user-select: none;

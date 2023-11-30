@@ -1,6 +1,6 @@
+.header {
 
-.HeaderComponent
-{
-    visibility: initial;
+    &.header--selected {
+        border: 2px solid red;
+    }
 }
-

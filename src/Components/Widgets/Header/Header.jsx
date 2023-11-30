@@ -1,10 +1,21 @@
 import React, { useRef, useEffect, useState } from "react";
+import classBuilder from "../../../Utils/classBuilder";
+
+function Header({ size, isSelected, onClick }) {
+  const [value, setValue] = useState("");
 
 
-function Header({ value, size }) {
+
+  const headerOptions = {
+    size: "default",
+    selected: isSelected
+  };
+
+
   return (
-    <div className={"header"}>
-      header
+    <div className={classBuilder("header", headerOptions)} onClick={onClick}>
+      {value}
+      test
       {/* <Header size={size} value={value} /> */}
     </div>
   );

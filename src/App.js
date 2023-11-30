@@ -5,15 +5,16 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import Canvas from "./Components/Canvas/Canvas";
 import WidgetPanel from "./Components/WidgetPanel/WidgetPanel";
+import { WidgetProvider } from "./Components/ContextProviders/WidgetProvider";
 
 
 function App() {
   return <div className="App">
     <DndProvider backend={HTML5Backend}>
       <WidgetPanel />
-      <Canvas>
-        <div>test</div>
-      </Canvas>
+      <WidgetProvider>
+        <Canvas />
+      </WidgetProvider>
     </DndProvider>
   </div>;
 }
