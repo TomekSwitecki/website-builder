@@ -9,7 +9,7 @@ function WidgetPanelItem({ widget, index }) {
 
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.WIDGET_PANEL_ITEM,
-    item: { name: widget.name, component: widget.component },
+    item: { name: widget.name, component: widget.component, props: widget.props },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
       draggedItem: monitor.getItem(),

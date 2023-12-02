@@ -19,7 +19,21 @@
   gap: 16px;
 }
 
+.properties-panel {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-left: 1px solid gray;
+  padding-left: 16px;
+  max-width: 256px;
+  min-width: 256px;
+}
+
 .header.header--selected {
+  border: 2px solid red;
+}
+
+.paragraph.paragraph--selected {
   border: 2px solid red;
 }
 
@@ -33,4 +47,13 @@ img {
   padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.app {
+  background-color: #F5F5F5;
+}
+
+.designer {
+  display: flex;
+  flex-direction: row;
 }

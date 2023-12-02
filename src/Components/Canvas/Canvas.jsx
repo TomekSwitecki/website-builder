@@ -3,22 +3,18 @@ import { CANVAS_CN } from "../Canvas/const";
 import { useDrop } from 'react-dnd'
 import { ItemTypes } from '../../WidgetTypes';
 import { v4 as uuidv4 } from 'uuid';
-import { useWidgetContext } from '../ContextProviders/WidgetProvider';
 const uuid = require('uuid');
+import { useWidgetContext } from '../ContextProviders/WidgetProvider';
+
 
 function Canvas({ children }) {
-  const { selectWidget, selectedWidget } = useWidgetContext();
-
-  const [widgets, setWidgets] = useState([]);
+  const { selectWidget, selectedWidget, addWidget, canvasWidgets } = useWidgetContext();
 
   const [{ isOver }, drop] = useDrop(() => ({
     accept: ItemTypes.WIDGET_PANEL_ITEM,
-    hover: (item) => {
-      // console.log("enter");
-    },
     drop: (item) => {
       const newItem = { ...item, id: uuidv4() };
-      setWidgets(prevWidgets => [...prevWidgets, newItem]);
+      addWidget(newItem);
     },
     collect: monitor => ({
       isOver: !!monitor.isOver(),
@@ -38,9 +34,10 @@ function Canvas({ children }) {
           <React.Fragment key={index}>
             {React.cloneElement(widget.component, {
               id: widget.id,
-              value: "test",
+              test: widget.id,
               onClick: () => handleWidgetClick(widget),
               isSelected: widget == selectedWidget,
+              props: widget.props
             })}
           </React.Fragment>
         ))}
@@ -50,7 +47,7 @@ function Canvas({ children }) {
 
   return (
     <div id="designer-canvas" className={CANVAS_CN} ref={drop}>
-      {widgetFactory(widgets)}
+      {widgetFactory(canvasWidgets)}
     </div>
   );
 }
