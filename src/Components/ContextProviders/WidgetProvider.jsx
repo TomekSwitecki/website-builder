@@ -5,6 +5,7 @@ const WidgetContext = createContext();
 export const WidgetProvider = ({ children }) => {
     const [canvasWidgets, setCanvasWidgets] = useState([]);
     const [selectedWidget, setSelectedWidget] = useState(null);
+    const [pointedWidget, setPointedWidget] = useState(null);
 
     const selectWidget = (widgetId) => {
         setSelectedWidget(widgetId);
@@ -23,6 +24,8 @@ export const WidgetProvider = ({ children }) => {
         );
     }
 
+
+
     const addWidget = (widget) => {
         setCanvasWidgets((prevWidgets) => [...prevWidgets, widget]);
     };
@@ -34,7 +37,7 @@ export const WidgetProvider = ({ children }) => {
     };
 
     return (
-        <WidgetContext.Provider value={{ selectedWidget, selectWidget, canvasWidgets, clearSelectedWidget, addWidget, removeWidget, updateWidget }}>
+        <WidgetContext.Provider value={{ selectedWidget, selectWidget, canvasWidgets, clearSelectedWidget, addWidget, removeWidget, updateWidget, pointedWidget, setPointedWidget }}>
             {children}
         </WidgetContext.Provider>
     );

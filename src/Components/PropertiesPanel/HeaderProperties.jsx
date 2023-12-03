@@ -16,7 +16,7 @@ function HeaderProperties(props) {
 
     useEffect(() => {
         if (selectedWidget) {
-            setText(selectedWidget.value);
+            setText(selectedWidget.props.value);
         }
     }, [selectedWidget]);
 

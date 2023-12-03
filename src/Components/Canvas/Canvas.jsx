@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { CANVAS_CN } from "../Canvas/const";
 import { useDrop } from 'react-dnd'
 import { ItemTypes } from '../../WidgetTypes';
+import WidgetContainer from './WidgetContainer/WidgetContainer';
 import { v4 as uuidv4 } from 'uuid';
 const uuid = require('uuid');
 import { useWidgetContext } from '../ContextProviders/WidgetProvider';
@@ -31,7 +32,7 @@ function Canvas({ children }) {
     return (
       <>
         {widgets.map((widget, index) => (
-          <React.Fragment key={index}>
+          <WidgetContainer id={widget.id} key={index}>
             {React.cloneElement(widget.component, {
               id: widget.id,
               test: widget.id,
@@ -39,7 +40,7 @@ function Canvas({ children }) {
               isSelected: widget == selectedWidget,
               props: widget.props
             })}
-          </React.Fragment>
+          </WidgetContainer>
         ))}
       </>
     );
