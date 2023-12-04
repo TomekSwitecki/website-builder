@@ -2,13 +2,13 @@ import React, { useEffect, useState, useContext } from "react";
 import { widgets_library } from "../../WidgetLibrary";
 import WidgetPanelItem from "./WidgetPanelItem";
 
-function WidgetPanel(props) {
+function WidgetPanel() {
 
 
   const assetsWidgets = (
     <>
       {widgets_library.map((widget, index) => (
-        <WidgetPanelItem key={index} widget={widget}></WidgetPanelItem>
+        <WidgetPanelItem index={index} key={index} widget={widget}></WidgetPanelItem>
       ))}
     </>
   );

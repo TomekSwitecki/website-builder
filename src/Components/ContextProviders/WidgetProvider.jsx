@@ -16,7 +16,7 @@ export const WidgetProvider = ({ children }) => {
     };
 
     function updateWidget(selectedWidget, modifiedProps) {
-        console.log(modifiedProps)
+        console.log(selectedWidget)
         setCanvasWidgets((canvasWidgets) =>
             canvasWidgets.map((widget) =>
                 widget.id === selectedWidget.id ? { ...widget, props: { ...widget.props, ...modifiedProps } } : widget

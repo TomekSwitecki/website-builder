@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import HeaderProperties from "./HeaderProperties";
+import WidgetProperties from "./WidgetProperties";
 
 import { useWidgetContext } from "../ContextProviders/WidgetProvider";
 
 
 export function PropertiesPanel() {
   const { selectWidget, selectedWidget } = useWidgetContext();
-  const [selectedWidgetOptions, setSelectedWidgetOptions] = useState()
+  const [selectedWidgetOptions, setSelectedWidgetOptions] = useState<React.ReactNode | null>(null);
 
 
 
@@ -15,16 +15,16 @@ export function PropertiesPanel() {
       console.log(selectedWidget.name)
       switch (selectedWidget.name) {
         case "Header":
-          setSelectedWidgetOptions(<HeaderProperties selectedWidget={selectedWidget} />);
+          setSelectedWidgetOptions(<WidgetProperties />);
           break;
         case "Paragraph":
-          setSelectedWidgetOptions(<HeaderProperties selectedWidget={selectedWidget} />);
+          setSelectedWidgetOptions(<WidgetProperties />);
           break;
         case "Photo":
-          setSelectedWidgetOptions(<HeaderProperties selectedWidget={selectedWidget} />);
+          setSelectedWidgetOptions(<WidgetProperties />);
           break;
         default:
-          setSelectedWidgetOptions(null)
+        // setSelectedWidgetOptions(null)
       }
     }
   }, [selectedWidget]);

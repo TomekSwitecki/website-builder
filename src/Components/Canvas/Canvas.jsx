@@ -9,7 +9,7 @@ import { useWidgetContext } from '../ContextProviders/WidgetProvider';
 
 
 function Canvas({ children }) {
-  const { selectWidget, selectedWidget, addWidget, canvasWidgets } = useWidgetContext();
+  const { selectWidget, addWidget, canvasWidgets } = useWidgetContext();
 
   const [{ isOver }, drop] = useDrop(() => ({
     accept: ItemTypes.WIDGET_PANEL_ITEM,
@@ -35,10 +35,9 @@ function Canvas({ children }) {
           <WidgetContainer id={widget.id} key={index}>
             {React.cloneElement(widget.component, {
               id: widget.id,
-              test: widget.id,
               onClick: () => handleWidgetClick(widget),
-              isSelected: widget == selectedWidget,
-              props: widget.props
+              props: widget.props,
+              value: widget.props.value
             })}
           </WidgetContainer>
         ))}

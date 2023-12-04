@@ -2,14 +2,15 @@ import React, { useEffect, useState, useContext } from "react";
 import { useWidgetContext } from "../ContextProviders/WidgetProvider";
 import { widgets_library } from "../../WidgetLibrary";
 
-function HeaderProperties(props) {
+function WidgetProperties() {
     const { updateWidget, selectedWidget } = useWidgetContext();
     const [text, setText] = useState(selectedWidget?.value);
 
-    const handleInputChange = (e) => {
-        console.log(selectedWidget)
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
         if (selectedWidget) {
             setText(e.target.value);
+            console.log(e.target.value)
             updateWidget(selectedWidget, { value: e.target.value });
         }
     };
@@ -27,4 +28,4 @@ function HeaderProperties(props) {
     )
 }
 
-export default HeaderProperties;
+export default WidgetProperties;
