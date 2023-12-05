@@ -3,9 +3,12 @@ import Photo from "./Components/Widgets/Photo/Photo";
 import Paragraph from "./Components/Widgets/Paragraph/Paragraph";
 
 import React from "react";
-interface HeaderProps {
+export const HEADER_SIZES = ["h1", "h2", "h3", "h4", "h5", "h6"] as const;
+
+
+export interface HeaderProps {
   value: string;
-  size: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+  size: typeof HEADER_SIZES[number];
 };
 
 interface ParagraphProps {
@@ -24,7 +27,8 @@ export const widgets_library = [
     level: 0,
     props: {
       value: "Header Initial Value",
-      size: "h1"
+      size: "h1",
+      __size: HEADER_SIZES,
     } as HeaderProps,
   },
   {
