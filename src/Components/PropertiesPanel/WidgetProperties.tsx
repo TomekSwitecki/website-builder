@@ -46,6 +46,8 @@ function WidgetProperties() {
                         ))}
                     </select>
                 );
+            case "color":
+                return <input type="color" value={stateProperties[propName]} onChange={(e) => handleInputChange(propName, e.target.value)} />;
             default:
                 // Handle other types or use a default input field
                 return null;
@@ -61,6 +63,7 @@ function WidgetProperties() {
                         {formFactory(propName, propValue)}
                     </div>
                 ))}
+
         </React.Fragment>
     )
 }

@@ -1,4 +1,4 @@
-@import "../Containers";
+@import "../../../containers";
 
 .flex_container {
     display: flex;
@@ -7,6 +7,7 @@
     padding: 36px;
     width: 100%;
     box-sizing: border-box;
+    background: white;
 }
 
 .align_center {

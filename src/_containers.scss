@@ -1,0 +1,18 @@
+@mixin fill() {
+    @include border;
+    width: 100%;
+    height: auto;
+}
+
+@mixin hug() {
+    @include border;
+    width: fit-content;
+    height: auto;
+}
+
+
+@mixin container_empty__placeholder {
+    display: block;
+    width: auto;
+    height: 200px;
+}

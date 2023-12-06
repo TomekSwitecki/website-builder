@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-
+import WidgetContainer from '../Canvas/WidgetContainer/WidgetContainer';
 const WidgetContext = createContext();
 
 export const WidgetProvider = ({ children }) => {
@@ -36,8 +36,24 @@ export const WidgetProvider = ({ children }) => {
         );
     };
 
+
+
+    const widgetFactory = (widgets) => {
+        return (
+            <>
+                {widgets.map((widget, index) => (
+                    <WidgetContainer id={widget.id} key={index} onClick={() => selectWidget(widget)}>
+                        {React.cloneElement(widget.component, {
+                            id: widget.id,
+                            props: widget.props,
+                        })}
+                    </WidgetContainer>
+                ))}
+            </>
+        );
+    };
     return (
-        <WidgetContext.Provider value={{ selectedWidget, selectWidget, canvasWidgets, clearSelectedWidget, addWidget, removeWidget, updateWidget, pointedWidget, setPointedWidget }}>
+        <WidgetContext.Provider value={{ selectedWidget, selectWidget, canvasWidgets, clearSelectedWidget, addWidget, removeWidget, updateWidget, pointedWidget, setPointedWidget, widgetFactory }}>
             {children}
         </WidgetContext.Provider>
     );

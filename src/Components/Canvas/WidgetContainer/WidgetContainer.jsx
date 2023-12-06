@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useWidgetContext } from '../../ContextProviders/WidgetProvider';
 import BEMBuilder from '../../../Utils/BEMbuilder';
 
-function WidgetContainer({ id, children }) {
+function WidgetContainer({ id, children, onClick }) {
     const { selectedWidget, setPointedWidget, pointedWidget } = useWidgetContext();
     const [widgetStates, setWidgetStates] = useState([]);
 
@@ -39,7 +39,7 @@ function WidgetContainer({ id, children }) {
 
 
     return (
-        <div id={id} className={widgetContainerClass} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} >
+        <div id={id} className={widgetContainerClass} onClick={onClick} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} >
             {children}
         </div>
     );

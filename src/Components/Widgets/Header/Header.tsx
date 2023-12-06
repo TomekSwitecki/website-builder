@@ -2,19 +2,19 @@ import React, { useRef, useEffect, useState } from "react";
 import classBuilder from "../../../Utils/classBuilder";
 
 interface HeaderProps {
-  value?: string;
-  size?: string;
+  props?: any;
   onClick?: () => void;
 }
 
-function Header({ value, size, onClick }: HeaderProps) {
+function Header({ props, onClick }: HeaderProps) {
   const headerOptions = {
     size: "default",
   };
 
   return (
-    <div className={classBuilder("header", headerOptions)} onClick={onClick}>
-      {value}
+    <div style={{ color: props.color }} className={classBuilder("header", headerOptions)} onClick={onClick}>
+      {props.value}
+      s{props.size}
     </div>
   );
 }

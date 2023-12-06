@@ -14,7 +14,7 @@ function Paragraph({ value, isSelected, onClick }: ParagraphProps) {
   };
 
   return (
-    <div className={classBuilder("paragraph", paragraphOptions)} onClick={onClick}>
+    <div className={classBuilder("paragraph", paragraphOptions)}>
       <p>{value}</p>
     </div>
   );

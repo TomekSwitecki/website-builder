@@ -9,12 +9,12 @@ import { useWidgetContext } from '../ContextProviders/WidgetProvider';
 
 
 function Canvas({ children }) {
-  const { selectWidget, addWidget, canvasWidgets } = useWidgetContext();
+  const { addWidget, canvasWidgets, widgetFactory } = useWidgetContext();
 
   const [{ isOver }, drop] = useDrop(() => ({
     accept: ItemTypes.WIDGET_PANEL_ITEM,
     drop: (item) => {
-      const newItem = { ...item, id: uuidv4() };
+      const newItem = { ...item, id: uuidv4(), parentId: "" };
       addWidget(newItem);
     },
     collect: monitor => ({
@@ -22,28 +22,7 @@ function Canvas({ children }) {
     }),
   }), [])
 
-  const handleWidgetClick = (widget) => {
-    console.log(widget.component.props)
-    selectWidget(widget);
-  };
 
-
-  const widgetFactory = (widgets) => {
-    return (
-      <>
-        {widgets.map((widget, index) => (
-          <WidgetContainer id={widget.id} key={index}>
-            {React.cloneElement(widget.component, {
-              id: widget.id,
-              onClick: () => handleWidgetClick(widget),
-              props: widget.props,
-              value: widget.props.value
-            })}
-          </WidgetContainer>
-        ))}
-      </>
-    );
-  };
 
   return (
     <div id="designer-canvas" className={CANVAS_CN} ref={drop}>
