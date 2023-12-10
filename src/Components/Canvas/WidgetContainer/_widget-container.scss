@@ -3,6 +3,7 @@
     height: fit-content;
     width: fit-content;
     cursor: pointer;
+    pointer-events: auto;
 
     &.dragged {
         background-color: rgb(230, 230, 230);

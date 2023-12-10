@@ -28,7 +28,7 @@ function WidgetProperties() {
 
 
     const formFactory = (propName: string, propValue: any) => {
-        console.log(typeof propName);
+        // console.log(typeof propName);
         switch (propName) {
             case "value":
                 return <input type="text" value={stateProperties[propName]} onChange={(e) => handleInputChange(propName, e.target.value)} />;

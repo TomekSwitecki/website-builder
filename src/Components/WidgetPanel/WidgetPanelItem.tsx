@@ -21,7 +21,7 @@ function WidgetPanelItem({ widget, index }: WidgetPanelItemProps) {
 
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.WIDGET_PANEL_ITEM,
-    item: { name: widget?.name, component: widget?.component, props: widget?.props },
+    item: { name: widget?.name, component: widget?.component, props: widget?.props, type: ItemTypes.WIDGET_PANEL_ITEM },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
       draggedItem: monitor.getItem(),

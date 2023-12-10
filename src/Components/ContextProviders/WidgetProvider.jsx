@@ -9,6 +9,7 @@ export const WidgetProvider = ({ children }) => {
 
     const selectWidget = (widgetId) => {
         setSelectedWidget(widgetId);
+        console.log(widgetId)
     };
 
     const clearSelectedWidget = () => {
@@ -37,12 +38,12 @@ export const WidgetProvider = ({ children }) => {
     };
 
 
-
+    // onClick={() => selectWidget(widget)}
     const widgetFactory = (widgets) => {
         return (
             <>
                 {widgets.map((widget, index) => (
-                    <WidgetContainer id={widget.id} key={index} onClick={() => selectWidget(widget)}>
+                    <WidgetContainer id={widget.id} key={index} widget={widget}>
                         {React.cloneElement(widget.component, {
                             id: widget.id,
                             props: widget.props,

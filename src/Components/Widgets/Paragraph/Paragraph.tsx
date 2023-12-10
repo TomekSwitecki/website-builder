@@ -2,20 +2,18 @@ import React, { useRef, useEffect, useState } from "react";
 import classBuilder from "../../../Utils/classBuilder";
 
 interface ParagraphProps {
-  value?: string;
-  isSelected?: boolean;
+  props?: any;
   onClick?: () => void;
 }
 
-function Paragraph({ value, isSelected, onClick }: ParagraphProps) {
+function Paragraph({ props }: ParagraphProps) {
   const paragraphOptions = {
     size: "default",
-    selected: isSelected
   };
 
   return (
     <div className={classBuilder("paragraph", paragraphOptions)}>
-      <p>{value}</p>
+      <p>{props.value}</p>
     </div>
   );
 }

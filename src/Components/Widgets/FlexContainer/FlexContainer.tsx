@@ -18,27 +18,49 @@ interface FlexContainerProps {
 
 
 function FlexContainer({ id, align = "center", direction = "row", gap = "8", height, margin, children, ...props }: FlexContainerProps) {
-    const { addWidget, canvasWidgets, widgetFactory } = useWidgetContext();
-    const [innerWidgets, setInnerWidgets] = useState<[]>([]);
+    const { addWidget, removeWidget, updateWidget, canvasWidgets, widgetFactory } = useWidgetContext();
+    const [innerWidgets, setInnerWidgets] = useState<object[]>([]);
 
-    const [{ isOver }, drop] = useDrop(() => ({
-        accept: ItemTypes.WIDGET_PANEL_ITEM,
-        drop: (item: any) => {
 
-            const newItem = { ...item, id: uuidv4(), parentId: id };
-            addWidget(newItem);
+
+    const [{ isOver, isOverCurrent }, drop] = useDrop(() => ({
+        accept: [ItemTypes.WIDGET_PANEL_ITEM, ItemTypes.WIDGET_CANVAS_ITEM],
+        drop: (item: any, monitor) => {
+            if (monitor.didDrop()) {
+                return
+            }
+            console.log(item.widget)
+            console.log(innerWidgets)
+
+            if (item.widget.type === ItemTypes.WIDGET_PANEL_ITEM) {
+                console.log(item.widget.type)
+                const newItem = { ...item, id: uuidv4(), parentID: id, type: ItemTypes.WIDGET_CANVAS_ITEM };
+                addWidget(newItem);
+            }
+            else if (item.widget.type === ItemTypes.WIDGET_CANVAS_ITEM && !innerWidgets.some(innerItem => (innerItem as any).id === item.widget.id)) {
+                removeWidget(item.widget.id)
+                const updatedItem = { ...item.widget, parentID: id };
+                if (!innerWidgets.includes(updatedItem)) {
+                    addWidget(updatedItem);
+                }
+            }
+
         },
         collect: monitor => ({
-            isOver: !!monitor.isOver(),
+            isOver: monitor.isOver(),
+            isOverCurrent: monitor.isOver({ shallow: true }),
         }),
-    }), [])
-
-
+    }), [canvasWidgets, innerWidgets])
 
 
     useEffect(() => {
-        setInnerWidgets(canvasWidgets.filter((widget: any) => widget.parentId === id));
+        setInnerWidgets(canvasWidgets.filter((widget: any) => {
+            return widget.parentID === id;
+        }));
+        console.log(innerWidgets);
     }, [canvasWidgets]);
+
+
 
     return (
         <div

@@ -42,7 +42,7 @@ export const widgets_library = [
     name: "Paragraph",
     description: "Simple text paragraph",
     cover: "https://picsum.photos/50/50",
-    component: <Paragraph value="test" />,
+    component: <Paragraph />,
     props: {
       value: "Paragraph Initial Value"
     } as ParagraphProps,

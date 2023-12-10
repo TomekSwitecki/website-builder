@@ -14,7 +14,7 @@ function App() {
       <WidgetProvider>
         <div className="designer">
           <WidgetPanel />
-          <Canvas />
+          <Canvas greedy={false} />
           <PropertiesPanel />
         </div>
       </WidgetProvider>
