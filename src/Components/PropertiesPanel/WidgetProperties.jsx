@@ -6,16 +6,16 @@ import { HeaderProps } from "../../WidgetLibrary";
 
 function WidgetProperties() {
     const { updateWidget, selectedWidget } = useWidgetContext();
-    const [stateProperties, setStateProperties] = useState<{ [key: string]: string }>({});
+    const [stateProperties, setStateProperties] = useState({});
 
-    const handleInputChange = (propName: string, newValue: string) => {
+    const handleInputChange = (propName, newValue) => {
         setStateProperties((prevValues) => ({
             ...prevValues,
             [propName]: newValue,
         }));
 
         if (selectedWidget) {
-            updateWidget(selectedWidget, { [propName]: newValue });
+            updateWidget(selectedWidget.id, { [propName]: newValue });
         }
     };
 
@@ -27,19 +27,20 @@ function WidgetProperties() {
 
 
 
-    const formFactory = (propName: string, propValue: any) => {
+    const formFactory = (propName, propValue) => {
         // console.log(typeof propName);
         switch (propName) {
             case "value":
+                return <input type="text" value={stateProperties[propName]} onChange={(e) => handleInputChange(propName, e.target.value)} />;
+            case "parentID":
                 return <input type="text" value={stateProperties[propName]} onChange={(e) => handleInputChange(propName, e.target.value)} />;
             case "number":
                 return <input type="number" value={stateProperties[propName]} onChange={(e) => handleInputChange(propName, e.target.value)} />;
             case "size":
                 const sizeOptions = extractedOptions("size");
-                console.log(sizeOptions)
                 return (
                     <select value={stateProperties[propName] || ""} onChange={(e) => handleInputChange(propName, e.target.value)}>
-                        {sizeOptions.map((option: string) => (
+                        {sizeOptions.map((option) => (
                             <option key={option} value={option}>
                                 {`${option}`}
                             </option>

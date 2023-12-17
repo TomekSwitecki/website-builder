@@ -5,8 +5,11 @@ import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { ItemTypes } from '../../../WidgetTypes';
 
-function WidgetContainer({ id, children, widget }) {
-    const { selectWidget, selectedWidget, setPointedWidget, pointedWidget } = useWidgetContext();
+
+
+
+function WidgetContainer({ id, parentID, children, widget }) {
+    const { selectWidget, selectedWidget, setPointedWidget, pointedWidget, setDragHandler } = useWidgetContext();
     const [widgetStates, setWidgetStates] = useState([]);
 
     const handleWidgetStates = (widgetCondition, stateValue, widgetStates, setWidgetStates) => {
@@ -29,15 +32,21 @@ function WidgetContainer({ id, children, widget }) {
     }, [pointedWidget]);
 
 
+
+
     const [{ isDragging }, drag] = useDrag(() => ({
         type: ItemTypes.WIDGET_CANVAS_ITEM,
-        item: { widget },
-
+        item: widget,
+        onDrag: () => {
+            console.log(widget)
+            setDragHandler(widget)
+        },
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging(),
             draggedItem: monitor.getItem(),
         })
-    }))
+
+    }), [selectedWidget])
 
     const handleMouseOver = (e) => {
         e.stopPropagation();
@@ -54,11 +63,12 @@ function WidgetContainer({ id, children, widget }) {
         selectWidget(widget)
     }
 
+
     const widgetContainerClass = BEMBuilder('widget__container', widgetStates);
 
 
     return (
-        <div ref={drag} id={id} className={widgetContainerClass} onClick={handleMouseClick} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} >
+        <div data-type={widget.name} ref={drag} id={id} className={widgetContainerClass} onClick={handleMouseClick} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} >
             {children}
         </div>
     );

@@ -1,12 +1,9 @@
 import React, { useRef, useEffect, useState } from "react";
 import classBuilder from "../../../Utils/classBuilder";
 
-interface ParagraphProps {
-  props?: any;
-  onClick?: () => void;
-}
 
-function Paragraph({ props }: ParagraphProps) {
+
+function Paragraph({ props }) {
   const paragraphOptions = {
     size: "default",
   };

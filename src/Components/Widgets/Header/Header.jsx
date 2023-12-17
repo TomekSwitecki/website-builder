@@ -1,12 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import classBuilder from "../../../Utils/classBuilder";
 
-interface HeaderProps {
-  props?: any;
-  onClick?: () => void;
-}
-
-function Header({ props, onClick }: HeaderProps) {
+function Header({ props, onClick }) {
   const headerOptions = {
     size: "default",
   };

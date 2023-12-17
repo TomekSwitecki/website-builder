@@ -2,26 +2,23 @@ import React from 'react';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { ItemTypes } from '../../WidgetTypes';
+import { v4 as uuidv4 } from 'uuid';
+const uuid = require('uuid');
 
-interface WidgetPanelItemProps {
-  widget?: Widget;
-  index?: number;
-}
 
-interface Widget {
-  name: string;
-  component: React.ReactNode;
-  props: any;
-  cover: string;
-  description?: string;
-}
-
-function WidgetPanelItem({ widget, index }: WidgetPanelItemProps) {
+function WidgetPanelItem({ widget, index }) {
 
 
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.WIDGET_PANEL_ITEM,
-    item: { name: widget?.name, component: widget?.component, props: widget?.props, type: ItemTypes.WIDGET_PANEL_ITEM },
+    item: (monitor) => ({
+      id: uuidv4(),
+      parentID: "",
+      name: widget?.name,
+      component: widget?.component,
+      props: widget?.props,
+      type: ItemTypes.WIDGET_PANEL_ITEM,
+    }),
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
       draggedItem: monitor.getItem(),

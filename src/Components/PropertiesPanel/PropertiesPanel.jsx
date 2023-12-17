@@ -6,7 +6,7 @@ import { useWidgetContext } from "../ContextProviders/WidgetProvider";
 
 export function PropertiesPanel() {
   const { selectWidget, selectedWidget } = useWidgetContext();
-  const [selectedWidgetOptions, setSelectedWidgetOptions] = useState<React.ReactNode | null>(null);
+  const [selectedWidgetOptions, setSelectedWidgetOptions] = useState(null);
 
 
 

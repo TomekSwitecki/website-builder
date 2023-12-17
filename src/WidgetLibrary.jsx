@@ -5,21 +5,7 @@ import FlexContainer from "./Components/Widgets/FlexContainer/FlexContainer";
 
 import React from "react";
 export const DEFAULT_COLOR = "#000000";
-export const HEADER_SIZES = ["h1", "h2", "h3", "h4", "h5", "h6"] as const;
-
-
-export interface HeaderProps {
-  value: string;
-  size: typeof HEADER_SIZES[number];
-};
-
-interface ParagraphProps {
-  value: string;
-};
-
-interface FlexContainerProps {
-  value: string;
-};
+export const HEADER_SIZES = ["h1", "h2", "h3", "h4", "h5", "h6"];
 
 
 
@@ -32,8 +18,9 @@ export const widgets_library = [
     props: {
       value: "Header Initial Value",
       size: "h1",
-      color: DEFAULT_COLOR
-    } as HeaderProps,
+      color: DEFAULT_COLOR,
+      parentID: ""
+    },
     blueprints: {
       __size: HEADER_SIZES,
     }
@@ -45,7 +32,7 @@ export const widgets_library = [
     component: <Paragraph />,
     props: {
       value: "Paragraph Initial Value"
-    } as ParagraphProps,
+    }
   },
   {
     name: "Photo",
@@ -62,7 +49,7 @@ export const widgets_library = [
     cover: "https://picsum.photos/50/50",
     component: <FlexContainer />,
     props: {
-      value: "Photo"
-    } as ParagraphProps,
+      innerWidgets: []
+    }
   },
 ];
