@@ -61,14 +61,34 @@ function WidgetContainer({ id, parentID, children, widget }) {
     const handleMouseClick = (e) => {
         e.stopPropagation();
         selectWidget(widget)
+        console.log(widget.props.width)
     }
 
 
     const widgetContainerClass = BEMBuilder('widget__container', widgetStates);
+    let inlineWidth = "";
+    let inlineMaxWidth = "";
+    let inlineMinWidth = "";
 
+    if (widget.name === "FlexContainer") {
+        inlineWidth = widget.props.width;
+        if (widget.props.width === "fill") {
+            inlineWidth = "100%"
+        }
+        else if (widget.props.width === "hug") {
+            inlineWidth = "fit-content"
+        } else if (widget.props.width === "fixed") {
+            inlineMaxWidth = widget.props.maxWidth + "px";
+            inlineMinWidth = widget.props.minWidth + "px";
+            inlineWidth = widget.props.setWidth + "px";
+        }
+    }
+    else {
+        inlineWidth = "fit-content";
+    }
 
     return (
-        <div data-type={widget.name} ref={drag} id={id} className={widgetContainerClass} onClick={handleMouseClick} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} >
+        <div style={{ width: inlineWidth, maxWidth: inlineMaxWidth, minWidth: inlineMinWidth }} data-type={widget.name} ref={drag} id={id} className={widgetContainerClass} onClick={handleMouseClick} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} >
             {children}
         </div>
     );

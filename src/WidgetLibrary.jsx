@@ -6,7 +6,7 @@ import FlexContainer from "./Components/Widgets/FlexContainer/FlexContainer";
 import React from "react";
 export const DEFAULT_COLOR = "#000000";
 export const HEADER_SIZES = ["h1", "h2", "h3", "h4", "h5", "h6"];
-
+export const WIDTH_VARIANTS = ["fill", "hug", "fixed"];
 
 
 export const widgets_library = [
@@ -49,7 +49,14 @@ export const widgets_library = [
     cover: "https://picsum.photos/50/50",
     component: <FlexContainer />,
     props: {
+      width: "fill",
+      maxWidth: "",
+      minWidth: "",
+      setWidth: "",
       innerWidgets: []
+    },
+    blueprints: {
+      __width: WIDTH_VARIANTS,
     }
   },
 ];

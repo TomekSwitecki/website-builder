@@ -30,9 +30,7 @@ function WidgetProperties() {
     const formFactory = (propName, propValue) => {
         // console.log(typeof propName);
         switch (propName) {
-            case "value":
-                return <input type="text" value={stateProperties[propName]} onChange={(e) => handleInputChange(propName, e.target.value)} />;
-            case "parentID":
+            case "value": case "minWidth": case "maxWidth": case "setWidth": case "parentID":
                 return <input type="text" value={stateProperties[propName]} onChange={(e) => handleInputChange(propName, e.target.value)} />;
             case "number":
                 return <input type="number" value={stateProperties[propName]} onChange={(e) => handleInputChange(propName, e.target.value)} />;
@@ -41,6 +39,17 @@ function WidgetProperties() {
                 return (
                     <select value={stateProperties[propName] || ""} onChange={(e) => handleInputChange(propName, e.target.value)}>
                         {sizeOptions.map((option) => (
+                            <option key={option} value={option}>
+                                {`${option}`}
+                            </option>
+                        ))}
+                    </select>
+                );
+            case "width":
+                const widthOptions = extractedOptions("width");
+                return (
+                    <select value={stateProperties[propName] || ""} onChange={(e) => handleInputChange(propName, e.target.value)}>
+                        {widthOptions.map((option) => (
                             <option key={option} value={option}>
                                 {`${option}`}
                             </option>

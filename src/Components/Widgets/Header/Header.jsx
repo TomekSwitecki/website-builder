@@ -9,7 +9,7 @@ function Header({ props, onClick }) {
   return (
     <div style={{ color: props.color }} className={classBuilder("header", headerOptions)} onClick={onClick}>
       {props.value}
-      s{props.size}
+      {props.size}
     </div>
   );
 }

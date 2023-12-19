@@ -6,7 +6,7 @@ import classnames from "classnames";
 
 
 
-function FlexContainer({ id, align = "center", direction = "row", gap = "8", height, margin, children, ...props }) {
+function FlexContainer({ id, align = "center", direction = "row", gap = "8", height, margin, children, props }) {
     const { canvasWidgets, widgetFactory, pointedWidget, updateWidget, draggedWidget } = useWidgetContext();
     const [innerWidgets, setInnerWidgets] = useState([]);
     const [recursiveInnerWidgets, setInnerRecursiveWidgets] = useState([]);
@@ -40,18 +40,21 @@ function FlexContainer({ id, align = "center", direction = "row", gap = "8", hei
 
         return Array.from(results);
     }
+
+
     return (
         <div
             className={classnames(
                 "flex_container",
                 `align_${align}`,
                 `direction_${direction}`,
-                `height_${height || "full"}`,
+                `height_${height || "fill"}`,
+                `width_${props.width}`,
                 `gap_${gap}`,
                 `margin_${margin || "0"}`
             )}
         >
-
+            {props.width}
             {widgetFactory(innerWidgets)}
 
         </div>

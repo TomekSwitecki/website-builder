@@ -77,7 +77,7 @@ function Canvas() {
 
 
   return (
-    <div ref={drop} id="designer-canvas" className={CANVAS_CN} onDragOver={(e) => mousePointer(e)} onMouseOver={(e) => mousePointer(e)} >
+    <div ref={drop} id="designer-canvas" className={CANVAS_CN} onDragOver={(e) => mousePointer(e)} onMouseOver={(e) => mousePointer(e)}  >
       {widgetFactory(innerWidgets)}
     </div>
   );

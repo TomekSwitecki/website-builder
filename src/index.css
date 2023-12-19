@@ -32,7 +32,6 @@
 .widget__container {
   position: relative;
   height: fit-content;
-  width: fit-content;
   cursor: pointer;
   pointer-events: auto;
 }
@@ -55,7 +54,7 @@
   flex-direction: column;
   border: 2px dashed rgb(182, 182, 182);
   padding: 36px;
-  width: 100%;
+  width: inherit;
   box-sizing: border-box;
   background: white;
 }
