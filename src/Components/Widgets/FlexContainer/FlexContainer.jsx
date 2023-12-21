@@ -20,6 +20,7 @@ function FlexContainer({ id, align = "center", direction = "row", gap = "8", hei
     useEffect(() => {
         updateWidget(id, { ["innerWidgets"]: innerWidgets })
         updateWidget(id, { ["recursiveInnerWidgets"]: recursiveInnerWidgets })
+        console.log(props.clipOverflowContent)
     }, [pointedWidget, draggedWidget, innerWidgets.length, canvasWidgets.length]);
 
 
@@ -41,20 +42,33 @@ function FlexContainer({ id, align = "center", direction = "row", gap = "8", hei
         return Array.from(results);
     }
 
+    const generatedStyles = {
+        borderRadius: props.borderRadius + "px",
+        gap: props.gap + "px",
+        backgroundColor: props.backgroundColor,
+        paddingBlock: props.paddingBlock + "px",
+        paddingInline: props.paddingInline + "px",
+        borderWidth: props.strokeWidth + "px",
+        borderColor: props.strokeColor,
+        overflow: props.clipOverflowContent ? "hidden" : "visible",
+        justifyContent: props.flex_justify_content,
+        alignItems: props.flex_align_items,
+        alignContent: props.flex_align_content
+    };
 
     return (
         <div
+            style={generatedStyles}
             className={classnames(
                 "flex_container",
-                `align_${align}`,
-                `direction_${direction}`,
+                `align_${props.align}`,
+                `direction_${props.flex_direction}`,
                 `height_${height || "fill"}`,
                 `width_${props.width}`,
-                `gap_${gap}`,
                 `margin_${margin || "0"}`
             )}
         >
-            {props.width}
+
             {widgetFactory(innerWidgets)}
 
         </div>

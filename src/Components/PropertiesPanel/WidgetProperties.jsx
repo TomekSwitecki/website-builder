@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useWidgetContext } from "../ContextProviders/WidgetProvider";
-import { widgets_library } from "../../WidgetLibrary";
-import extractedOptions from "../../Utils/extractOptions";
-import { HeaderProps } from "../../WidgetLibrary";
+
+import selectGenerator from "../../Utils/selectGenerator";
 
 function WidgetProperties() {
     const { updateWidget, selectedWidget } = useWidgetContext();
@@ -28,36 +27,35 @@ function WidgetProperties() {
 
 
     const formFactory = (propName, propValue) => {
-        // console.log(typeof propName);
         switch (propName) {
-            case "value": case "minWidth": case "maxWidth": case "setWidth": case "parentID":
+            case "value": case "minWidth": case "maxWidth": case "setWidth":
                 return <input type="text" value={stateProperties[propName]} onChange={(e) => handleInputChange(propName, e.target.value)} />;
-            case "number":
+            case "number": case "strokeWidth": case "paddingInline": case "paddingBlock": case "borderRadius": case "rotation": case "gap":
                 return <input type="number" value={stateProperties[propName]} onChange={(e) => handleInputChange(propName, e.target.value)} />;
             case "size":
-                const sizeOptions = extractedOptions("size");
-                return (
-                    <select value={stateProperties[propName] || ""} onChange={(e) => handleInputChange(propName, e.target.value)}>
-                        {sizeOptions.map((option) => (
-                            <option key={option} value={option}>
-                                {`${option}`}
-                            </option>
-                        ))}
-                    </select>
-                );
+                return selectGenerator("size", stateProperties, handleInputChange);
             case "width":
-                const widthOptions = extractedOptions("width");
-                return (
-                    <select value={stateProperties[propName] || ""} onChange={(e) => handleInputChange(propName, e.target.value)}>
-                        {widthOptions.map((option) => (
-                            <option key={option} value={option}>
-                                {`${option}`}
-                            </option>
-                        ))}
-                    </select>
-                );
-            case "color":
+                return selectGenerator("width", stateProperties, handleInputChange);
+            case "flex_direction":
+                return selectGenerator("flex_direction", stateProperties, handleInputChange);
+            case "flex_align_items":
+                return selectGenerator("flex_align_items", stateProperties, handleInputChange);
+            case "flex_justify_content":
+                return selectGenerator("flex_justify_content", stateProperties, handleInputChange);
+            case "flex_align_content":
+                return selectGenerator("flex_align_content", stateProperties, handleInputChange);
+            case "color": case "backgroundColor": case "strokeColor":
                 return <input type="color" value={stateProperties[propName]} onChange={(e) => handleInputChange(propName, e.target.value)} />;
+            case "clipOverflowContent":
+                return (
+                    <input
+                        type="checkbox"
+                        id="clipOverflowContentCheckbox"
+                        name="clipOverflowContent"
+                        checked={stateProperties[propName]}
+                        onChange={(e) => handleInputChange(propName, e.target.checked)}
+                    />
+                );
             default:
                 // Handle other types or use a default input field
                 return null;
@@ -67,15 +65,20 @@ function WidgetProperties() {
     return (
         <React.Fragment>
             {selectedWidget &&
-                Object.entries(selectedWidget.props).map(([propName, propValue]) => (
-                    <div key={propName}>
-                        <label>{propName}</label>
-                        {formFactory(propName, propValue)}
-                    </div>
-                ))}
+                Object.entries(selectedWidget.props).map(([propName, propValue]) => {
+                    const formField = formFactory(propName, propValue);
 
+                    return (
+                        formField && (
+                            <div key={propName}>
+                                <label>{propName}</label>
+                                {formField}
+                            </div>
+                        )
+                    );
+                })}
         </React.Fragment>
-    )
+    );
 }
 
 export default WidgetProperties;

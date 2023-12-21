@@ -3,6 +3,8 @@
     height: fit-content;
     cursor: pointer;
     pointer-events: auto;
+    border: 2px dashed rgba(182, 182, 182, 0.418);
+
 
     &.dragged {
         background-color: rgb(230, 230, 230);

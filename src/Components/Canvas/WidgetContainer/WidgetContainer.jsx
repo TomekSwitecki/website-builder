@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useWidgetContext } from '../../ContextProviders/WidgetProvider';
 import BEMBuilder from '../../../Utils/BEMbuilder';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
@@ -88,7 +88,7 @@ function WidgetContainer({ id, parentID, children, widget }) {
     }
 
     return (
-        <div style={{ width: inlineWidth, maxWidth: inlineMaxWidth, minWidth: inlineMinWidth }} data-type={widget.name} ref={drag} id={id} className={widgetContainerClass} onClick={handleMouseClick} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} >
+        <div style={{ width: inlineWidth, maxWidth: inlineMaxWidth, minWidth: inlineMinWidth, transform: `rotate(${widget.props.rotation}deg)` }} data-type={widget.name} ref={drag} id={id} className={widgetContainerClass} onClick={handleMouseClick} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} >
             {children}
         </div>
     );
