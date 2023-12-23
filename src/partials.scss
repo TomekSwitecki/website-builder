@@ -1,9 +1,19 @@
 @use "../src/Components/Canvas/canvas";
 @use "./Components/WidgetPanel/widget-panel";
 @use "./Components/PropertiesPanel/properties-panel";
-@use "./Components/Widgets/Header/Header";
-@use "./Components/Widgets/Heading/heading";
-@use "./Components/Widgets/Paragraph/Paragraph";
+
 @use "./Components/Canvas/WidgetContainer/widget-container";
 @use "./Components/Widgets/FlexContainer/FlexContainer";
 @use "././containers";
+
+//widgets
+@use "./Components/Widgets/Header/Header";
+@use "./Components/Widgets/Heading/heading";
+@use "./Components/Widgets/Paragraph/Paragraph";
+@use "./Components/Widgets/Photo/Photo";
+
+
+//designer
+@use "./Components/Designer/Button/button";
+@use "./Components/Designer/TextInput/textInput";
+@use "./Components/Designer/Select/selectInput";

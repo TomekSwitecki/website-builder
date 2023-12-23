@@ -1,0 +1,53 @@
+@import "./colors.scss";
+
+@mixin StrongLabel($color: $black) {
+    color: $color;
+
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+@mixin Label($color: $black) {
+    color: $color;
+
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-wrap: nowrap;
+}
+
+
+@mixin SilentLabel($color: $gray-2) {
+    color: $color;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+@mixin TagFont {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 16px;
+}
+
+
+@mixin input-placeholder {
+    color: $gray-2;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+@mixin input-auxiliary-label ($color: $primary) {
+
+    color: $color;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}

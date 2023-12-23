@@ -35,8 +35,8 @@ function WidgetPanelItem({ widget, index }) {
       <div className='widget-panel__item-container'>
         <img src={widget?.cover} />
         <div className='widget-panel__item-description'>
-          <div className='widget-panel__item-name'>{widget?.name}</div>
-          <div>{widget?.description}</div>
+          <div className='widget-panel__label'>{widget?.name}</div>
+          <div className='widget-panel__sublabel'>{widget?.description}</div>
         </div>
       </div>
     </div>

@@ -1,7 +1,8 @@
 @import "./anim";
 @import "./colors";
 @import "./media-queries";
-
+@import "./inputs";
+@import "./fonts.scss";
 
 @mixin card() {
     width: 100%;

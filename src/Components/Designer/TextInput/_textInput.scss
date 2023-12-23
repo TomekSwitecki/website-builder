@@ -1,0 +1,57 @@
+@import "../../../mixins";
+@import "../../../inputs";
+
+.text__input-container {
+    @include input-wrapper;
+}
+
+.label__container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+
+.text__input {
+    @include __input;
+    @include truncate;
+    padding-right: 16px;
+}
+
+.input__label--required {
+    text-align: right;
+    @include input-auxiliary-label($primary);
+}
+
+
+.text__input-validation-info {
+    @include input-auxiliary-label($negative);
+}
+
+
+.text__input::placeholder {
+    @include input-placeholder;
+}
+
+.text__input:hover,
+.text__input:focus-within {
+    @include input-hover;
+}
+
+
+.text__input-container--invalid {
+
+    .text__input,
+    .text__input :hover,
+    .text__input :focus-within {
+        color: $negative;
+        border: 2px solid $negative;
+        outline: none;
+        box-shadow: none;
+    }
+
+    .input__label--required {
+        text-align: right;
+        @include input-auxiliary-label($negative);
+    }
+}

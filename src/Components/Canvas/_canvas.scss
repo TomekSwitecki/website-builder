@@ -2,12 +2,15 @@
 
 .canvas {
     margin: auto;
-    margin-block: 64px;
-    width: 1000px;
+    margin-block: 32px;
+    width: 100%;
+    max-width: 1260px;
     min-height: 1200px;
     height: fit-content;
-    border: 1px solid gray;
+    border: 1px solid $gray-1;
     background-color: $white;
     padding: 32px;
     overflow: hidden;
+
+    box-shadow: 0px 22.336px 17.869px 0px rgba(0, 0, 0, 0.04), 0px 41.778px 33.422px 0px rgba(0, 0, 0, 0.05), 0px 100px 80px 0px rgba(0, 0, 0, 0.07);
 }

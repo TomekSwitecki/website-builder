@@ -1,10 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
 
-function Photo() {
+function Photo({ props }) {
   return (
-    <div className='Container__hug'>
-      <img src='https://picsum.photos/200/300'></img>
-    </div>
+    <img className="photo" src={props.url}></img>
   )
 }
 

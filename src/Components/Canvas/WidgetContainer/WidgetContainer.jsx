@@ -4,12 +4,12 @@ import BEMBuilder from '../../../Utils/BEMbuilder';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { ItemTypes } from '../../../WidgetTypes';
-
-
+import { XmarkCircle } from '@vectopus/atlas-icons-react';
+import Button, { ButtonColor, ButtonShape, ButtonType, ButtonSize } from '../../Designer/Button/Button';
 
 
 function WidgetContainer({ id, parentID, children, widget }) {
-    const { selectWidget, selectedWidget, setPointedWidget, pointedWidget, setDragHandler } = useWidgetContext();
+    const { selectWidget, selectedWidget, setPointedWidget, pointedWidget, setDragHandler, removeWidget } = useWidgetContext();
     const [widgetStates, setWidgetStates] = useState([]);
 
     const handleWidgetStates = (widgetCondition, stateValue, widgetStates, setWidgetStates) => {
@@ -61,7 +61,11 @@ function WidgetContainer({ id, parentID, children, widget }) {
     const handleMouseClick = (e) => {
         e.stopPropagation();
         selectWidget(widget)
-        console.log(widget.props.width)
+    }
+
+    const handleWidgetDelete = (e) => {
+        e.stopPropagation();
+        removeWidget(widget);
     }
 
 
@@ -89,6 +93,16 @@ function WidgetContainer({ id, parentID, children, widget }) {
 
     return (
         <div style={{ width: inlineWidth, maxWidth: inlineMaxWidth, minWidth: inlineMinWidth, transform: `rotate(${widget.props.rotation}deg)` }} data-type={widget.name} ref={drag} id={id} className={widgetContainerClass} onClick={handleMouseClick} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} >
+            <div className='action-buttons'>{(selectedWidget && selectedWidget.id === id) &&
+                <Button
+                    type={ButtonType.Filled}
+                    color={ButtonColor.Negative}
+                    shape={ButtonShape.Rounded}
+                    size={ButtonSize.Icon}
+                    text={<XmarkCircle size={24} />}
+                    onClick={handleWidgetDelete}
+                />}
+            </div>
             {children}
         </div>
     );

@@ -3,6 +3,10 @@ import Photo from "./Components/Widgets/Photo/Photo";
 import Paragraph from "./Components/Widgets/Paragraph/Paragraph";
 import FlexContainer from "./Components/Widgets/FlexContainer/FlexContainer";
 
+import COVER_HEADING from "../src/Resources/Designer/WidgetCovers/COVER_HEADING.png";
+import COVER_TEXT from "../src/Resources/Designer/WidgetCovers/COVER_TEXT.png";
+import COVER_IMG from "../src/Resources/Designer/WidgetCovers/COVER_IMG.png";
+import COVER_LAYOUT from "../src/Resources/Designer/WidgetCovers/COVER_LAYOUT.png";
 import React from "react";
 export const DEFAULT_COLOR = "#000000";
 export const HEADER_SIZES = ["h1", "h2", "h3", "h4", "h5", "h6"];
@@ -16,7 +20,7 @@ export const widgets_library = [
   {
     name: "Header",
     description: "Section text heading",
-    cover: "https://picsum.photos/50/50",
+    cover: COVER_HEADING,
     component: <Header />,
     props: {
       value: "Header Initial Value",
@@ -31,7 +35,7 @@ export const widgets_library = [
   {
     name: "Paragraph",
     description: "Simple text paragraph",
-    cover: "https://picsum.photos/50/50",
+    cover: COVER_TEXT,
     component: <Paragraph />,
     props: {
       value: "Paragraph Initial Value"
@@ -40,16 +44,16 @@ export const widgets_library = [
   {
     name: "Photo",
     description: "Photo embeding widget",
-    cover: "https://picsum.photos/50/50",
+    cover: COVER_IMG,
     component: <Photo />,
     props: {
-      value: "Photo"
+      url: "https://images.unsplash.com/photo-1682686580036-b5e25932ce9a?q=80&w=1550&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
   },
   {
     name: "FlexContainer",
     description: "Flex Container",
-    cover: "https://picsum.photos/50/50",
+    cover: COVER_LAYOUT,
     component: <FlexContainer />,
     props: {
       width: "fill",

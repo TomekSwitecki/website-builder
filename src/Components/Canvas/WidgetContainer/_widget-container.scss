@@ -1,23 +1,35 @@
+@import "../../../mixins";
+
 .widget__container {
     position: relative;
     height: fit-content;
     cursor: pointer;
     pointer-events: auto;
-    border: 2px dashed rgba(182, 182, 182, 0.418);
+    margin: 3px;
+    box-shadow: 0px 0px 0px 3px $gray-1;
 
 
-    &.dragged {
+    &.widget__container--dragged {
         background-color: rgb(230, 230, 230);
+        @include smooth;
     }
 
     &.widget__container--selected {
-        outline: 2px solid #0D99FF;
+        box-shadow: 0px 0px 0px 3px $primary;
+        @include smooth;
     }
 
     &.widget__container--pointed {
-        outline: 2px solid #955eb9;
-        box-shadow: 0px -7px 80px rgba(0, 0, 0, 0.07), 0px -2.92443px 33.4221px rgba(0, 0, 0, 0.0503198), 0px -1.56354px 17.869px rgba(0, 0, 0, 0.0417275), 0px -0.876509px 10.0172px rgba(0, 0, 0, 0.035), 0px -0.465507px 5.32008px rgba(0, 0, 0, 0.0282725), 0px -0.193708px 2.21381px rgba(0, 0, 0, 0.0196802);
+        box-shadow: 0px 0px 0px 3px #955eb9;
+        @include smooth;
     }
 
 
+    .action-buttons {
+        position: absolute;
+        right: 0;
+        top: -40px
+    }
+
+    @include smooth;
 }

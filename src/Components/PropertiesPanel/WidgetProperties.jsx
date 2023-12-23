@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { useWidgetContext } from "../ContextProviders/WidgetProvider";
 
 import selectGenerator from "../../Utils/selectGenerator";
+import TextInput from "../Designer/TextInput/TextInput";
 
 function WidgetProperties() {
     const { updateWidget, selectedWidget } = useWidgetContext();
@@ -28,8 +29,8 @@ function WidgetProperties() {
 
     const formFactory = (propName, propValue) => {
         switch (propName) {
-            case "value": case "minWidth": case "maxWidth": case "setWidth":
-                return <input type="text" value={stateProperties[propName]} onChange={(e) => handleInputChange(propName, e.target.value)} />;
+            case "value": case "minWidth": case "maxWidth": case "setWidth": case "url":
+                return <TextInput label={propName} value={stateProperties[propName]} onChange={(e) => handleInputChange(propName, e.target.value)} />
             case "number": case "strokeWidth": case "paddingInline": case "paddingBlock": case "borderRadius": case "rotation": case "gap":
                 return <input type="number" value={stateProperties[propName]} onChange={(e) => handleInputChange(propName, e.target.value)} />;
             case "size":

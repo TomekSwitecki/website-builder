@@ -9,8 +9,13 @@ export const WidgetProvider = ({ children }) => {
     const [draggedWidget, setDraggedWidget] = useState(null);
 
     const selectWidget = (widgetId) => {
-        setSelectedWidget(widgetId);
-        console.log(widgetId)
+        if (pointedWidget) {
+            setSelectedWidget(widgetId);
+            console.log(widgetId)
+        } else {
+            setSelectedWidget("")
+        }
+
     };
 
     const clearSelectedWidget = () => {
@@ -22,6 +27,7 @@ export const WidgetProvider = ({ children }) => {
         setDraggedWidget(widget);
     }
     function clearDragHandle() {
+        setSelectedWidget(null)
         setDraggedWidget(null);
     }
 
@@ -105,8 +111,6 @@ export const WidgetProvider = ({ children }) => {
     }
 
 
-
-    //POINTER DEBUGERS
 
     useEffect(() => {
         if (pointedWidget)
