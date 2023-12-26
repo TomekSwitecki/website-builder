@@ -18,6 +18,7 @@ export const FLEX_JUSTIFY_CONTENT_VARIANTS = ["flex-start", "center", "flex-end"
 
 export const widgets_library = [
   {
+    order: 0,
     name: "Header",
     description: "Section text heading",
     cover: COVER_HEADING,
@@ -33,6 +34,7 @@ export const widgets_library = [
     }
   },
   {
+    order: 0,
     name: "Paragraph",
     description: "Simple text paragraph",
     cover: COVER_TEXT,
@@ -42,6 +44,7 @@ export const widgets_library = [
     }
   },
   {
+    order: 0,
     name: "Photo",
     description: "Photo embeding widget",
     cover: COVER_IMG,
@@ -51,6 +54,7 @@ export const widgets_library = [
     },
   },
   {
+    order: 0,
     name: "FlexContainer",
     description: "Flex Container",
     cover: COVER_LAYOUT,

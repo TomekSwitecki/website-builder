@@ -8,7 +8,7 @@ import { useWidgetContext } from '../ContextProviders/WidgetProvider';
 
 
 function Canvas() {
-  const { addWidget, canvasWidgets, widgetFactory, removeWidget, mousePointer, pointedWidget, clearDragHandle } = useWidgetContext();
+  const { handleReorder, addWidget, canvasWidgets, widgetFactory, removeWidget, mousePointer, pointedWidget, clearDragHandle, setRenderedCanvasWidgets, orderRecalculation } = useWidgetContext();
   const [innerWidgets, setInnerWidgets] = useState([]);
 
   const [{ isOver, isOverCurrent }, drop] = useDrop(() => ({
@@ -20,14 +20,14 @@ function Canvas() {
 
 
 
-
+      let pointedWidgetFull = {};
       const droppedOnItself = item.id == pointedWidget.id;
       const invalidDrop = pointedWidget.type !== "FlexContainer" && pointedWidget.id;
 
       let isPointedWidgetInside = false;
 
       if (pointedWidget && item.name === "FlexContainer") {
-        const pointedWidgetFull = canvasWidgets.find(obj => obj.id === pointedWidget.id);
+        pointedWidgetFull = canvasWidgets.find(obj => obj.id === pointedWidget.id);
 
         if (pointedWidgetFull) {
           console.log(pointedWidgetFull);
@@ -41,19 +41,22 @@ function Canvas() {
         if (!pointedWidget) {
           if (item.type === ItemTypes.WIDGET_PANEL_ITEM) {
             removeWidget(item);
-            const newItem = { ...item, parentID: "", type: ItemTypes.WIDGET_CANVAS_ITEM };
+            const newItem = { ...item, parentID: "", type: ItemTypes.WIDGET_CANVAS_ITEM, order: innerWidgets.length };
+            orderRecalculation(innerWidgets);
             addWidget(newItem);
           }
           else if (item.type === ItemTypes.WIDGET_CANVAS_ITEM) {
             removeWidget(item);
-            const updatedItem = { ...item, parentID: "" };
+            const updatedItem = { ...item, parentID: "", order: innerWidgets.length - 1 };
+            orderRecalculation(innerWidgets);
             addWidget(updatedItem);
           }
         }
         else {
           removeWidget(item);
-          const updatedItem = { ...item, parentID: pointedWidget.id };
+          const updatedItem = { ...item, parentID: pointedWidget.id, order: 0 };
           addWidget(updatedItem);
+
         }
       }
       clearDragHandle();
@@ -67,11 +70,9 @@ function Canvas() {
 
   useEffect(() => {
     setInnerWidgets(canvasWidgets.filter((widget) => widget.parentID == ""));
-  }, [canvasWidgets]);
+    setRenderedCanvasWidgets(innerWidgets);
+  }, [canvasWidgets, innerWidgets.length]);
 
-  // useEffect(() => {
-  //   console.log(innerWidgets);
-  // }, [innerWidgets]);
 
 
 

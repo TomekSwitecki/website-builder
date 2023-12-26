@@ -4,6 +4,7 @@ const WidgetContext = createContext();
 
 export const WidgetProvider = ({ children }) => {
     const [canvasWidgets, setCanvasWidgets] = useState([]);
+    const [renderedCanvasWidgets, setRenderedCanvasWidgets] = useState([]);
     const [selectedWidget, setSelectedWidget] = useState(null);
     const [pointedWidget, setPointedWidget] = useState(null);
     const [draggedWidget, setDraggedWidget] = useState(null);
@@ -11,7 +12,7 @@ export const WidgetProvider = ({ children }) => {
     const selectWidget = (widgetId) => {
         if (pointedWidget) {
             setSelectedWidget(widgetId);
-            console.log(widgetId)
+            //console.log(widgetId)
         } else {
             setSelectedWidget("")
         }
@@ -53,6 +54,7 @@ export const WidgetProvider = ({ children }) => {
             const updatedItems = prevItems.filter((prevItem => prevItem.id !== item.id));
             return [...updatedItems];
         });
+
     };
 
 
@@ -67,20 +69,75 @@ export const WidgetProvider = ({ children }) => {
         });
     };
 
+
+    const sortWidgets = (a, b) => a.order > b.order ? 1 : -1;
     const widgetFactory = (widgets) => {
         const filteredUniqueWidgets = filterDuplicates(widgets);
+        //console.log(filteredUniqueWidgets)
         return (
             <>
-                {filteredUniqueWidgets.map((widget, index) => (
-                    <WidgetContainer id={widget.id} key={index} widget={widget}>
-                        {React.cloneElement(widget.component, {
-                            id: widget.id,
-                            props: widget.props,
-                        })}
-                    </WidgetContainer>
-                ))}
+                {filteredUniqueWidgets
+                    .sort(sortWidgets)
+                    .map((widget, index) => (
+                        <WidgetContainer order={index} id={widget.id} key={index} widget={widget}>
+                            {React.cloneElement(widget.component, {
+                                id: widget.id,
+                                props: widget.props,
+                            })}
+                        </WidgetContainer>
+                    ))}
             </>
         );
+    };
+
+    const handleReorder = (widget, direction) => {
+
+        if (!widget.parentID) {
+            console.log(canvasWidgets)
+            setCanvasWidgets((prevWidgets) => {
+                if (selectedWidget) {
+                    const selectedWidgetIndex = prevWidgets.findIndex((widget) => widget.id === selectedWidget.id);
+
+                    if (selectedWidgetIndex !== -1) {
+
+                        if (direction === 'delete') {
+
+                        }
+
+                        // Calculate the target index based on the direction
+                        const targetIndex = direction === 'before' ? selectedWidgetIndex - 1 : selectedWidgetIndex + 1;
+
+                        // Ensure the target index is within bounds
+                        const clampedTargetIndex = Math.max(0, Math.min(targetIndex, targetIndex));
+
+                        // Splice the array to reorder widgets
+                        const updatedWidgets = [...prevWidgets];
+                        const [removedWidget] = updatedWidgets.splice(selectedWidgetIndex, 1);
+                        updatedWidgets.splice(clampedTargetIndex, 0, removedWidget);
+
+                        // Update the order numbers
+                        updatedWidgets.forEach((widget, index) => {
+                            widget.order = index;
+                        });
+
+                        return updatedWidgets;
+                    }
+                }
+
+                // Return the original widgets if no selected widget
+                return prevWidgets;
+            });
+        }
+        else {
+
+        }
+
+    };
+
+    const orderRecalculation = (scope) => {
+        scope.forEach((widget, index) => {
+            widget.order = index;
+        });
     };
 
 
@@ -100,7 +157,7 @@ export const WidgetProvider = ({ children }) => {
         e.preventDefault();
 
         let pointedWidgetContainer = getRootElement(e.target);
-        console.log(pointedWidgetContainer)
+        //console.log(pointedWidgetContainer)
         if (pointedWidgetContainer) {
             const dataObject = { id: pointedWidgetContainer.id, type: pointedWidgetContainer.getAttribute('data-type') };
             setPointedWidget(dataObject);
@@ -118,7 +175,7 @@ export const WidgetProvider = ({ children }) => {
     }, [pointedWidget]);
 
     return (
-        <WidgetContext.Provider value={{ mousePointer, setCanvasWidgets, draggedWidget, selectedWidget, selectWidget, canvasWidgets, clearSelectedWidget, addWidget, removeWidget, updateWidget, pointedWidget, setPointedWidget, widgetFactory, setDragHandler, clearDragHandle }}>
+        <WidgetContext.Provider value={{ mousePointer, setCanvasWidgets, draggedWidget, selectedWidget, selectWidget, canvasWidgets, clearSelectedWidget, addWidget, removeWidget, updateWidget, pointedWidget, setPointedWidget, widgetFactory, setDragHandler, clearDragHandle, handleReorder, orderRecalculation, setRenderedCanvasWidgets }}>
             {children}
         </WidgetContext.Provider>
     );

@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useWidgetContext } from '../../ContextProviders/WidgetProvider';
 import BEMBuilder from '../../../Utils/BEMbuilder';
-import { DndProvider, useDrag, useDrop } from 'react-dnd';
+import { DndProvider, useDrag, useDrop, DragSource, DragPreviewImage } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { ItemTypes } from '../../../WidgetTypes';
-import { XmarkCircle } from '@vectopus/atlas-icons-react';
+import { XmarkCircle, ArrowLeftCircle, ArrowRightCircle } from '@vectopus/atlas-icons-react';
 import Button, { ButtonColor, ButtonShape, ButtonType, ButtonSize } from '../../Designer/Button/Button';
 
 
-function WidgetContainer({ id, parentID, children, widget }) {
-    const { selectWidget, selectedWidget, setPointedWidget, pointedWidget, setDragHandler, removeWidget } = useWidgetContext();
+function WidgetContainer({ id, parentID, order, children, widget }) {
+    const { canvasWidgets, selectWidget, selectedWidget, setPointedWidget, pointedWidget, setDragHandler, removeWidget, handleReorder, } = useWidgetContext();
     const [widgetStates, setWidgetStates] = useState([]);
 
     const handleWidgetStates = (widgetCondition, stateValue, widgetStates, setWidgetStates) => {
@@ -25,7 +25,7 @@ function WidgetContainer({ id, parentID, children, widget }) {
 
     useEffect(() => {
         handleWidgetStates(selectedWidget && selectedWidget.id === id, "selected", widgetStates, setWidgetStates);
-    }, [selectedWidget]);
+    }, [selectedWidget, canvasWidgets]);
 
     useEffect(() => {
         handleWidgetStates(pointedWidget && pointedWidget === id, "pointed", widgetStates, setWidgetStates);
@@ -33,13 +33,14 @@ function WidgetContainer({ id, parentID, children, widget }) {
 
 
 
-
-    const [{ isDragging }, drag] = useDrag(() => ({
+    const [{ isDragging }, drag] = useDrag((e) => ({
         type: ItemTypes.WIDGET_CANVAS_ITEM,
         item: widget,
         onDrag: () => {
+            console.log(e)
             console.log(widget)
             setDragHandler(widget)
+            e.dataTransfer.setDragImage(new Image(), 0, 0);
         },
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging(),
@@ -65,6 +66,7 @@ function WidgetContainer({ id, parentID, children, widget }) {
 
     const handleWidgetDelete = (e) => {
         e.stopPropagation();
+        handleReorder(widget, "delete");
         removeWidget(widget);
     }
 
@@ -91,18 +93,50 @@ function WidgetContainer({ id, parentID, children, widget }) {
         inlineWidth = "fit-content";
     }
 
-    return (
-        <div style={{ width: inlineWidth, maxWidth: inlineMaxWidth, minWidth: inlineMinWidth, transform: `rotate(${widget.props.rotation}deg)` }} data-type={widget.name} ref={drag} id={id} className={widgetContainerClass} onClick={handleMouseClick} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} >
-            <div className='action-buttons'>{(selectedWidget && selectedWidget.id === id) &&
+
+    const ActionButtons = () => {
+        return (
+            <div className='action-buttons'>
+                {order}
+                <Button
+                    type={ButtonType.Filled}
+                    color={ButtonColor.Default}
+                    shape={ButtonShape.Rounded}
+                    size={ButtonSize.Icon}
+                    text={<ArrowLeftCircle size={24} />}
+                    onClick={() => handleReorder(widget, 'before')}
+                />
+                <Button
+                    type={ButtonType.Filled}
+                    color={ButtonColor.Default}
+                    shape={ButtonShape.Rounded}
+                    size={ButtonSize.Icon}
+                    text={<ArrowRightCircle size={24} />}
+                    onClick={() => handleReorder(widget, 'after')}
+                />
                 <Button
                     type={ButtonType.Filled}
                     color={ButtonColor.Negative}
                     shape={ButtonShape.Rounded}
                     size={ButtonSize.Icon}
                     text={<XmarkCircle size={24} />}
-                    onClick={handleWidgetDelete}
-                />}
-            </div>
+                    onClick={(e) => handleWidgetDelete(e)}
+                />
+            </div>)
+    }
+
+    const generatedStyles = {
+        width: inlineWidth,
+        maxWidth: inlineMaxWidth,
+        minWidth: inlineMinWidth,
+        transform: `rotate(${widget.props.rotation}deg)`
+    };
+
+    return (
+        <div style={generatedStyles} data-type={widget.name} ref={drag} id={id} className={widgetContainerClass} onClick={handleMouseClick} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} >
+            {(selectedWidget && selectedWidget.id === id) &&
+                <ActionButtons />
+            }
             {children}
         </div>
     );

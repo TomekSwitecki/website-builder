@@ -7,7 +7,7 @@ import classnames from "classnames";
 
 
 function FlexContainer({ id, align = "center", direction = "row", gap = "8", height, margin, children, props }) {
-    const { canvasWidgets, widgetFactory, pointedWidget, updateWidget, draggedWidget } = useWidgetContext();
+    const { canvasWidgets, widgetFactory, pointedWidget, updateWidget, draggedWidget, orderRecalculation } = useWidgetContext();
     const [innerWidgets, setInnerWidgets] = useState([]);
     const [recursiveInnerWidgets, setInnerRecursiveWidgets] = useState([]);
 
@@ -23,6 +23,9 @@ function FlexContainer({ id, align = "center", direction = "row", gap = "8", hei
         console.log(props.clipOverflowContent)
     }, [pointedWidget, draggedWidget, innerWidgets.length, canvasWidgets.length]);
 
+    useEffect(() => {
+        orderRecalculation(innerWidgets);
+    }, [innerWidgets.length, canvasWidgets]);
 
     function loopThroughWidgets(widgets, results = new Set()) {
         widgets.forEach((widget) => {

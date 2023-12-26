@@ -26,7 +26,7 @@ const SelectInput = ({ id, label, options, onChange, value, append, disabled, pl
     const handleOptionClick = (optionValue) => {
         setSelectedOption(optionValue);
         console.log(optionValue);
-        onChange(id, optionValue);
+        onChange(optionValue);
         toggleOptions();
     };
     useEffect(() => {
@@ -59,7 +59,7 @@ const SelectInput = ({ id, label, options, onChange, value, append, disabled, pl
                 <select
                     className={showPlaceholder ? 'select__input select__input--placeholder' : 'select__input'}
                     id={id}
-                    onChange={(e) => onChange(id, optionValue)}
+                    onChange={onChange}
                     value={value}
                 // disabled={disabled}
                 >

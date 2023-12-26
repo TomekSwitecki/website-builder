@@ -14,6 +14,7 @@ function WidgetPanelItem({ widget, index }) {
     item: (monitor) => ({
       id: uuidv4(),
       parentID: "",
+      order: 0,
       name: widget?.name,
       component: widget?.component,
       props: widget?.props,
