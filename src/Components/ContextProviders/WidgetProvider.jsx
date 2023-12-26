@@ -54,7 +54,7 @@ export const WidgetProvider = ({ children }) => {
             const updatedItems = prevItems.filter((prevItem => prevItem.id !== item.id));
             return [...updatedItems];
         });
-
+        clearSelectedWidget();
     };
 
 
@@ -83,6 +83,7 @@ export const WidgetProvider = ({ children }) => {
                             {React.cloneElement(widget.component, {
                                 id: widget.id,
                                 props: widget.props,
+                                order: index
                             })}
                         </WidgetContainer>
                     ))}
@@ -108,7 +109,7 @@ export const WidgetProvider = ({ children }) => {
                         const targetIndex = direction === 'before' ? selectedWidgetIndex - 1 : selectedWidgetIndex + 1;
 
                         // Ensure the target index is within bounds
-                        const clampedTargetIndex = Math.max(0, Math.min(targetIndex, targetIndex));
+                        const clampedTargetIndex = Math.max(0, Math.min(targetIndex, renderedCanvasWidgets.length));
 
                         // Splice the array to reorder widgets
                         const updatedWidgets = [...prevWidgets];

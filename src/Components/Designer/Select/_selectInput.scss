@@ -6,6 +6,7 @@
 }
 
 .select__input-container {
+    box-sizing: border-box;
     border-radius: 8px;
     position: relative;
     width: 100%;
@@ -25,7 +26,7 @@
     @include __input;
     @include truncate;
     pointer-events: none;
-
+    text-transform: capitalize;
 
     &.select__input--placeholder {
         @include input-placeholder;
@@ -40,28 +41,11 @@
     top: 8px;
 }
 
-//Select inside cards
-//Move to separate component
-.card,
-.content-card {
-    .select__input {
-        background-color: $gray-1;
-        pointer-events: none;
-        border-radius: 5px;
-        box-shadow: none;
-        height: 48px;
-    }
-
-    .select__input-container::after {
-        content: "";
-        display: none;
-    }
-}
-
 
 
 //custom options dropdown - to be refactored
 .select__options-wrapper {
+    box-sizing: border-box;
     position: absolute;
     z-index: 100;
     width: 100%;
@@ -83,6 +67,8 @@
 
 .select__option,
 .select__option:hover {
+    text-transform: capitalize;
+    box-sizing: border-box;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -103,6 +89,7 @@
 .select__option--selected {
     background-color: $secondary;
     color: $primary;
+    text-transform: capitalize;
 }
 
 .select__option:hover {

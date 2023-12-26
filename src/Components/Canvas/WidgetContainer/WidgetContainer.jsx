@@ -4,7 +4,7 @@ import BEMBuilder from '../../../Utils/BEMbuilder';
 import { DndProvider, useDrag, useDrop, DragSource, DragPreviewImage } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { ItemTypes } from '../../../WidgetTypes';
-import { XmarkCircle, ArrowLeftCircle, ArrowRightCircle } from '@vectopus/atlas-icons-react';
+import { Trash, ArrowLeftCircle, ArrowRightCircle } from '@vectopus/atlas-icons-react';
 import Button, { ButtonColor, ButtonShape, ButtonType, ButtonSize } from '../../Designer/Button/Button';
 
 
@@ -119,7 +119,7 @@ function WidgetContainer({ id, parentID, order, children, widget }) {
                     color={ButtonColor.Negative}
                     shape={ButtonShape.Rounded}
                     size={ButtonSize.Icon}
-                    text={<XmarkCircle size={24} />}
+                    text={<Trash size={24} />}
                     onClick={(e) => handleWidgetDelete(e)}
                 />
             </div>)

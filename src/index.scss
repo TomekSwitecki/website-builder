@@ -14,8 +14,15 @@ img {
   font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
+
+#root {
+  height: 100vh;
+}
+
 .app {
   background-color: #F5F5F5;
+  height: 100%;
+  overflow-y: hidden;
 }
 
 .designer {
@@ -28,4 +35,22 @@ img {
 .widget__wrapper:hover {
 
   outline: 2px solid #955eb9;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  border-radius: 33px;
+  background: #F0F0F0;
+}
+
+::-webkit-scrollbar-thumb {
+  width: 8px;
+  border-radius: 33px;
+  background: #C2C2C2;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  width: 8px;
+  border-radius: 33px;
+  background: $gray-2;
 }
