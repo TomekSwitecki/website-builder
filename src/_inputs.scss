@@ -19,7 +19,7 @@
 // np select__input, date__input - general inputbox apperance
 @mixin __input {
     @include StrongLabel;
-    height: 45px;
+    height: 40px;
     padding: 0 64px 0 16px;
     border-radius: 8px;
     border: 1px solid $gray-1;
@@ -38,8 +38,8 @@
     right: 0px;
     top: 0;
 
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
     border-radius: 0 7px 7px 0;
 
     background: $gray-1 $url center center no-repeat;

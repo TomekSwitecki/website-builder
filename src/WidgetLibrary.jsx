@@ -1,15 +1,23 @@
 import Header from "./Components/Widgets/Header/Header";
-import Photo from "./Components/Widgets/Photo/Photo";
+import Image from "./Components/Widgets/Image/Image";
+import Video from "./Components/Widgets/Video/Video";
+import Frame from "./Components/Widgets/Frame/Frame";
 import Paragraph from "./Components/Widgets/Paragraph/Paragraph";
 import FlexContainer from "./Components/Widgets/FlexContainer/FlexContainer";
 
 import COVER_HEADING from "../src/Resources/Designer/WidgetCovers/COVER_HEADING.png";
 import COVER_TEXT from "../src/Resources/Designer/WidgetCovers/COVER_TEXT.png";
 import COVER_IMG from "../src/Resources/Designer/WidgetCovers/COVER_IMG.png";
+import COVER_VIDEO from "../src/Resources/Designer/WidgetCovers/COVER_VIDEO.png";
 import COVER_LAYOUT from "../src/Resources/Designer/WidgetCovers/COVER_LAYOUT.png";
+import COVER_FRAME from "../src/Resources/Designer/WidgetCovers/COVER_FRAME.png";
 import React from "react";
+import { json } from "react-router-dom";
 export const DEFAULT_COLOR = "#000000";
 export const HEADER_SIZES = ["h1", "h2", "h3", "h4", "h5", "h6"];
+export const FONT_STYLES = ["thin", "extra-light", "light", "regular", "medium", "semi-bold", "bold", "extra-bold", "black"];
+export const TEXT_ALIGNMENTS = ["left", "center", "right"];
+export const TEXT_CASING = ["initial", "uppercase", "lowercase", "capitalize"];
 export const WIDTH_VARIANTS = ["fill", "hug", "fixed"];
 export const FLEX_DIRECTION_VARIANTS = ["vertical", "horizontal"];
 export const FLEX_ITEM_ALIGNMENT_VARIANTS = ["flex-start", "center", "flex-end", "stretch"];
@@ -25,12 +33,17 @@ export const widgets_library = [
     component: <Header />,
     props: {
       value: "Header Initial Value",
-      size: "h1",
       color: DEFAULT_COLOR,
-      parentID: "",
+      font_style: "regular",
+      size: "h1",
+      text_align: "left",
+      text_casing: "initial"
     },
     blueprints: {
       __size: HEADER_SIZES,
+      __font_style: FONT_STYLES,
+      __text_align: TEXT_ALIGNMENTS,
+      __text_casing: TEXT_CASING
     }
   },
   {
@@ -40,23 +53,56 @@ export const widgets_library = [
     cover: COVER_TEXT,
     component: <Paragraph />,
     props: {
-      value: "Paragraph Initial Value"
+      value: "Paragraph Initial Value",
+      color: DEFAULT_COLOR,
+      font_style: "regular",
+      font_size: "16",
+      text_align: "left",
+      text_casing: "initial"
+    },
+    blueprints: {
+      __font_style: FONT_STYLES,
+      __text_align: TEXT_ALIGNMENTS,
+      __text_casing: TEXT_CASING
     }
   },
   {
     order: 0,
-    name: "Photo",
-    description: "Photo embeding widget",
+    name: "Image",
+    description: "Image/GIF URL embeding widget.",
     cover: COVER_IMG,
-    component: <Photo />,
+    component: <Image />,
     props: {
       url: "https://images.unsplash.com/photo-1682686580036-b5e25932ce9a?q=80&w=1550&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
   },
   {
     order: 0,
-    name: "FlexContainer",
-    description: "Flex Container",
+    name: "Video",
+    description: "Video URL embeding widget.",
+    cover: COVER_VIDEO,
+    component: <Video />,
+    props: {
+      url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      controls: "true",
+      autoplay: "false",
+      loop: "true"
+    },
+  },
+  {
+    order: 0,
+    name: "Frame",
+    description: "iFrame embeding widget. (e.g. Google Maps embedding)",
+    cover: COVER_FRAME,
+    component: <Frame />,
+    props: {
+      url: "",
+    },
+  },
+  {
+    order: 0,
+    name: "Container",
+    description: "Container ",
     cover: COVER_LAYOUT,
     component: <FlexContainer />,
     props: {

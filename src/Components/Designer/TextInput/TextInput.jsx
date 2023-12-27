@@ -1,6 +1,24 @@
 import React from 'react';
 
-const TextInput = ({ id, label, required, placeholder, value, onChange, validationInfo }) => {
+const TextInput = ({ id, label, required, placeholder, value, onChange, validationInfo, textArea }) => {
+    const inputElement = textArea ? (
+        <textarea
+            id={id}
+            className={`text__input text__input--textarea`}
+            placeholder={placeholder}
+            value={value}
+            onChange={onChange}
+        />
+    ) : (
+        <input
+            type="text"
+            id={id}
+            className={`text__input`}
+            placeholder={placeholder}
+            value={value}
+            onChange={onChange}
+        />
+    );
 
     return (
         <div className={`text__input-container ${validationInfo ? 'text__input-container--invalid' : ''}`}>
@@ -14,14 +32,7 @@ const TextInput = ({ id, label, required, placeholder, value, onChange, validati
                     </label>
                 )}
             </div>
-            <input
-                type="text"
-                id={id}
-                className={`text__input`}
-                placeholder={placeholder}
-                value={value}
-                onChange={onChange}
-            />
+            {inputElement}
             {validationInfo && (
                 <div className="text__input-validation-info">
                     {validationInfo}

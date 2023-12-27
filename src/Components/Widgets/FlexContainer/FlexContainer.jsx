@@ -35,7 +35,7 @@ function FlexContainer({ id, align = "center", direction = "row", gap = "8", hei
                 ...widget,
                 recursiveInnerWidgets: recursiveInnerWidgets_
             };
-            if (widget.name === "FlexContainer") {
+            if (widget.name === "Container") {
                 modifiedWidget.recursiveInnerWidgets = loopThroughWidgets(innerWidgets_, results);
             }
             results.add(widget);

@@ -1,0 +1,84 @@
+@import "../../../mixins";
+@import "../../../inputs";
+
+@mixin checkmark() {
+    content: url("/src/Resources/Designer/checkmark.svg");
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 2px;
+    width: 24px;
+    height: 24px;
+    top: -3px;
+}
+
+
+.checkbox__input-container {
+    position: relative;
+    display: flex;
+    padding: 4px 8px 4px 0px;
+    align-items: center;
+
+    color: $black;
+    text-align: center;
+    @include input-auxiliary-label($black);
+    cursor: pointer;
+
+    &--primary {
+        background: $primary;
+        color: $white; // Customize with your text color for primary
+
+        input[type="checkbox"]:checked {
+            background-color: $white;
+            border: 1px solid $primary;
+            @include smooth;
+        }
+    }
+
+    &--disabled {
+        opacity: 0.5;
+
+        .checkbox__input,
+        input[type="checkbox"],
+        input[type="checkbox"]:checked,
+        input[type="checkbox"]:checked::after {
+            cursor: not-allowed;
+        }
+    }
+}
+
+
+.checkbox__input {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    width: 100%;
+    justify-content: space-between;
+}
+
+input[type="checkbox"] {
+    position: relative;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 2px;
+    border: 1px solid $gray-2;
+    background: $white;
+    flex-shrink: 0;
+    cursor: pointer;
+    @include smooth;
+}
+
+input[type="checkbox"]:checked {
+    background-color: $primary;
+    border: 1px solid $primary;
+    @include smooth;
+}
+
+input[type="checkbox"]:checked::after {
+    @include checkmark;
+}

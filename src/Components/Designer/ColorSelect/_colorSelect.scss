@@ -1,0 +1,32 @@
+@import "../../../mixins";
+@import "../../../inputs";
+
+.color__input-container {
+    position: relative;
+    display: flex;
+    padding: 4px 8px 4px 0px;
+    align-items: center;
+
+    color: $black;
+    text-align: center;
+    @include input-auxiliary-label($black);
+    cursor: pointer;
+}
+
+
+.color__input {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    align-items: flex-start;
+    cursor: pointer;
+    user-select: none;
+    width: 100%;
+    justify-content: space-between;
+    gap: 8px;
+
+    input {
+        height: 40px;
+        width: 100%;
+    }
+}

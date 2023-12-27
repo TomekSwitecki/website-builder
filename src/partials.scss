@@ -10,10 +10,14 @@
 @use "./Components/Widgets/Header/Header";
 @use "./Components/Widgets/Heading/heading";
 @use "./Components/Widgets/Paragraph/Paragraph";
-@use "./Components/Widgets/Photo/Photo";
+@use "./Components/Widgets/Image/Image";
+@use "./Components/Widgets/Video/video";
+@use "./Components/Widgets/Frame/frame";
 
 
 //designer
 @use "./Components/Designer/Button/button";
 @use "./Components/Designer/TextInput/textInput";
 @use "./Components/Designer/Select/selectInput";
+@use "./Components/Designer/Checkbox/checkbox";
+@use "./Components/Designer/ColorSelect/colorSelect";

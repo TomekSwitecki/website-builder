@@ -7,3 +7,4 @@ const BEMBuilder = (block, modifiers) => {
 }
 
 export default BEMBuilder;
+

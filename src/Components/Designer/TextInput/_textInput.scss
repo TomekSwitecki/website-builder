@@ -18,6 +18,14 @@
     padding-right: 16px;
 }
 
+.text__input--textarea {
+    padding-top: 12px;
+    resize: none;
+    height: 250px;
+    overflow-y: auto;
+    white-space: normal;
+}
+
 .input__label--required {
     text-align: right;
     @include input-auxiliary-label($primary);

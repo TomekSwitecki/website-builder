@@ -22,11 +22,11 @@ function Canvas() {
 
       let pointedWidgetFull = {};
       const droppedOnItself = item.id == pointedWidget.id;
-      const invalidDrop = pointedWidget.type !== "FlexContainer" && pointedWidget.id;
+      const invalidDrop = pointedWidget.type !== "Container" && pointedWidget.id;
 
       let isPointedWidgetInside = false;
 
-      if (pointedWidget && item.name === "FlexContainer") {
+      if (pointedWidget && item.name === "Container") {
         pointedWidgetFull = canvasWidgets.find(obj => obj.id === pointedWidget.id);
 
         if (pointedWidgetFull) {

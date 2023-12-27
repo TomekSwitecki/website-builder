@@ -1,0 +1,19 @@
+@import "../../../mixins";
+
+.frame__container {
+    display: flex;
+    flex-grow: 1;
+
+    iframe {
+        border: none;
+        width: 100%;
+        pointer-events: none;
+    }
+
+    .frame__placeholder {
+        background: url("/src/Resources/Designer/Placholders/FRAME_PLACEHOLDER.png");
+        display: block;
+        width: 100%;
+        height: 250px;
+    }
+}

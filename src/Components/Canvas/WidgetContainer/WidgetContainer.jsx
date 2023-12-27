@@ -72,11 +72,12 @@ function WidgetContainer({ id, parentID, order, children, widget }) {
 
 
     const widgetContainerClass = BEMBuilder('widget__container', widgetStates);
+
     let inlineWidth = "";
     let inlineMaxWidth = "";
     let inlineMinWidth = "";
 
-    if (widget.name === "FlexContainer") {
+    if (widget.name === "Container") {
         inlineWidth = widget.props.width;
         if (widget.props.width === "fill") {
             inlineWidth = "100%"
@@ -89,6 +90,9 @@ function WidgetContainer({ id, parentID, order, children, widget }) {
             inlineWidth = widget.props.setWidth + "px";
         }
     }
+    else if (widget.name === "Frame") {
+        inlineWidth = "fill";
+    }
     else {
         inlineWidth = "fit-content";
     }
@@ -96,7 +100,7 @@ function WidgetContainer({ id, parentID, order, children, widget }) {
 
     const ActionButtons = () => {
         return (
-            <div className='action-buttons'>
+            <div className='widget__container-action-buttons'>
                 {order}
                 <Button
                     type={ButtonType.Filled}
