@@ -90,7 +90,7 @@ function WidgetContainer({ id, parentID, order, children, widget }) {
             inlineWidth = widget.props.setWidth + "px";
         }
     }
-    else if (widget.name === "Frame") {
+    else if (widget.name === "Frame" || widget.name === "Divider") {
         inlineWidth = "fill";
     }
     else {

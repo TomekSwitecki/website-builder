@@ -13,6 +13,7 @@
 @use "./Components/Widgets/Image/Image";
 @use "./Components/Widgets/Video/video";
 @use "./Components/Widgets/Frame/frame";
+@use "./Components/Widgets/Divider/divider";
 
 
 //designer
@@ -21,3 +22,4 @@
 @use "./Components/Designer/Select/selectInput";
 @use "./Components/Designer/Checkbox/checkbox";
 @use "./Components/Designer/ColorSelect/colorSelect";
+@use "./Components/Designer/FileInput/fileInput";

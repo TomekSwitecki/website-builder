@@ -11,11 +11,14 @@ import COVER_IMG from "../src/Resources/Designer/WidgetCovers/COVER_IMG.png";
 import COVER_VIDEO from "../src/Resources/Designer/WidgetCovers/COVER_VIDEO.png";
 import COVER_LAYOUT from "../src/Resources/Designer/WidgetCovers/COVER_LAYOUT.png";
 import COVER_FRAME from "../src/Resources/Designer/WidgetCovers/COVER_FRAME.png";
+import COVER_DIVIDER from "../src/Resources/Designer/WidgetCovers/COVER_DIVIDER.png";
 import React from "react";
 import { json } from "react-router-dom";
+import Divider from "./Components/Widgets/Divider/Divider";
 export const DEFAULT_COLOR = "#000000";
 export const HEADER_SIZES = ["h1", "h2", "h3", "h4", "h5", "h6"];
 export const FONT_STYLES = ["thin", "extra-light", "light", "regular", "medium", "semi-bold", "bold", "extra-bold", "black"];
+export const BORDER_STYLES = ["solid","dotted","dashed","double","groove","ridge","inset","outset"]
 export const TEXT_ALIGNMENTS = ["left", "center", "right"];
 export const TEXT_CASING = ["initial", "uppercase", "lowercase", "capitalize"];
 export const WIDTH_VARIANTS = ["fill", "hug", "fixed"];
@@ -25,6 +28,41 @@ export const FLEX_CONTENT_ALIGNMENT_VARIANTS = ["flex-start", "center", "flex-en
 export const FLEX_JUSTIFY_CONTENT_VARIANTS = ["flex-start", "center", "flex-end", "space-between", "space-around", "space-evenly"];
 
 export const widgets_library = [
+  {
+    order: 0,
+    name: "Container",
+    description: "Container ",
+    cover: COVER_LAYOUT,
+    component: <FlexContainer />,
+    props: {
+      width: "fill",
+      maxWidth: "",
+      minWidth: "",
+      setWidth: "",
+      borderRadius: "",
+      rotation: "",
+      flex_direction: "",
+      gap: "",
+      padding_inline: "",
+      padding_block: "",
+      backgroundColor: "#ffffff",
+      strokeColor: "#000000",
+      strokeWidth: "0",
+      innerWidgets: [],
+      innerWidgets: [],
+      clipOverflowContent: "",
+      flex_align_items: "",
+      flex_justify_content: "",
+      flex_align_content: ""
+    },
+    blueprints: {
+      __width: WIDTH_VARIANTS,
+      __flex_direction: FLEX_DIRECTION_VARIANTS,
+      __flex_align_items: FLEX_ITEM_ALIGNMENT_VARIANTS,
+      __flex_justify_content: FLEX_JUSTIFY_CONTENT_VARIANTS,
+      __flex_align_content: FLEX_CONTENT_ALIGNMENT_VARIANTS,
+    }
+  },
   {
     order: 0,
     name: "Header",
@@ -86,7 +124,8 @@ export const widgets_library = [
       url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
       controls: "true",
       autoplay: "false",
-      loop: "true"
+      loop: "true",
+      file: null,
     },
   },
   {
@@ -100,38 +139,21 @@ export const widgets_library = [
     },
   },
   {
-    order: 0,
-    name: "Container",
-    description: "Container ",
-    cover: COVER_LAYOUT,
-    component: <FlexContainer />,
-    props: {
-      width: "fill",
-      maxWidth: "",
-      minWidth: "",
-      setWidth: "",
-      borderRadius: "",
-      rotation: "",
-      flex_direction: "",
-      gap: "",
-      paddingInline: "",
-      paddingBlock: "",
-      backgroundColor: "#ffffff",
-      strokeColor: "#000000",
-      strokeWidth: "0",
-      innerWidgets: [],
-      innerWidgets: [],
-      clipOverflowContent: "",
-      flex_align_items: "",
-      flex_justify_content: "",
-      flex_align_content: ""
-    },
-    blueprints: {
-      __width: WIDTH_VARIANTS,
-      __flex_direction: FLEX_DIRECTION_VARIANTS,
-      __flex_align_items: FLEX_ITEM_ALIGNMENT_VARIANTS,
-      __flex_justify_content: FLEX_JUSTIFY_CONTENT_VARIANTS,
-      __flex_align_content: FLEX_CONTENT_ALIGNMENT_VARIANTS,
-    }
-  },
+      order: 0,
+      name: "Divider",
+      description: "Horizontal rule / divider",
+      cover: COVER_DIVIDER,
+      component: <Divider />,
+      props: {
+        color: DEFAULT_COLOR,
+        border_style:"solid",
+        border_width:"2",
+        margin_inline:"0",
+        margin_block:"0",
+      },
+      blueprints: {
+        __border_style: BORDER_STYLES,
+      }
+  }
+
 ];

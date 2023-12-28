@@ -1,0 +1,33 @@
+@import "../../../mixins";
+@import "../../../inputs";
+
+.file__input-container
+{
+    background:$light-gray;
+    padding:8px;
+    border: 1px solid $gray-1;
+    border-radius:4px;
+
+    @include input-wrapper;
+    input
+    {    
+        @include StrongLabel;
+        font-size:14px;
+        width: 100%;
+    }
+    input[type="file"] {
+        display: flex;
+        flex-direction:column;
+
+    }
+
+    input::file-selector-button {
+        @extend .button !optional;
+      }
+
+    .file__input
+    {
+        @include StrongLabel;
+        width: 100%;
+    }
+}

@@ -1,10 +1,12 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import { useWidgetContext } from "../ContextProviders/WidgetProvider";
 import transformLabels from "../../Utils/transformLabels";
 import selectGenerator from "../../Utils/selectGenerator";
 import TextInput from "../Designer/TextInput/TextInput";
+import FileInput from "../Designer/FileInput/FileInput";
 import Checkbox from "../Designer/Checkbox/Checkbox";
 import ColorSelect from "../Designer/ColorSelect/ColorSelect";
+
 
 function WidgetProperties() {
     const { updateWidget, selectedWidget } = useWidgetContext();
@@ -27,16 +29,30 @@ function WidgetProperties() {
         }
     }, [selectedWidget]);
 
-
+    // const fileInputRef = useRef(null);
+    // const handleClearFile = () => {
+    //     if (fileInputRef.current) {
+    //       fileInputRef.current.value = null;
+    //       handleInputChange('file', null);
+    //     }
+    //   };
 
     const formFactory = (propName, propValue) => {
         switch (propName) {
             case "text": case "value": case "url":
                 return <TextInput textArea label={transformLabels(propName)} value={stateProperties[propName]} onChange={(e) => handleInputChange(propName, e.target.value)} />
-            case "minWidth": case "maxWidth": case "setWidth": case "font_size":
+            case "minWidth": case "maxWidth": case "setWidth": case "font_size": case "border_width":
                 return <TextInput label={transformLabels(propName)} value={stateProperties[propName]} onChange={(e) => handleInputChange(propName, e.target.value)} />
-            case "number": case "strokeWidth": case "paddingInline": case "paddingBlock": case "borderRadius": case "rotation": case "gap":
+            case "number": case "strokeWidth": case "padding_inline": case "padding_block": case "margin_block": case "margin_inline": case "borderRadius": case "rotation": case "gap":
                 return <TextInput label={transformLabels(propName)} value={stateProperties[propName]} onChange={(e) => handleInputChange(propName, e.target.value)} />
+            case "file":
+                return <React.Fragment>
+                    {/* <input ref={fileInputRef} type="file" id="avatar" name="avatar" accept="video/mp4,video/x-m4v,video/*"  onChange={(e) => handleInputChange(propName, e.target.files[0])} />
+                    <button type="button" onClick={handleClearFile}>
+                        Clear File
+                    </button> */}
+                    <FileInput onChange={(e) => handleInputChange(propName, e.target.files[0])} onClear={(e) => handleInputChange(propName,null)}accept={"video/mp4,video/x-m4v,video/*"}/>
+                </React.Fragment> 
             case "font_style":
                 return selectGenerator("font_style", stateProperties, handleInputChange);
             case "text_align":
@@ -55,6 +71,8 @@ function WidgetProperties() {
                 return selectGenerator("flex_justify_content", stateProperties, handleInputChange);
             case "flex_align_content":
                 return selectGenerator("flex_align_content", stateProperties, handleInputChange);
+                case "border_style":
+                    return selectGenerator("border_style", stateProperties, handleInputChange);
             case "color": case "backgroundColor": case "strokeColor":
                 return <ColorSelect label={transformLabels(propName)} value={stateProperties[propName]} onChange={(e) => handleInputChange(propName, e.target.value)} />
             case "clipOverflowContent": case "controls": case "autoplay": case "loop":

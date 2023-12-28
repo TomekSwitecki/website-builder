@@ -349,6 +349,11 @@ h6 {
   height: 250px;
 }
 
+.divider {
+  width: 100%;
+  box-shadow: none;
+}
+
 .input__label {
   color: #111315;
   font-size: 15px;
@@ -836,6 +841,61 @@ input[type=checkbox]:checked::after {
 
 .color__input input {
   height: 40px;
+  width: 100%;
+}
+
+.input__label {
+  color: #111315;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-wrap: nowrap;
+}
+
+.input__label {
+  color: #111315;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-wrap: nowrap;
+}
+
+.file__input-container {
+  background: #F6F7FA;
+  padding: 8px;
+  border: 1px solid #E1E1E1;
+  border-radius: 4px;
+  position: relative;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.file__input-container input {
+  color: #111315;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  font-size: 14px;
+  width: 100%;
+}
+
+.file__input-container input[type=file] {
+  display: flex;
+  flex-direction: column;
+}
+
+.file__input-container .file__input {
+  color: #111315;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
   width: 100%;
 }
 
