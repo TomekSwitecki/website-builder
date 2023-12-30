@@ -30,8 +30,10 @@ export const extractStaticHtml = (selectedWidget) => {
     const canvasElement = document.getElementById('designer-canvas');
     const staticCSS = css;
     const removePreviewElements = (extractCssSelectors(css, "widget__container"))
+    console.log(removePreviewElements)
+    console.log(staticCSS)
     const preparedStaticCSS = staticCSS.replaceAll(removePreviewElements, '');
-    const canvasHtml = canvasElement.innerHTML;
+    const canvasHtml = canvasElement.outerHTML;
 
     const htmlDocument = `
        <!DOCTYPE html>

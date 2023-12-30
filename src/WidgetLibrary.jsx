@@ -2,7 +2,8 @@ import Header from "./Components/Widgets/Header/Header";
 import Image from "./Components/Widgets/Image/Image";
 import Video from "./Components/Widgets/Video/Video";
 import Frame from "./Components/Widgets/Frame/Frame";
-import Paragraph from "./Components/Widgets/Paragraph/Paragraph";
+import Text from "./Components/Widgets/Text/Text";
+import Link from "./Components/Widgets/Link/Link";
 import FlexContainer from "./Components/Widgets/FlexContainer/FlexContainer";
 
 import COVER_HEADING from "../src/Resources/Designer/WidgetCovers/COVER_HEADING.png";
@@ -18,7 +19,7 @@ import Divider from "./Components/Widgets/Divider/Divider";
 export const DEFAULT_COLOR = "#000000";
 export const HEADER_SIZES = ["h1", "h2", "h3", "h4", "h5", "h6"];
 export const FONT_STYLES = ["thin", "extra-light", "light", "regular", "medium", "semi-bold", "bold", "extra-bold", "black"];
-export const BORDER_STYLES = ["solid","dotted","dashed","double","groove","ridge","inset","outset"]
+export const BORDER_STYLES = ["solid", "dotted", "dashed", "double", "groove", "ridge", "inset", "outset"]
 export const TEXT_ALIGNMENTS = ["left", "center", "right"];
 export const TEXT_CASING = ["initial", "uppercase", "lowercase", "capitalize"];
 export const WIDTH_VARIANTS = ["fill", "hug", "fixed"];
@@ -50,7 +51,7 @@ export const widgets_library = [
       strokeWidth: "0",
       innerWidgets: [],
       innerWidgets: [],
-      clipOverflowContent: "",
+      clipOverflowContent: false,
       flex_align_items: "",
       flex_justify_content: "",
       flex_align_content: ""
@@ -86,23 +87,37 @@ export const widgets_library = [
   },
   {
     order: 0,
-    name: "Paragraph",
-    description: "Simple text paragraph",
+    name: "Text",
+    description: "Simple text widget",
     cover: COVER_TEXT,
-    component: <Paragraph />,
+    component: <Text />,
     props: {
-      value: "Paragraph Initial Value",
+      value: "Text Initial Value",
       color: DEFAULT_COLOR,
       font_style: "regular",
       font_size: "16",
       text_align: "left",
-      text_casing: "initial"
+      text_casing: "initial",
+      line_height: "normal",
+      letter_spacing: "0",
+      truncate: false,
     },
     blueprints: {
       __font_style: FONT_STYLES,
       __text_align: TEXT_ALIGNMENTS,
       __text_casing: TEXT_CASING
     }
+  },
+  {
+    order: 0,
+    name: "Link",
+    description: "Simple link widget",
+    cover: COVER_TEXT,
+    component: <Link />,
+    props: {
+      url: "Text Initial Value",
+      link_object: "",
+    },
   },
   {
     order: 0,
@@ -139,21 +154,21 @@ export const widgets_library = [
     },
   },
   {
-      order: 0,
-      name: "Divider",
-      description: "Horizontal rule / divider",
-      cover: COVER_DIVIDER,
-      component: <Divider />,
-      props: {
-        color: DEFAULT_COLOR,
-        border_style:"solid",
-        border_width:"2",
-        margin_inline:"0",
-        margin_block:"0",
-      },
-      blueprints: {
-        __border_style: BORDER_STYLES,
-      }
+    order: 0,
+    name: "Divider",
+    description: "Horizontal rule / divider",
+    cover: COVER_DIVIDER,
+    component: <Divider />,
+    props: {
+      color: DEFAULT_COLOR,
+      border_style: "solid",
+      border_width: "2",
+      margin_inline: "0",
+      margin_block: "0",
+    },
+    blueprints: {
+      __border_style: BORDER_STYLES,
+    }
   }
 
 ];

@@ -18,6 +18,7 @@
 
 // np select__input, date__input - general inputbox apperance
 @mixin __input {
+    font-family: 'Plus Jakarta Sans', sans-serif;
     @include StrongLabel;
     height: 40px;
     padding: 0 64px 0 16px;

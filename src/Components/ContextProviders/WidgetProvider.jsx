@@ -91,6 +91,28 @@ export const WidgetProvider = ({ children }) => {
         );
     };
 
+
+    const widgetLink = (widget) => {
+        console.log(widget)
+        if (widget && widget.component) {
+            const clonedWidget = (
+                <WidgetContainer id={widget.id} widget={widget}>
+                    {React.cloneElement(widget.component, {
+                        id: widget.id,
+                        props: widget.props,
+                    })}
+                </WidgetContainer>
+            );
+
+            // Now that the widget has been cloned, you can safely remove it
+            //removeWidget(widget);
+
+            return clonedWidget;
+        }
+
+        return null;
+    }
+
     const handleReorder = (widget, direction) => {
 
         if (!widget.parentID) {
@@ -176,7 +198,7 @@ export const WidgetProvider = ({ children }) => {
     }, [pointedWidget]);
 
     return (
-        <WidgetContext.Provider value={{ mousePointer, setCanvasWidgets, draggedWidget, selectedWidget, selectWidget, canvasWidgets, clearSelectedWidget, addWidget, removeWidget, updateWidget, pointedWidget, setPointedWidget, widgetFactory, setDragHandler, clearDragHandle, handleReorder, orderRecalculation, setRenderedCanvasWidgets }}>
+        <WidgetContext.Provider value={{ widgetLink, mousePointer, setCanvasWidgets, draggedWidget, selectedWidget, selectWidget, canvasWidgets, clearSelectedWidget, addWidget, removeWidget, updateWidget, pointedWidget, setPointedWidget, widgetFactory, setDragHandler, clearDragHandle, handleReorder, orderRecalculation, setRenderedCanvasWidgets }}>
             {children}
         </WidgetContext.Provider>
     );

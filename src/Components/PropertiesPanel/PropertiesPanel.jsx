@@ -42,20 +42,20 @@ export function PropertiesPanel() {
       </div>
       <div className="properties-panel__content">{selectedWidgetOptions}</div>
       <div className="properties-panel__footer">
-        {selectedWidget && <Button
+        {/* {selectedWidget && <Button
           type={ButtonType.Filled}
           color={ButtonColor.Default}
           shape={ButtonShape.Rounded}
           size={ButtonSize.Compact}
           text={"Export selected widget"}
           onClick={() => handleExtractHtmlClick(selectedWidget)}
-        />}
+        />} */}
         <Button
           type={ButtonType.Filled}
           color={ButtonColor.Primary}
           shape={ButtonShape.Rounded}
           size={ButtonSize.Compact}
-          text={"Export full static website"}
+          text={"Export static website"}
           onClick={() => handleExtractHtmlClick(null)}
         />
       </div>

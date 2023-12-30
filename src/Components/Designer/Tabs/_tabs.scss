@@ -1,0 +1,24 @@
+@import "../../../mixins.scss";
+@import "./../Button/button";
+
+
+.tabs {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.tab-button,
+.tab-button--active {
+    width: 100%;
+    padding-inline: 12px;
+    @extend .button;
+    background: none;
+    text-transform: capitalize;
+}
+
+.tab-button--active,
+.tab-button:hover {
+    background: $light-gray;
+    border-bottom: 4px solid $primary;
+}

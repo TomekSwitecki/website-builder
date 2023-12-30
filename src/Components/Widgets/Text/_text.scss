@@ -1,0 +1,12 @@
+.text {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    p {
+        width: inherit;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+    }
+}

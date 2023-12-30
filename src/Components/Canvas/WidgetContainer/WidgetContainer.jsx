@@ -12,7 +12,7 @@ function WidgetContainer({ id, parentID, order, children, widget }) {
     const { canvasWidgets, selectWidget, selectedWidget, setPointedWidget, pointedWidget, setDragHandler, removeWidget, handleReorder, } = useWidgetContext();
     const [widgetStates, setWidgetStates] = useState([]);
 
-    const handleWidgetStates = (widgetCondition, stateValue, widgetStates, setWidgetStates) => {
+    const handleWidgetStates = (widgetCondition, stateValue) => {
         if (widgetCondition) {
             if (!widgetStates.includes(stateValue)) {
                 setWidgetStates((prevStates) => [...prevStates, stateValue]);
@@ -24,12 +24,16 @@ function WidgetContainer({ id, parentID, order, children, widget }) {
     };
 
     useEffect(() => {
-        handleWidgetStates(selectedWidget && selectedWidget.id === id, "selected", widgetStates, setWidgetStates);
-    }, [selectedWidget, canvasWidgets]);
+        handleWidgetStates(selectedWidget && selectedWidget.id === id, "selected");
+    }, [selectedWidget]);
 
     useEffect(() => {
-        handleWidgetStates(pointedWidget && pointedWidget === id, "pointed", widgetStates, setWidgetStates);
+        handleWidgetStates(pointedWidget && pointedWidget === id, "pointed");
     }, [pointedWidget]);
+
+    useEffect(() => {
+        handleWidgetStates(widget.name === "Container", "flexWrapping");
+    }, [canvasWidgets]);
 
 
 
@@ -94,6 +98,7 @@ function WidgetContainer({ id, parentID, order, children, widget }) {
         inlineWidth = "fill";
     }
     else {
+        inlineMaxWidth = "100%";
         inlineWidth = "fit-content";
     }
 

@@ -9,7 +9,7 @@
 //widgets
 @use "./Components/Widgets/Header/Header";
 @use "./Components/Widgets/Heading/heading";
-@use "./Components/Widgets/Paragraph/Paragraph";
+@use "./Components/Widgets/Text/Text";
 @use "./Components/Widgets/Image/Image";
 @use "./Components/Widgets/Video/video";
 @use "./Components/Widgets/Frame/frame";
@@ -23,3 +23,4 @@
 @use "./Components/Designer/Checkbox/checkbox";
 @use "./Components/Designer/ColorSelect/colorSelect";
 @use "./Components/Designer/FileInput/fileInput";
+@use "./Components/Designer/Tabs/tabs";
