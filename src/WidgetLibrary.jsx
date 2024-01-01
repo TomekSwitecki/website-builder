@@ -1,9 +1,14 @@
+import React from "react";
+import { json } from "react-router-dom";
+import { sanitizeSvg } from "./Utils/sanitizeSvg";
+
 import Header from "./Components/Widgets/Header/Header";
 import Image from "./Components/Widgets/Image/Image";
 import Video from "./Components/Widgets/Video/Video";
 import Frame from "./Components/Widgets/Frame/Frame";
 import Text from "./Components/Widgets/Text/Text";
 import Link from "./Components/Widgets/Link/Link";
+import Icon from "./Components/Widgets/Icon/Icons";
 import FlexContainer from "./Components/Widgets/FlexContainer/FlexContainer";
 
 import COVER_HEADING from "../src/Resources/Designer/WidgetCovers/COVER_HEADING.png";
@@ -13,21 +18,26 @@ import COVER_VIDEO from "../src/Resources/Designer/WidgetCovers/COVER_VIDEO.png"
 import COVER_LAYOUT from "../src/Resources/Designer/WidgetCovers/COVER_LAYOUT.png";
 import COVER_FRAME from "../src/Resources/Designer/WidgetCovers/COVER_FRAME.png";
 import COVER_DIVIDER from "../src/Resources/Designer/WidgetCovers/COVER_DIVIDER.png";
-import React from "react";
-import { json } from "react-router-dom";
+import COVER_LINK from "../src/Resources/Designer/WidgetCovers/COVER_LINK.png";
+import COVER_ICON from "../src/Resources/Designer/WidgetCovers/COVER_ICON.png";
+
 import Divider from "./Components/Widgets/Divider/Divider";
+
+
 export const DEFAULT_COLOR = "#000000";
+export const DEFAULT_ICON = sanitizeSvg('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><circle cx="7.499" cy="9.5" r="1.5"></circle><path d="m10.499 14-1.5-2-3 4h12l-4.5-6z"></path><path d="M19.999 4h-16c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm-16 14V6h16l.002 12H3.999z"></path></svg>')
 export const HEADER_SIZES = ["h1", "h2", "h3", "h4", "h5", "h6"];
 export const FONT_STYLES = ["thin", "extra-light", "light", "regular", "medium", "semi-bold", "bold", "extra-bold", "black"];
 export const BORDER_STYLES = ["solid", "dotted", "dashed", "double", "groove", "ridge", "inset", "outset"]
 export const TEXT_ALIGNMENTS = ["left", "center", "right"];
 export const TEXT_CASING = ["initial", "uppercase", "lowercase", "capitalize"];
+export const TEXT_DECORATIONS = ["none", "underline", "line-through"]
 export const WIDTH_VARIANTS = ["fill", "hug", "fixed"];
 export const FLEX_DIRECTION_VARIANTS = ["vertical", "horizontal"];
 export const FLEX_ITEM_ALIGNMENT_VARIANTS = ["flex-start", "center", "flex-end", "stretch"];
 export const FLEX_CONTENT_ALIGNMENT_VARIANTS = ["flex-start", "center", "flex-end", "stretch", "space-between", "around"];
 export const FLEX_JUSTIFY_CONTENT_VARIANTS = ["flex-start", "center", "flex-end", "space-between", "space-around", "space-evenly"];
-
+export const LINKABLE_OBJECTS = ["Text", "Image", "Icon"]
 export const widgets_library = [
   {
     order: 0,
@@ -47,8 +57,8 @@ export const widgets_library = [
       padding_inline: "",
       padding_block: "",
       backgroundColor: "#ffffff",
-      strokeColor: "#000000",
-      strokeWidth: "0",
+      border_color: "#000000",
+      border_width: "0",
       innerWidgets: [],
       innerWidgets: [],
       clipOverflowContent: false,
@@ -74,12 +84,12 @@ export const widgets_library = [
       value: "Header Initial Value",
       color: DEFAULT_COLOR,
       font_style: "regular",
-      size: "h1",
+      header_size: "h1",
       text_align: "left",
       text_casing: "initial"
     },
     blueprints: {
-      __size: HEADER_SIZES,
+      __header_size: HEADER_SIZES,
       __font_style: FONT_STYLES,
       __text_align: TEXT_ALIGNMENTS,
       __text_casing: TEXT_CASING
@@ -98,6 +108,7 @@ export const widgets_library = [
       font_size: "16",
       text_align: "left",
       text_casing: "initial",
+      text_decoration: "none",
       line_height: "normal",
       letter_spacing: "0",
       truncate: false,
@@ -105,18 +116,38 @@ export const widgets_library = [
     blueprints: {
       __font_style: FONT_STYLES,
       __text_align: TEXT_ALIGNMENTS,
-      __text_casing: TEXT_CASING
+      __text_casing: TEXT_CASING,
+      __text_decoration: TEXT_DECORATIONS
     }
   },
   {
     order: 0,
     name: "Link",
     description: "Simple link widget",
-    cover: COVER_TEXT,
+    cover: COVER_LINK,
     component: <Link />,
     props: {
-      url: "Text Initial Value",
-      link_object: "",
+      url: "#",
+      link_object: "Text",
+    },
+    blueprints: {
+      __link_object: LINKABLE_OBJECTS,
+    }
+  },
+  {
+    order: 0,
+    name: "Icon",
+    description: "Icon widget",
+    cover: COVER_ICON,
+    component: <Icon />,
+    props: {
+      svg: DEFAULT_ICON,
+      fill_color: DEFAULT_COLOR,
+      transparent_fill: false,
+      stroke_color: DEFAULT_COLOR,
+      transparent_stroke: false,
+      stroke_width: "0",
+      size: "24",
     },
   },
   {

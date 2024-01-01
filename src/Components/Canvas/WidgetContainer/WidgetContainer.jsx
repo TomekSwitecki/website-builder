@@ -4,7 +4,7 @@ import BEMBuilder from '../../../Utils/BEMbuilder';
 import { DndProvider, useDrag, useDrop, DragSource, DragPreviewImage } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { ItemTypes } from '../../../WidgetTypes';
-import { Trash, ArrowLeftCircle, ArrowRightCircle } from '@vectopus/atlas-icons-react';
+import { XmarkCircle, ArrowLeftCircle, ArrowRightCircle } from '@vectopus/atlas-icons-react';
 import Button, { ButtonColor, ButtonShape, ButtonType, ButtonSize } from '../../Designer/Button/Button';
 
 
@@ -32,7 +32,17 @@ function WidgetContainer({ id, parentID, order, children, widget }) {
     }, [pointedWidget]);
 
     useEffect(() => {
-        handleWidgetStates(widget.name === "Container", "flexWrapping");
+        switch (widget.name) {
+            case "Container":
+                handleWidgetStates(true, "flexWrapping");
+                break;
+            case "Link":
+                handleWidgetStates(true, "linkWrapping");
+                break;
+            default:
+                // Handle default behavior if necessary
+                break;
+        }
     }, [canvasWidgets]);
 
 
@@ -128,7 +138,7 @@ function WidgetContainer({ id, parentID, order, children, widget }) {
                     color={ButtonColor.Negative}
                     shape={ButtonShape.Rounded}
                     size={ButtonSize.Icon}
-                    text={<Trash size={24} />}
+                    text={<XmarkCircle size={24} />}
                     onClick={(e) => handleWidgetDelete(e)}
                 />
             </div>)
@@ -143,7 +153,7 @@ function WidgetContainer({ id, parentID, order, children, widget }) {
 
     return (
         <div style={generatedStyles} data-type={widget.name} ref={drag} id={id} className={widgetContainerClass} onClick={handleMouseClick} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} >
-            {(selectedWidget && selectedWidget.id === id) &&
+            {(selectedWidget && selectedWidget.id === id && selectedWidget.type != ItemTypes.WIDGET_LINK_ITEM) &&
                 <ActionButtons />
             }
             {children}

@@ -2,36 +2,45 @@
 
 .widget-panel {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    display: flex;
-    flex-direction: column;
+
     background-color: $white;
     border-right: 2px solid $gray-1;
-    max-width: 200px;
-    min-width: 200px;
-    gap: 16px;
-    padding: 24px 16px;
-
-    height: 95vh;
-    overflow-y: auto;
+    max-width: 256px;
+    min-width: 256px;
 
 
-    .widget-panel__label {
+
+    height: 100vh;
+
+
+    .widget-panel_content {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        padding: 24px 16px;
+        overflow-y: auto;
+        height: 95%;
+        box-sizing: border-box;
+    }
+
+
+    .widget-panel_label {
         font-size: 16px;
         font-weight: 600;
     }
 
-    .widget-panel__sublabel {
+    .widget-panel_sublabel {
         font-size: 14px;
         opacity: 0.8;
     }
 
-    .widget-panel__item-container {
+    .widget-panel_item-container {
         padding: 12px 12px;
         border-radius: 4px;
         border: 1px solid $gray-1;
     }
 
-    .widget-panel__item-container:hover {
+    .widget-panel_item-container:hover {
         cursor: grab;
         background-color: $secondary;
         @include smooth;

@@ -8,8 +8,13 @@
     width: 100%;
 }
 
+.tab-button {
+    border-bottom: 1px solid $gray-1;
+}
+
 .tab-button,
 .tab-button--active {
+    height: 56px;
     width: 100%;
     padding-inline: 12px;
     @extend .button;

@@ -45,12 +45,14 @@ function Canvas() {
           if (item.type === ItemTypes.WIDGET_PANEL_ITEM) {
             removeWidget(item);
             const newItem = { ...item, parentID: "", type: ItemTypes.WIDGET_CANVAS_ITEM, order: innerWidgets.length };
+            console.log(newItem)
             orderRecalculation(innerWidgets);
             addWidget(newItem);
           }
           else if (item.type === ItemTypes.WIDGET_CANVAS_ITEM) {
             removeWidget(item);
             const updatedItem = { ...item, parentID: "", order: innerWidgets.length - 1 };
+            console.log(updatedItem)
             orderRecalculation(innerWidgets);
             addWidget(updatedItem);
           }

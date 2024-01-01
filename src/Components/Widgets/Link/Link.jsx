@@ -2,32 +2,39 @@ import React, { useRef, useEffect, useState } from "react";
 import classBuilder from "../../../Utils/classBuilder";
 import { useWidgetContext } from '../../ContextProviders/WidgetProvider';
 
-
-function Link({ props }) {
-    const { addWidget, removeWidget, canvasWidgets, widgetLink } = useWidgetContext();
+function Link({ id, props }) {
+    const { removeWidget, canvasWidgets, widgetFactory, widgetCreate } = useWidgetContext();
     const textOptions = {
         size: "default",
     };
-    const [linkedWidget, setLinkedWidget] = useState([]);
+    const [innerWidgets, setInnerWidgets] = useState([]);
+    const isInitialMount = useRef(true);
 
     useEffect(() => {
-        if (props.link_object && props.link_object != props.id) {
-            const widget = canvasWidgets.find(widget => widget.id === props.link_object);
-            console.log(widget)
-            console.log(widget.component)
-            setLinkedWidget(widget);
+        if (isInitialMount.current) {
+            isInitialMount.current = false;
+            return;
         }
-    }, [props.link_object, canvasWidgets]);
+        if (innerWidgets[0]) {
+            removeWidget(innerWidgets[0]);
+        }
+
+        widgetCreate(props.link_object, id);
+
+    }, [props.link_object]);
+
+    useEffect(() => {
+        const innerWidgets_ = canvasWidgets.filter((widget) => widget.parentID === id);
+
+        // Ensure only one widget is in innerWidgets
+        setInnerWidgets(innerWidgets_.slice(0, 1));
+
+        console.log(innerWidgets);
+    }, [canvasWidgets, props.link_object]);
 
     return (
         <div className={classBuilder("link", textOptions)}>
-            link link
-            if(linkedWidget)
-            {
-                widgetLink(linkedWidget)
-            }
-
-            {linkedWidget && <a href={"#"}>ss</a>}
+            {props.url && <a href={props.url}>{widgetFactory(innerWidgets)}</a>}
         </div>
     );
 }

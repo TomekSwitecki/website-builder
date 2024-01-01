@@ -1,8 +1,13 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import WidgetContainer from '../Canvas/WidgetContainer/WidgetContainer';
 const WidgetContext = createContext();
+import { widgets_library } from '../../WidgetLibrary';
+import { v4 as uuidv4 } from 'uuid';
+import { ItemTypes } from '../../WidgetTypes';
+
 
 export const WidgetProvider = ({ children }) => {
+    const uuid = require('uuid');
     const [canvasWidgets, setCanvasWidgets] = useState([]);
     const [renderedCanvasWidgets, setRenderedCanvasWidgets] = useState([]);
     const [selectedWidget, setSelectedWidget] = useState(null);
@@ -12,7 +17,7 @@ export const WidgetProvider = ({ children }) => {
     const selectWidget = (widgetId) => {
         if (pointedWidget) {
             setSelectedWidget(widgetId);
-            //console.log(widgetId)
+            console.log(widgetId)
         } else {
             setSelectedWidget("")
         }
@@ -34,7 +39,10 @@ export const WidgetProvider = ({ children }) => {
 
 
     function updateWidget(selectedWidgetID, modifiedProps) {
-        //console.log(selectedWidget)
+        // console.log(selectedWidget)
+        // console.log(modifiedProps)
+        // selectedWidget.props = { ...selectedWidget.props, ...modifiedProps }
+        console.log(canvasWidgets)
         setCanvasWidgets((canvasWidgets) =>
             canvasWidgets.map((widget) =>
                 widget.id === selectedWidgetID ? { ...widget, props: { ...widget.props, ...modifiedProps } } : widget
@@ -59,6 +67,10 @@ export const WidgetProvider = ({ children }) => {
 
 
     const filterDuplicates = (widgets) => {
+        if (!widgets) {
+            return [];
+        }
+
         const uniqueIDs = new Set();
         return widgets.filter((widget) => {
             if (uniqueIDs.has(widget.id)) {
@@ -68,6 +80,7 @@ export const WidgetProvider = ({ children }) => {
             return true;
         });
     };
+
 
 
     const sortWidgets = (a, b) => a.order > b.order ? 1 : -1;
@@ -105,12 +118,46 @@ export const WidgetProvider = ({ children }) => {
             );
 
             // Now that the widget has been cloned, you can safely remove it
-            //removeWidget(widget);
-
             return clonedWidget;
         }
-
+        //removeWidget(widget);
         return null;
+    }
+
+    const widgetCreate = (widgetName, id) => {
+        const widgetToCreate = widgets_library.find(widget => widget.name === widgetName);
+        const generatedID = uuidv4();
+        const widgetData = {
+            id: generatedID,
+            parentID: id,
+            order: 0,
+            name: widgetToCreate?.name,
+            component: widgetToCreate?.component,
+            props: widgetToCreate?.props,
+            type: ItemTypes.WIDGET_LINK_ITEM,
+        }
+        if (!canvasWidgets.includes(widgetData))
+            addWidget(widgetData)
+
+        // console.log("d")
+        // if (widgetName) {
+
+        //     const createdWidget = (
+        //         <WidgetContainer id={widgetData.id} widget={widgetData}>
+        //             {React.cloneElement(widgetData.component, {
+        //                 id: "widgetData.id",
+        //                 props: widgetData.props,
+        //                 order: widgetData.order,
+        //             })}
+        //         </WidgetContainer>
+        //     );
+        //     if (!canvasWidgets.includes(widgetData)) {
+        //         //setCanvasWidgets((prevWidgets) => [...prevWidgets, widgetData]);
+        //         return createdWidget;
+        //     }
+
+        // }
+        // return null;
     }
 
     const handleReorder = (widget, direction) => {
@@ -198,7 +245,7 @@ export const WidgetProvider = ({ children }) => {
     }, [pointedWidget]);
 
     return (
-        <WidgetContext.Provider value={{ widgetLink, mousePointer, setCanvasWidgets, draggedWidget, selectedWidget, selectWidget, canvasWidgets, clearSelectedWidget, addWidget, removeWidget, updateWidget, pointedWidget, setPointedWidget, widgetFactory, setDragHandler, clearDragHandle, handleReorder, orderRecalculation, setRenderedCanvasWidgets }}>
+        <WidgetContext.Provider value={{ widgetLink, widgetCreate, mousePointer, setCanvasWidgets, draggedWidget, selectedWidget, selectWidget, canvasWidgets, clearSelectedWidget, addWidget, removeWidget, updateWidget, pointedWidget, setPointedWidget, widgetFactory, setDragHandler, clearDragHandle, handleReorder, orderRecalculation, setRenderedCanvasWidgets }}>
             {children}
         </WidgetContext.Provider>
     );

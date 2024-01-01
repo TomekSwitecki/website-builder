@@ -33,7 +33,8 @@
     box-sizing: border-box;
     height: 56px;
     padding: 16px 20px;
-    background-color: $gray-1;
+    background-color: $light-gray;
+    color: $black;
     border-bottom: 1px solid $gray-2;
     @include StrongLabel($black);
 }

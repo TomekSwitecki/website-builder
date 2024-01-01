@@ -11,6 +11,7 @@ function Text({ props }) {
   const generatedStyles = {
     color: props.color,
     textTransform: props.text_casing,
+    textDecoration: props.text_decoration,
     textAlign: props.text_align,
     fontSize: props.font_size + "px",
     fontWeight: fontStyleDecoder(props.font_style),

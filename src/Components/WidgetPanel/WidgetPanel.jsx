@@ -7,7 +7,7 @@ import { useCanvasContext } from '../ContextProviders/CanvasProvider';
 import Tabs from "../Designer/Tabs/Tabs";
 import SelectInput from "../Designer/Select/SelectInput";
 function WidgetPanel() {
-  const [activeTab, setActiveTab] = useState("settings");
+  const [activeTab, setActiveTab] = useState("widgets");
 
   const { canvasBgColor, googleFontsUrl, fontType, handleGoogleFontUrlChange, handleCanvasBgColor, handleFontTypeChange, handleBgImageUrlChange, backgroundImageUrl } = useCanvasContext();
 
@@ -37,8 +37,11 @@ function WidgetPanel() {
   return (
     <div className="widget-panel" id="widget-panel">
       <Tabs tabs={tabs} activeTab={activeTab} onTabChange={handleTabChange} />
-      {activeTab == "widgets" && AssetsWidgets}
-      {activeTab == "settings" && CanvasSettings}
+      <div className="widget-panel_content">
+        {activeTab == "widgets" && AssetsWidgets}
+        {activeTab == "settings" && CanvasSettings}
+      </div>
+
     </div>
   )
 }

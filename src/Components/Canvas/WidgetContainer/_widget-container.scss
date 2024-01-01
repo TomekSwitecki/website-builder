@@ -13,6 +13,24 @@
         box-shadow: 0px 0px 0px 3px $gray-1;
     }
 
+    &.widget__container--linkWrapping {
+        background-color: $primary-light;
+    }
+
+    &.widget__container--linkWrapping::after {
+        position: absolute;
+        right: -32px;
+        width: 24px;
+        height: 24px;
+        color: $white;
+        border-radius: 64px;
+        content: url("/src/Resources/Designer/LINK_BADGE.png");
+        background-color: $primary;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     &.widget__container--dragged {
         background-color: rgb(230, 230, 230);
         @include smooth;

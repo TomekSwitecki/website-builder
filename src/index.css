@@ -32,36 +32,41 @@
 
 .widget-panel {
   font-family: "Plus Jakarta Sans", sans-serif;
-  display: flex;
-  flex-direction: column;
   background-color: #ffffff;
   border-right: 2px solid #E1E1E1;
-  max-width: 200px;
-  min-width: 200px;
-  gap: 16px;
-  padding: 24px 16px;
-  height: 95vh;
-  overflow-y: auto;
+  max-width: 256px;
+  min-width: 256px;
+  height: 100vh;
   box-shadow: 0px 2.767px 2.214px 0px rgba(0, 0, 0, 0.02), 0px 6.65px 5.32px 0px rgba(0, 0, 0, 0.03), 0px 12.522px 10.017px 0px rgba(0, 0, 0, 0.04), 0px 22.336px 17.869px 0px rgba(0, 0, 0, 0.04), 0px 41.778px 33.422px 0px rgba(0, 0, 0, 0.05), 0px 100px 80px 0px rgba(0, 0, 0, 0.07);
 }
 
-.widget-panel .widget-panel__label {
+.widget-panel .widget-panel_content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px 16px;
+  overflow-y: auto;
+  height: 95%;
+  box-sizing: border-box;
+}
+
+.widget-panel .widget-panel_label {
   font-size: 16px;
   font-weight: 600;
 }
 
-.widget-panel .widget-panel__sublabel {
+.widget-panel .widget-panel_sublabel {
   font-size: 14px;
   opacity: 0.8;
 }
 
-.widget-panel .widget-panel__item-container {
+.widget-panel .widget-panel_item-container {
   padding: 12px 12px;
   border-radius: 4px;
   border: 1px solid #E1E1E1;
 }
 
-.widget-panel .widget-panel__item-container:hover {
+.widget-panel .widget-panel_item-container:hover {
   cursor: grab;
   background-color: #EDF3FA;
   transition: all 0.66s cubic-bezier(0.22, 1, 0.36, 1);
@@ -98,7 +103,8 @@
   box-sizing: border-box;
   height: 56px;
   padding: 16px 20px;
-  background-color: #E1E1E1;
+  background-color: #F6F7FA;
+  color: #111315;
   border-bottom: 1px solid #C2C2C2;
   color: #111315;
   font-size: 16px;
@@ -186,6 +192,24 @@
 
 .widget__container.widget__container--flexWrapping {
   box-shadow: 0px 0px 0px 3px #E1E1E1;
+}
+
+.widget__container.widget__container--linkWrapping {
+  background-color: rgba(0, 116, 231, 0.0745098039);
+}
+
+.widget__container.widget__container--linkWrapping::after {
+  position: absolute;
+  right: -32px;
+  width: 24px;
+  height: 24px;
+  color: #ffffff;
+  border-radius: 64px;
+  content: url("/src/Resources/Designer/LINK_BADGE.png");
+  background-color: #0075E7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .widget__container.widget__container--dragged {
@@ -370,6 +394,10 @@ h6 {
   box-shadow: none;
 }
 
+a {
+  text-decoration: none;
+}
+
 .input__label {
   color: #111315;
   font-size: 15px;
@@ -501,7 +529,7 @@ button[disabled] {
   padding: 0 64px 0 16px;
   border-radius: 8px;
   border: 1px solid #E1E1E1;
-  background: #ffffff;
+  background: #F6F7FA;
   box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.05);
   appearance: none;
   box-sizing: border-box;
@@ -635,7 +663,7 @@ button[disabled] {
   padding: 0 64px 0 16px;
   border-radius: 8px;
   border: 1px solid #E1E1E1;
-  background: #ffffff;
+  background: #F6F7FA;
   box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.05);
   appearance: none;
   box-sizing: border-box;
@@ -780,6 +808,7 @@ button[disabled] {
   user-select: none;
   width: 100%;
   justify-content: space-between;
+  text-align: left;
 }
 
 input[type=checkbox] {
@@ -861,6 +890,31 @@ input[type=checkbox]:checked::after {
 .color__input input {
   height: 40px;
   width: 100%;
+}
+
+input[type=color] {
+  border-radius: 4px;
+  border: 1px solid #E1E1E1;
+  background: #F6F7FA;
+}
+
+input[type=color]::-webkit-color-swatch-wrapper {
+  border-radius: 4px;
+  border: 1px solid #E1E1E1;
+  background: #F6F7FA;
+  padding: 6px;
+}
+
+input[type=color]::-webkit-color-swatch {
+  border-radius: 4px;
+  border: 1px solid #E1E1E1;
+}
+
+input[type=color]::-webkit-color-swatch-wrapper:hover {
+  outline: 2px solid #0075E7;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05), 0px 0px 0px 4px rgba(0, 117, 231, 0.3);
+  transition: box-shadow 0.33s cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: pointer;
 }
 
 .input__label {
@@ -1031,8 +1085,13 @@ button[disabled] {
   width: 100%;
 }
 
+.tab-button {
+  border-bottom: 1px solid #E1E1E1;
+}
+
 .tab-button,
 .tab-button--active {
+  height: 56px;
   width: 100%;
   padding-inline: 12px;
   background: none;

@@ -33,11 +33,11 @@ function WidgetPanelItem({ widget, index }) {
       className='widget-panel__item'
       ref={drag}
     >
-      <div className='widget-panel__item-container'>
+      <div className='widget-panel_item-container'>
         <img src={widget?.cover} />
-        <div className='widget-panel__item-description'>
-          <div className='widget-panel__label'>{widget?.name}</div>
-          <div className='widget-panel__sublabel'>{widget?.description}</div>
+        <div className='widget-panel_item-description'>
+          <div className='widget-panel_label'>{widget?.name}</div>
+          <div className='widget-panel_sublabel'>{widget?.description}</div>
         </div>
       </div>
     </div>
