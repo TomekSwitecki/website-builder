@@ -12,7 +12,6 @@ function Icon({ props }) {
 
     if (props.svg) {
         const sanitizedSvg = sanitizeSvg(props.svg);
-        console.log(sanitizedSvg)
         return (
             <div className={"icon"} style={generatedStyles} dangerouslySetInnerHTML={{ __html: sanitizedSvg }} />
         );

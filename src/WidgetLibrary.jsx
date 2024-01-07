@@ -128,7 +128,8 @@ export const widgets_library = [
     component: <Link />,
     props: {
       url: "#",
-      link_object: "Text",
+      link_object: "",
+      innerWidget: {},
     },
     blueprints: {
       __link_object: LINKABLE_OBJECTS,
@@ -147,7 +148,7 @@ export const widgets_library = [
       stroke_color: DEFAULT_COLOR,
       transparent_stroke: false,
       stroke_width: "0",
-      size: "24",
+      size: "40",
     },
   },
   {

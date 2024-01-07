@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useWidgetContext } from '../../ContextProviders/WidgetProvider';
 import BEMBuilder from '../../../Utils/BEMbuilder';
 import { DndProvider, useDrag, useDrop, DragSource, DragPreviewImage } from 'react-dnd';
@@ -13,14 +13,16 @@ function WidgetContainer({ id, parentID, order, children, widget }) {
     const [widgetStates, setWidgetStates] = useState([]);
 
     const handleWidgetStates = (widgetCondition, stateValue) => {
-        if (widgetCondition) {
-            if (!widgetStates.includes(stateValue)) {
-                setWidgetStates((prevStates) => [...prevStates, stateValue]);
+        setWidgetStates((prevStates) => {
+            if (widgetCondition) {
+                if (!prevStates.includes(stateValue)) {
+                    return [...prevStates, stateValue];
+                }
+            } else {
+                return prevStates.filter((state) => state !== stateValue);
             }
-        } else {
-            const newWidgetStatesArray = widgetStates.filter((state) => state !== stateValue);
-            setWidgetStates(newWidgetStatesArray);
-        }
+            return prevStates; // No change
+        });
     };
 
     useEffect(() => {
@@ -30,38 +32,37 @@ function WidgetContainer({ id, parentID, order, children, widget }) {
     useEffect(() => {
         handleWidgetStates(pointedWidget && pointedWidget === id, "pointed");
     }, [pointedWidget]);
-
     useEffect(() => {
-        switch (widget.name) {
-            case "Container":
-                handleWidgetStates(true, "flexWrapping");
-                break;
-            case "Link":
-                handleWidgetStates(true, "linkWrapping");
-                break;
-            default:
-                // Handle default behavior if necessary
-                break;
+        let newStates = [];
+
+        if (widget.name === "Container") {
+            newStates = ["flexWrapping"];
+        } else if (widget.name === "Link") {
+            newStates = ["linkWrapping"];
         }
-    }, [canvasWidgets]);
+        setWidgetStates(newStates);
+    }, [widget.name]);
 
 
-
-    const [{ isDragging }, drag] = useDrag((e) => ({
+    const [{ isDragging }, drag] = useDrag(useMemo(() => ({
         type: ItemTypes.WIDGET_CANVAS_ITEM,
         item: widget,
+        canDrag: () => widget.type === ItemTypes.WIDGET_CANVAS_ITEM,
         onDrag: () => {
-            console.log(e)
-            console.log(widget)
-            setDragHandler(widget)
+            console.log(e);
+            console.log(widget);
+            setDragHandler(widget);
+            selectWidget(widget);
             e.dataTransfer.setDragImage(new Image(), 0, 0);
         },
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging(),
             draggedItem: monitor.getItem(),
-        })
+        }),
+    }), [widget]));
 
-    }), [selectedWidget])
+
+
 
     const handleMouseOver = (e) => {
         e.stopPropagation();

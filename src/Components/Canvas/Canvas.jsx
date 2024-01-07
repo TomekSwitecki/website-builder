@@ -9,7 +9,7 @@ import { useCanvasContext } from '../ContextProviders/CanvasProvider';
 
 
 function Canvas() {
-  const { handleReorder, addWidget, canvasWidgets, widgetFactory, removeWidget, mousePointer, pointedWidget, clearDragHandle, setRenderedCanvasWidgets, orderRecalculation } = useWidgetContext();
+  const { handleReorder, addWidget, canvasWidgets, widgetFactory, removeWidget, draggedWidget, updateWidget, mousePointer, pointedWidget, clearDragHandle, setRenderedCanvasWidgets, orderRecalculation } = useWidgetContext();
   const [innerWidgets, setInnerWidgets] = useState([]);
   const { canvasFont, googleFontsUrl, canvasBgColor, backgroundImageUrl } = useCanvasContext();
 
@@ -20,12 +20,9 @@ function Canvas() {
       if (monitor.didDrop()) {
         return
       }
-
-
-
       let pointedWidgetFull = {};
       const droppedOnItself = item.id == pointedWidget.id;
-      const invalidDrop = pointedWidget.type !== "Container" && pointedWidget.id;
+      const invalidDrop = (pointedWidget.type !== "Container" && pointedWidget.type !== "Link") && pointedWidget.id;
 
       let isPointedWidgetInside = false;
 
@@ -58,9 +55,33 @@ function Canvas() {
           }
         }
         else {
-          removeWidget(item);
-          const updatedItem = { ...item, parentID: pointedWidget.id, order: 0 };
-          addWidget(updatedItem);
+
+          if (item.name !== "Link") {
+            const updatedItem = { ...item, parentID: pointedWidget.id, order: 0 };
+            removeWidget(item);
+            addWidget(updatedItem);
+          }
+          else {
+
+            const updatedItem = { ...item, parentID: pointedWidget.id, order: 0 };
+            removeWidget(item);
+            addWidget(updatedItem);
+
+            //TODO Refactor - create more elegant way - updateWidget updates lower levels - inner item props
+            // const updatedItem = { ...item, parentID: pointedWidget.id, order: canvasWidgets.length - 1 };
+            // console.log(updatedItem);
+            // const itemIndex = canvasWidgets.findIndex(innerItem => innerItem.id === item.id);
+
+            // if (itemIndex !== -1) {
+            //   canvasWidgets[itemIndex] = updatedItem;
+            // } else {
+            //   canvasWidgets.push(updatedItem);
+            // }
+
+            //console.log(item)
+            //item.props.parentID = "huj";
+            //updateWidget(item.id, { ["parentID"]: "huj" })
+          }
 
         }
       }
@@ -70,7 +91,7 @@ function Canvas() {
       isOver: monitor.isOver(),
       isOverCurrent: monitor.isOver({ shallow: true }),
     }),
-  }), [pointedWidget, canvasWidgets])
+  }), [pointedWidget, canvasWidgets, draggedWidget])
 
 
   useEffect(() => {

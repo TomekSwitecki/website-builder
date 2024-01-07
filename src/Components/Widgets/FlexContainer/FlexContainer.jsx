@@ -15,13 +15,12 @@ function FlexContainer({ id, align = "center", direction = "row", gap = "8", hei
         const innerWidgets_ = canvasWidgets.filter((widget) => widget.parentID === id);
         setInnerWidgets(innerWidgets_);
         setInnerRecursiveWidgets(loopThroughWidgets(innerWidgets_));
-    }, [pointedWidget, canvasWidgets]);
+    }, [canvasWidgets]);
 
     useEffect(() => {
         updateWidget(id, { ["innerWidgets"]: innerWidgets })
         updateWidget(id, { ["recursiveInnerWidgets"]: recursiveInnerWidgets })
-        console.log(props.clipOverflowContent)
-    }, [pointedWidget, draggedWidget, innerWidgets.length, canvasWidgets.length]);
+    }, [draggedWidget, innerWidgets.length, canvasWidgets.length]);
 
     useEffect(() => {
         orderRecalculation(innerWidgets);
