@@ -14,7 +14,7 @@
     }
 
     &.widget__container--linkWrapping {
-        background-color: $primary-light;
+        box-shadow: 0px 0px 0px 3px $primary-light;
     }
 
     &.widget__container--linkWrapping::after {

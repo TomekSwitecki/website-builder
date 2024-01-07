@@ -9,7 +9,7 @@ import SelectInput from "../Designer/Select/SelectInput";
 function WidgetPanel() {
   const [activeTab, setActiveTab] = useState("widgets");
 
-  const { canvasBgColor, googleFontsUrl, fontType, handleGoogleFontUrlChange, handleCanvasBgColor, handleFontTypeChange, handleBgImageUrlChange, backgroundImageUrl } = useCanvasContext();
+  const { canvasBgColor, googleFontsUrl, fontType, handleGoogleFontUrlChange, handleCanvasBgColor, handleFontTypeChange, handleBgImageUrlChange, backgroundImageUrl, backgroundImageSize, handleBackgroundSizeChange } = useCanvasContext();
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
@@ -29,6 +29,8 @@ function WidgetPanel() {
       <SelectInput label={"Font Type"} id={"Font type"} value={fontType} options={["serif", "sans-serif"]} onChange={(value) => handleFontTypeChange(value)} />
       <ColorSelect label={"Canvas Background"} value={canvasBgColor} onChange={(e) => handleCanvasBgColor(e.target.value)} />
       <TextInput textArea label={"Background Image URL"} value={backgroundImageUrl} onChange={(e) => handleBgImageUrlChange(e.target.value)} />
+      <SelectInput label={"Background Size"} value={backgroundImageSize} options={["contain", "cover", "25%", "50%", "75%", "100%"]} onChange={(value) => handleBackgroundSizeChange(value)} />
+
     </>
   ); handleFontTypeChange
 

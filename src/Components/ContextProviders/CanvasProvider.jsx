@@ -8,6 +8,7 @@ export const CanvasProvider = ({ children }) => {
     const [googleFontsUrl, setGoogleFontsUrl] = useState('');
     const [canvasBgColor, setCanvasBgColor] = useState("#FFFFFF");
     const [backgroundImageUrl, setBackgroundImageUrl] = useState("");
+    const [backgroundImageSize, setBackgroundImageSize] = useState("cover");
 
     useEffect(() => {
         console.log(fontType)
@@ -33,8 +34,12 @@ export const CanvasProvider = ({ children }) => {
     const handleBgImageUrlChange = (value) => {
         setBackgroundImageUrl(value);
     }
+
+    const handleBackgroundSizeChange = (value) => {
+        setBackgroundImageSize(value);
+    }
     return (
-        <CanvasContext.Provider value={{ canvasFont, fontType, googleFontsUrl, setGoogleFontsUrl, handleGoogleFontUrlChange, handleCanvasBgColor, handleFontTypeChange, canvasBgColor, handleFontTypeChange, handleBgImageUrlChange, backgroundImageUrl }}>
+        <CanvasContext.Provider value={{ canvasFont, fontType, googleFontsUrl, setGoogleFontsUrl, handleGoogleFontUrlChange, handleCanvasBgColor, handleFontTypeChange, canvasBgColor, handleFontTypeChange, handleBgImageUrlChange, handleBackgroundSizeChange, backgroundImageUrl, backgroundImageSize }}>
             {children}
         </CanvasContext.Provider>
     );

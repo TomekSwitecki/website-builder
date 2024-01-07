@@ -27,6 +27,46 @@ function WidgetProperties() {
         }
     };
 
+
+
+    const handleTextInputChange = (propName, newValue) => {
+        setStateProperties((prevValues) => {
+            const numericValue = parseFloat(newValue);
+            const minLimit = parseFloat(prevValues[propName].min);
+            const maxLimit = parseFloat(prevValues[propName].max);
+
+            const isInvalid = numericValue < minLimit || numericValue > maxLimit;
+            const isInvalidMin = numericValue < minLimit;
+            const isInvalidMax = numericValue > maxLimit;
+
+
+            let validationMessage = "";
+
+            if (isInvalidMin) {
+                validationMessage = `Value must be greater than or equal to ${minLimit}`;
+            } else if (isInvalidMax) {
+                validationMessage = `Value must be less than or equal to ${maxLimit}`;
+            }
+
+            console.log(isInvalid)
+            return {
+                ...prevValues,
+                [propName]: {
+                    ...prevValues[propName],
+                    value: newValue,
+                    isInvalid: isInvalid,
+                    validationInfo: validationMessage
+                },
+            };
+        });
+
+        //updateWidget(selectedWidget.id, { [propName]: { "value": newValue } });
+        updateWidget(selectedWidget.id, { [propName]: { ...selectedWidget.props[propName], "value": newValue } });
+
+    };
+
+
+
     useEffect(() => {
         if (selectedWidget) {
             setStateProperties(selectedWidget.props);
@@ -36,13 +76,14 @@ function WidgetProperties() {
 
 
     const formFactory = (propName, propValue) => {
+
         switch (propName) {
             case "text": case "value": case "url": case "svg":
-                return <TextInput textArea label={transformLabels(propName)} value={stateProperties[propName]} onChange={(e) => handleInputChange(propName, e.target.value)} />
+                return <TextInput textArea label={transformLabels(propName)} value={stateProperties[propName]?.value} onChange={(e) => handleTextInputChange(propName, e.target.value)} />
             case "minWidth": case "maxWidth": case "setWidth": case "font_size": case "border_width": case "size":
-                return <TextInput label={transformLabels(propName)} value={stateProperties[propName]} onChange={(e) => handleInputChange(propName, e.target.value)} />
+                return <TextInput label={transformLabels(propName)} value={stateProperties[propName]?.value} unit={stateProperties[propName]?.unit} onChange={(e) => handleTextInputChange(propName, e.target.value)} isInvalid={stateProperties[propName]?.isInvalid} validationInfo={stateProperties[propName]?.validationInfo} />
             case "number": case "border_width": case "stroke_width": case "padding_inline": case "padding_block": case "margin_block": case "margin_inline": case "borderRadius": case "rotation": case "gap": case "line_heigth": case "letter_spacing":
-                return <TextInput label={transformLabels(propName)} value={stateProperties[propName]} onChange={(e) => handleInputChange(propName, e.target.value)} />
+                return <TextInput label={transformLabels(propName)} value={stateProperties[propName]?.value} unit={stateProperties[propName]?.unit} onChange={(e) => handleTextInputChange(propName, e.target.value)} isInvalid={stateProperties[propName]?.isInvalid} validationInfo={stateProperties[propName]?.validationInfo} />
             case "file":
                 return <React.Fragment>
                     <FileInput onChange={(e) => handleInputChange(propName, e.target.files[0])} onClear={(e) => handleInputChange(propName, null)} accept={"video/mp4,video/x-m4v,video/*"} />

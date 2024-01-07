@@ -25,6 +25,7 @@ import Divider from "./Components/Widgets/Divider/Divider";
 
 
 export const DEFAULT_COLOR = "#000000";
+export const DEFAULT_DIVIDER_COLOR = "#C2C2C2";
 export const DEFAULT_ICON = sanitizeSvg('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><circle cx="7.499" cy="9.5" r="1.5"></circle><path d="m10.499 14-1.5-2-3 4h12l-4.5-6z"></path><path d="M19.999 4h-16c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm-16 14V6h16l.002 12H3.999z"></path></svg>')
 export const HEADER_SIZES = ["h1", "h2", "h3", "h4", "h5", "h6"];
 export const FONT_STYLES = ["thin", "extra-light", "light", "regular", "medium", "semi-bold", "bold", "extra-bold", "black"];
@@ -37,7 +38,7 @@ export const FLEX_DIRECTION_VARIANTS = ["vertical", "horizontal"];
 export const FLEX_ITEM_ALIGNMENT_VARIANTS = ["flex-start", "center", "flex-end", "stretch"];
 export const FLEX_CONTENT_ALIGNMENT_VARIANTS = ["flex-start", "center", "flex-end", "stretch", "space-between", "around"];
 export const FLEX_JUSTIFY_CONTENT_VARIANTS = ["flex-start", "center", "flex-end", "space-between", "space-around", "space-evenly"];
-export const LINKABLE_OBJECTS = ["Text", "Image", "Icon"]
+
 export const widgets_library = [
   {
     order: 0,
@@ -46,19 +47,20 @@ export const widgets_library = [
     cover: COVER_LAYOUT,
     component: <FlexContainer />,
     props: {
-      width: "fill",
-      maxWidth: "",
-      minWidth: "",
-      setWidth: "",
-      borderRadius: "",
-      rotation: "",
-      flex_direction: "",
-      gap: "",
-      padding_inline: "",
-      padding_block: "",
+      width: "fixed",
+      setWidth: { value: "25", min: "0", max: "100", unit: "%", },
+
+      // maxWidth: { value: "", min: "0", max: "100", unit: "%" },
+      // minWidth: { value: "", min: "0", max: "100", unit: "%" },
+      borderRadius: { value: "0", min: "0", max: "100", unit: "px" },
+      rotation: { value: "0", unit: "deg" },
+      flex_direction: "vertical",
+      gap: { value: "0", unit: "px" },
+      padding_inline: { value: "12", unit: "px" },
+      padding_block: { value: "12", unit: "px" },
       backgroundColor: "#ffffff",
       border_color: "#000000",
-      border_width: "0",
+      border_width: { value: "0", unit: "px" },
       innerWidgets: [],
       innerWidgets: [],
       clipOverflowContent: false,
@@ -81,7 +83,7 @@ export const widgets_library = [
     cover: COVER_HEADING,
     component: <Header />,
     props: {
-      value: "Header Initial Value",
+      value: { value: "Header Initial Value" },
       color: DEFAULT_COLOR,
       font_style: "regular",
       header_size: "h1",
@@ -102,15 +104,15 @@ export const widgets_library = [
     cover: COVER_TEXT,
     component: <Text />,
     props: {
-      value: "Text Initial Value",
+      value: { value: "Text Initial Value" },
       color: DEFAULT_COLOR,
       font_style: "regular",
-      font_size: "16",
+      font_size: { value: "16", min: "1", max: "512", unit: "px" },
       text_align: "left",
       text_casing: "initial",
       text_decoration: "none",
       line_height: "normal",
-      letter_spacing: "0",
+      letter_spacing: { value: "0", min: "0", max: "100", unit: "px" },
       truncate: false,
     },
     blueprints: {
@@ -127,13 +129,9 @@ export const widgets_library = [
     cover: COVER_LINK,
     component: <Link />,
     props: {
-      url: "#",
-      link_object: "",
-      innerWidget: {},
+      url: { value: "https://www.google.pl/?hl=pl" },
     },
-    blueprints: {
-      __link_object: LINKABLE_OBJECTS,
-    }
+
   },
   {
     order: 0,
@@ -142,13 +140,13 @@ export const widgets_library = [
     cover: COVER_ICON,
     component: <Icon />,
     props: {
-      svg: DEFAULT_ICON,
+      svg: { value: DEFAULT_ICON },
       fill_color: DEFAULT_COLOR,
       transparent_fill: false,
       stroke_color: DEFAULT_COLOR,
       transparent_stroke: false,
-      stroke_width: "0",
-      size: "40",
+      stroke_width: { value: "0", min: "0", max: "512", unit: "px" },
+      size: { value: "40", min: "0", max: "512", unit: "px" },
     },
   },
   {
@@ -158,7 +156,7 @@ export const widgets_library = [
     cover: COVER_IMG,
     component: <Image />,
     props: {
-      url: "https://images.unsplash.com/photo-1682686580036-b5e25932ce9a?q=80&w=1550&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      url: { value: "https://images.unsplash.com/photo-1682686580036-b5e25932ce9a?q=80&w=1550&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" }
     },
   },
   {
@@ -168,7 +166,7 @@ export const widgets_library = [
     cover: COVER_VIDEO,
     component: <Video />,
     props: {
-      url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      url: { value: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" },
       controls: "true",
       autoplay: "false",
       loop: "true",
@@ -182,7 +180,7 @@ export const widgets_library = [
     cover: COVER_FRAME,
     component: <Frame />,
     props: {
-      url: "",
+      url: { value: "" },
     },
   },
   {
@@ -192,11 +190,11 @@ export const widgets_library = [
     cover: COVER_DIVIDER,
     component: <Divider />,
     props: {
-      color: DEFAULT_COLOR,
+      color: DEFAULT_DIVIDER_COLOR,
       border_style: "solid",
-      border_width: "2",
-      margin_inline: "0",
-      margin_block: "0",
+      border_width: { value: "2", min: "0", max: "50", unit: "px" },
+      margin_inline: { value: "16", min: "0", max: "50", unit: "px" },
+      margin_block: { value: "32", min: "0", max: "50", unit: "px" },
     },
     blueprints: {
       __border_style: BORDER_STYLES,

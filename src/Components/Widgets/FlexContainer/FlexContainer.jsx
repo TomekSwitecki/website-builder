@@ -44,13 +44,14 @@ function FlexContainer({ id, align = "center", direction = "row", gap = "8", hei
         return Array.from(results);
     }
 
+    console.log(props.padding_inline.value)
     const generatedStyles = {
-        borderRadius: props.borderRadius + "px",
-        gap: props.gap + "px",
+        borderRadius: props.borderRadius.value + props.borderRadius.unit,
+        gap: props.gap.value + props.gap.unit,
         backgroundColor: props.backgroundColor,
-        paddingBlock: props.padding_block + "px",
-        paddingInline: props.padding_inline + "px",
-        borderWidth: props.border_width + "px",
+        paddingBlock: props.padding_block.value + props.gap.unit,
+        paddingInline: props.padding_inline.value + props.gap.unit,
+        borderWidth: props.border_width.value + props.border_width.unit,
         borderColor: props.border_color,
         overflow: props.clipOverflowContent ? "hidden" : "visible",
         justifyContent: props.flex_justify_content,

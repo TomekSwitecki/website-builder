@@ -11,9 +11,9 @@ function Divider({ props }) {
     const generatedStyles = {
         borderColor: props.color,
         borderStyle: props.border_style,
-        borderWidth: props.border_width+"px",
-        marginBlock:props.margin_block+"px",
-        marginInline:props.margin_inline+"px",
+        borderWidth: props.border_width.value + props.border_width.unit,
+        marginBlock: props.margin_block.value + props.margin_block.unit,
+        marginInline: props.margin_inline.value + props.margin_inline.unit,
     };
 
 

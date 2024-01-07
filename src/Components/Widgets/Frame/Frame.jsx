@@ -19,12 +19,12 @@ function Frame({ props }) {
 
 
   useEffect(() => {
-    prepareIframe(JSON.stringify(props.url))
-  }, [props.src])
+    prepareIframe(JSON.stringify(props.url.value))
+  }, [props.url.value])
 
   return (
     <div className="frame__container">
-      {prepareIframe(props.url)}
+      {prepareIframe(props.url.value)}
     </div>
   );
 }

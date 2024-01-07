@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 
 function Image({ props }) {
   return (
-    <img className="image" src={props.url}>
+    <img className="image" src={props.url.value}>
     </img>
   )
 }

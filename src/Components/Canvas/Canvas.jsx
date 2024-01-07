@@ -11,7 +11,7 @@ import { useCanvasContext } from '../ContextProviders/CanvasProvider';
 function Canvas() {
   const { handleReorder, addWidget, canvasWidgets, widgetFactory, removeWidget, draggedWidget, updateWidget, mousePointer, pointedWidget, clearDragHandle, setRenderedCanvasWidgets, orderRecalculation } = useWidgetContext();
   const [innerWidgets, setInnerWidgets] = useState([]);
-  const { canvasFont, googleFontsUrl, canvasBgColor, backgroundImageUrl } = useCanvasContext();
+  const { canvasFont, googleFontsUrl, canvasBgColor, backgroundImageUrl, backgroundImageSize } = useCanvasContext();
 
 
   const [{ isOver, isOverCurrent }, drop] = useDrop(() => ({
@@ -107,7 +107,7 @@ function Canvas() {
   }, [backgroundImageUrl]);
 
   return (
-    <div style={{ fontFamily: canvasFont, background: canvasBgColor + " url(" + backgroundImageUrl + ")" }} ref={drop} id="designer-canvas" className={CANVAS_CN} onDragOver={(e) => mousePointer(e)} onMouseOver={(e) => mousePointer(e)}  >
+    <div style={{ fontFamily: canvasFont, backgroundSize: backgroundImageSize, background: canvasBgColor + " url(" + backgroundImageUrl + ")" }} ref={drop} id="designer-canvas" className={CANVAS_CN} onDragOver={(e) => mousePointer(e)} onMouseOver={(e) => mousePointer(e)}  >
       <Helmet>
         {googleFontsUrl !== '' && (
           <link rel="stylesheet" type="text/css" href={googleFontsUrl} />

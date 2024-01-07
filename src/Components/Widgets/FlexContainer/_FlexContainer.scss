@@ -2,10 +2,11 @@
 @import "../../../mixins";
 
 .flex_container {
+    width: 100%;
     display: flex;
     flex-direction: column;
     padding: 36px;
-    width: inherit;
+    // width: inherit;
     box-sizing: border-box;
     background: white;
     border-style: solid;

@@ -20,7 +20,7 @@ function Header({ props }) {
 
   return (
     <div style={generatedStyles} className={classBuilder("header", headerOptions)}>
-      {props.value}
+      {props.value.value}
       {props.size}
     </div>
   );

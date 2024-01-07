@@ -9,24 +9,21 @@ function Video({ props }) {
       const videoURL = URL.createObjectURL(props.file);
       setVideoUrl(videoURL);
     }
-    else
-    {
+    else {
       setVideoUrl(null);
     }
   }, [props.file]);
 
-  useEffect(() => {
-    if(!props.url)
-    {
-      alert("test")
-    }
-  }, [props.url]);
+  // useEffect(() => {
+  //   if (!props.url.value) {
 
-  // Check if videoUrl is empty and show a loading message
-  if (!videoUrl && props.url) {
-    return     <video key={videoUrl} className="video" controls={props.controls} autoPlay={props.autoPlay} loop={props.loop}>
-    <source src={props.url} type="video/mp4"></source>
-  </video>;
+  //   }
+  // }, [props.url.value]);
+
+  if (!videoUrl && props.url.value) {
+    return <video key={videoUrl} className="video" controls={props.controls} autoPlay={props.autoPlay} loop={props.loop}>
+      <source src={props.url.value} type="video/mp4"></source>
+    </video>;
   }
 
   return (
@@ -34,7 +31,7 @@ function Video({ props }) {
       <source src={videoUrl} type="video/mp4"></source>
     </video>
   );
-  
+
 }
 
 export default Video;

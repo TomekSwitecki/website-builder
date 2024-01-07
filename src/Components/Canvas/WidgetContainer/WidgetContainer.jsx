@@ -91,8 +91,8 @@ function WidgetContainer({ id, parentID, order, children, widget }) {
     let inlineWidth = "";
     let inlineMaxWidth = "";
     let inlineMinWidth = "";
-
-    if (widget.name === "Container") {
+    console.log(widget.props)
+    if (widget.name === "Container" || widget.name === "Link") {
         inlineWidth = widget.props.width;
         if (widget.props.width === "fill") {
             inlineWidth = "100%"
@@ -100,9 +100,9 @@ function WidgetContainer({ id, parentID, order, children, widget }) {
         else if (widget.props.width === "hug") {
             inlineWidth = "fit-content"
         } else if (widget.props.width === "fixed") {
-            inlineMaxWidth = widget.props.maxWidth + "px";
-            inlineMinWidth = widget.props.minWidth + "px";
-            inlineWidth = widget.props.setWidth + "px";
+            // inlineMaxWidth = widget.props.maxWidth + "px";
+            // inlineMinWidth = widget.props.minWidth + "px";
+            inlineWidth = widget.props.setWidth?.value + widget.props.setWidth?.unit;
         }
     }
     else if (widget.name === "Frame" || widget.name === "Divider") {
@@ -149,7 +149,7 @@ function WidgetContainer({ id, parentID, order, children, widget }) {
         width: inlineWidth,
         maxWidth: inlineMaxWidth,
         minWidth: inlineMinWidth,
-        transform: `rotate(${widget.props.rotation}deg)`
+        transform: `rotate(${widget.props.rotation?.value}deg)`
     };
 
     return (

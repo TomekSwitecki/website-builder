@@ -11,11 +11,22 @@
     justify-content: space-between;
 }
 
+.text__input-wrapper {
+    position: relative;
+}
 
 .text__input {
     @include __input;
     @include truncate;
     padding-right: 16px;
+}
+
+.text__unit {
+    @include input-auxiliary-label($black);
+    opacity: 0.6;
+    position: absolute;
+    right: 12px;
+    top: 25%;
 }
 
 .text__input--textarea {
