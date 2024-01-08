@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useWidgetContext } from '../../ContextProviders/WidgetProvider';
 import BEMBuilder from '../../../Utils/BEMbuilder';
-import { DndProvider, useDrag, useDrop, DragSource, DragPreviewImage } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { ItemTypes } from '../../../WidgetTypes';
+
 import { XmarkCircle, ArrowLeftCircle, ArrowRightCircle } from '@vectopus/atlas-icons-react';
 import Button, { ButtonColor, ButtonShape, ButtonType, ButtonSize } from '../../Designer/Button/Button';
+import Badge from '../../Designer/Badge/Badge';
 
 
 function WidgetContainer({ id, parentID, order, children, widget }) {
@@ -27,11 +26,11 @@ function WidgetContainer({ id, parentID, order, children, widget }) {
 
     useEffect(() => {
         handleWidgetStates(selectedWidget && selectedWidget.id === id, "selected");
-    }, [selectedWidget]);
+    }, [selectedWidget, widget.order, canvasWidgets, pointedWidget]);
 
     useEffect(() => {
         handleWidgetStates(pointedWidget && pointedWidget === id, "pointed");
-    }, [pointedWidget]);
+    }, [pointedWidget, widget.order]);
     useEffect(() => {
         let newStates = [];
 
@@ -41,26 +40,7 @@ function WidgetContainer({ id, parentID, order, children, widget }) {
             newStates = ["linkWrapping"];
         }
         setWidgetStates(newStates);
-    }, [widget.name]);
-
-
-    const [{ isDragging }, drag] = useDrag(useMemo(() => ({
-        type: ItemTypes.WIDGET_CANVAS_ITEM,
-        item: widget,
-        canDrag: () => widget.type === ItemTypes.WIDGET_CANVAS_ITEM,
-        onDrag: () => {
-            console.log(e);
-            console.log(widget);
-            setDragHandler(widget);
-            selectWidget(widget);
-            e.dataTransfer.setDragImage(new Image(), 0, 0);
-        },
-        collect: (monitor) => ({
-            isDragging: !!monitor.isDragging(),
-            draggedItem: monitor.getItem(),
-        }),
-    }), [widget]));
-
+    }, [widget.name, widget.order]);
 
 
 
@@ -82,34 +62,49 @@ function WidgetContainer({ id, parentID, order, children, widget }) {
     const handleWidgetDelete = (e) => {
         e.stopPropagation();
         handleReorder(widget, "delete");
-        removeWidget(widget);
+        //removeWidget(widget);
     }
 
 
     const widgetContainerClass = BEMBuilder('widget__container', widgetStates);
 
     let inlineWidth = "";
+    let inlineHeight = "";
     let inlineMaxWidth = "";
     let inlineMinWidth = "";
-    console.log(widget.props)
+
     if (widget.name === "Container" || widget.name === "Link") {
-        inlineWidth = widget.props.width;
-        if (widget.props.width === "fill") {
+        inlineWidth = widget.props.width_type;
+        inlineHeight = widget.props.height_type
+
+        if (widget.props.height_type === "fill") {
+            inlineHeight = "100%"
+        }
+        else if (widget.props.height_type === "hug") {
+            inlineHeight = "fit-content"
+        } else if (widget.props.height_type === "fixed") {
+            inlineHeight = widget.props.height?.value + widget.props.height?.unit;
+        }
+
+        if (widget.props.width_type === "fill") {
             inlineWidth = "100%"
         }
-        else if (widget.props.width === "hug") {
+        else if (widget.props.width_type === "hug") {
             inlineWidth = "fit-content"
-        } else if (widget.props.width === "fixed") {
+        } else if (widget.props.width_type === "fixed") {
             // inlineMaxWidth = widget.props.maxWidth + "px";
             // inlineMinWidth = widget.props.minWidth + "px";
-            inlineWidth = widget.props.setWidth?.value + widget.props.setWidth?.unit;
+            inlineWidth = widget.props.width?.value + widget.props.width?.unit;
         }
     }
-    else if (widget.name === "Frame" || widget.name === "Divider") {
-        inlineWidth = "fill";
+    else if (widget.name === "Frame" || widget.name === "Divider" || widget.name === "Link") {
+        inlineWidth = "100%";
+    }
+    else if (widget.name === "Frame" || widget.name === "Image" || widget.name === "Video") {
+        inlineHeight = "100%"
     }
     else {
-        inlineMaxWidth = "100%";
+        // inlineMaxWidth = "100%";
         inlineWidth = "fit-content";
     }
 
@@ -117,48 +112,57 @@ function WidgetContainer({ id, parentID, order, children, widget }) {
     const ActionButtons = () => {
         return (
             <div className='widget__container-action-buttons'>
-                {order}
-                <Button
-                    type={ButtonType.Filled}
-                    color={ButtonColor.Default}
-                    shape={ButtonShape.Rounded}
-                    size={ButtonSize.Icon}
-                    text={<ArrowLeftCircle size={24} />}
-                    onClick={() => handleReorder(widget, 'before')}
-                />
-                <Button
-                    type={ButtonType.Filled}
-                    color={ButtonColor.Default}
-                    shape={ButtonShape.Rounded}
-                    size={ButtonSize.Icon}
-                    text={<ArrowRightCircle size={24} />}
-                    onClick={() => handleReorder(widget, 'after')}
-                />
-                <Button
-                    type={ButtonType.Filled}
-                    color={ButtonColor.Negative}
-                    shape={ButtonShape.Rounded}
-                    size={ButtonSize.Icon}
-                    text={<XmarkCircle size={24} />}
-                    onClick={(e) => handleWidgetDelete(e)}
-                />
-            </div>)
+                <Badge>{order}</Badge>
+                <div className='widget__container-inner'>
+                    <Button
+                        type={ButtonType.Filled}
+                        color={ButtonColor.Default}
+                        shape={ButtonShape.Rounded}
+                        size={ButtonSize.Icon}
+                        text={<ArrowLeftCircle size={24} />}
+                        onClick={() => handleReorder(widget, 'before')}
+                    />
+                    <Button
+                        type={ButtonType.Filled}
+                        color={ButtonColor.Default}
+                        shape={ButtonShape.Rounded}
+                        size={ButtonSize.Icon}
+                        text={<ArrowRightCircle size={24} />}
+                        onClick={() => handleReorder(widget, 'after')}
+                    />
+                    <Button
+                        type={ButtonType.Filled}
+                        color={ButtonColor.Negative}
+                        shape={ButtonShape.Rounded}
+                        size={ButtonSize.Icon}
+                        text={<XmarkCircle size={24} />}
+                        onClick={(e) => handleWidgetDelete(e)}
+                    />
+                </div>
+            </div >)
     }
 
     const generatedStyles = {
         width: inlineWidth,
+        height: inlineHeight,
         maxWidth: inlineMaxWidth,
         minWidth: inlineMinWidth,
         transform: `rotate(${widget.props.rotation?.value}deg)`
     };
 
+    const handleDrag = (e) => {
+        e.stopPropagation();
+        e.dataTransfer.setData('text/plain', '');
+        setDragHandler(widget);
+    }
+
     return (
-        <div style={generatedStyles} data-type={widget.name} ref={drag} id={id} className={widgetContainerClass} onClick={handleMouseClick} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} >
-            {(selectedWidget && selectedWidget.id === id && selectedWidget.type != ItemTypes.WIDGET_LINK_ITEM) &&
+        <div draggable="true" style={generatedStyles} data-type={widget.name} id={id} className={widgetContainerClass} onDragStart={(e) => handleDrag(e)} onClick={handleMouseClick} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} >
+            {(selectedWidget && selectedWidget.id === id) &&
                 <ActionButtons />
             }
             {children}
-        </div>
+        </div >
     );
 }
 

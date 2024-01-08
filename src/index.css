@@ -7,7 +7,8 @@
   text-wrap: nowrap;
 }
 
-.canvas {
+.designer .canvas {
+  position: relative;
   margin: auto;
   margin-block: 32px;
   margin-inline: 72px;
@@ -19,6 +20,26 @@
   overflow-y: auto;
   overflow-x: hidden;
   box-shadow: 0px 22.336px 17.869px 0px rgba(0, 0, 0, 0.04), 0px 41.778px 33.422px 0px rgba(0, 0, 0, 0.05), 0px 100px 80px 0px rgba(0, 0, 0, 0.07);
+}
+
+.designer .canvas::after {
+  box-sizing: border-box;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  content: "";
+  position: absolute;
+  padding: 32px;
+  box-shadow: 0px 0px 0px 32px #F6F7FA inset;
+  background-clip: content-box, padding-box;
+}
+
+.canvas {
+  height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .input__label {
@@ -233,7 +254,7 @@
   padding: 6px 12px;
   display: flex;
   flex-direction: row;
-  gap: 4px;
+  gap: 16px;
   position: absolute;
   right: 0;
   top: -40px;
@@ -241,6 +262,27 @@
   right: -3px;
   border-radius: 8px 8px 0 0;
   box-shadow: 0px 2.767px 2.214px 0px rgba(0, 0, 0, 0.02), 0px 6.65px 5.32px 0px rgba(0, 0, 0, 0.03), 0px 12.522px 10.017px 0px rgba(0, 0, 0, 0.04), 0px 22.336px 17.869px 0px rgba(0, 0, 0, 0.04), 0px 41.778px 33.422px 0px rgba(0, 0, 0, 0.05), 0px 100px 80px 0px rgba(0, 0, 0, 0.07);
+}
+
+.widget__container .widget__container-action-buttons .widget__container-inner {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.widget__container [data-type=Divider] {
+  margin: 0;
+}
+
+.widget__container [data-type=Frame],
+.widget__container [data-type=Image],
+.widget__container [data-type=Video] {
+  height: 100%;
+}
+
+.widget__container [data-type=Frame],
+.widget__container [data-type=Divider] {
+  width: 100%;
 }
 
 .input__label {
@@ -254,9 +296,9 @@
 
 .flex_container {
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 36px;
   box-sizing: border-box;
   background: white;
   border-style: solid;
@@ -374,6 +416,7 @@ h6 {
 .frame__container {
   display: flex;
   flex-grow: 1;
+  height: 100%;
 }
 
 .frame__container iframe {
@@ -409,6 +452,20 @@ a {
 
 .link {
   width: 100%;
+  pointer-events: none;
+}
+
+.link a {
+  pointer-events: none;
+}
+
+.link .flex_container {
+  pointer-events: none;
+  height: 250px;
+}
+
+.button {
+  cursor: pointer;
 }
 
 .input__label {
@@ -1131,6 +1188,29 @@ button[disabled] {
 .tab-button:hover {
   background: #F6F7FA;
   border-bottom: 4px solid #0075E7;
+}
+
+.input__label {
+  color: #111315;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-wrap: nowrap;
+}
+
+.badge {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #0075E7;
+  border-radius: 100%;
+  height: 24px;
+  width: 24px;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 img {

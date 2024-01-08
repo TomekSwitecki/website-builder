@@ -7,4 +7,14 @@ a {
 
 .link {
     width: 100%;
+    pointer-events: none;
+
+    a {
+        pointer-events: none;
+    }
+
+    .flex_container {
+        pointer-events: none;
+        height: 250px;
+    }
 }

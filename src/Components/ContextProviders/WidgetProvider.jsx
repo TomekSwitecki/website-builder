@@ -3,7 +3,6 @@ import WidgetContainer from '../Canvas/WidgetContainer/WidgetContainer';
 const WidgetContext = createContext();
 import { widgets_library } from '../../WidgetLibrary';
 import { v4 as uuidv4 } from 'uuid';
-import { ItemTypes } from '../../WidgetTypes';
 
 
 export const WidgetProvider = ({ children }) => {
@@ -25,7 +24,7 @@ export const WidgetProvider = ({ children }) => {
 
 
     function setDragHandler(widget) {
-        setSelectedWidget(widget)
+        console.log(widget)
         setDraggedWidget(widget);
     }
     function clearDragHandle() {
@@ -35,13 +34,11 @@ export const WidgetProvider = ({ children }) => {
 
 
     function updateWidget(selectedWidgetID, modifiedProps) {
-        console.log(modifiedProps)
         setCanvasWidgets((canvasWidgets) =>
             canvasWidgets.map((widget) =>
                 widget.id === selectedWidgetID ? { ...widget, props: { ...widget.props, ...modifiedProps } } : widget
             )
         );
-        console.log(canvasWidgets)
     }
 
     const addWidget = (widget) => {
@@ -88,7 +85,7 @@ export const WidgetProvider = ({ children }) => {
                 {filteredUniqueWidgets
                     .sort(sortWidgets)
                     .map((widget, index) => (
-                        <WidgetContainer order={index} id={widget.id} key={index} widget={widget}>
+                        <WidgetContainer order={widget.order} id={widget.id} key={index} widget={widget}>
                             {React.cloneElement(widget.component, {
                                 id: widget.id,
                                 props: widget.props,
@@ -101,108 +98,71 @@ export const WidgetProvider = ({ children }) => {
     };
 
 
-    const widgetLink = (widget) => {
-        console.log(widget)
-        if (widget && widget.component) {
-            const clonedWidget = (
-                <WidgetContainer id={widget.id} widget={widget}>
-                    {React.cloneElement(widget.component, {
-                        id: widget.id,
-                        props: widget.props,
-                    })}
-                </WidgetContainer>
-            );
-
-            // Now that the widget has been cloned, you can safely remove it
-            return clonedWidget;
-        }
-        //removeWidget(widget);
-        return null;
-    }
-
-    const widgetCreate = (widgetName, parentID, childID) => {
-        if (widgetName) {
-            const widgetToCreate = widgets_library.find(widget => widget.name === widgetName);
-            const generatedID = uuidv4();
-            const widgetData = {
-                id: childID,
-                parentID: parentID,
-                order: 0,
-                name: widgetToCreate?.name,
-                component: widgetToCreate?.component,
-                props: widgetToCreate?.props,
-                type: ItemTypes.WIDGET_LINK_ITEM,
-            }
-            const createdWidget = (
-                <WidgetContainer id={widgetData.id} widget={widgetData}>
-                    {React.cloneElement(widgetData.component, {
-                        id: widgetData.id,
-                        props: { ...widgetData.props },
-                        order: widgetData.order,
-                    })}
-                </WidgetContainer>
-            );
-
-            //setCanvasWidgets((prevWidgets) => [...prevWidgets, widgetData]);
-            addWidget(widgetData)
-            console.log(createdWidget)
-            return createdWidget;
-
-
-        }
-        // return null;
-    }
 
     const handleReorder = (widget, direction) => {
-
-        if (!widget.parentID) {
-            console.log(canvasWidgets)
+        const canvasReorder = !widget.parentID;
+        if (canvasReorder) {
+            console.log(renderedCanvasWidgets);
             setCanvasWidgets((prevWidgets) => {
-                if (selectedWidget) {
-                    const selectedWidgetIndex = prevWidgets.findIndex((widget) => widget.id === selectedWidget.id);
-
-                    if (selectedWidgetIndex !== -1) {
-
-                        if (direction === 'delete') {
-
-                        }
-
-                        // Calculate the target index based on the direction
-                        const targetIndex = direction === 'before' ? selectedWidgetIndex - 1 : selectedWidgetIndex + 1;
-
-                        // Ensure the target index is within bounds
-                        const clampedTargetIndex = Math.max(0, Math.min(targetIndex, renderedCanvasWidgets.length));
-
-                        // Splice the array to reorder widgets
-                        const updatedWidgets = [...prevWidgets];
-                        const [removedWidget] = updatedWidgets.splice(selectedWidgetIndex, 1);
-                        updatedWidgets.splice(clampedTargetIndex, 0, removedWidget);
-
-                        // Update the order numbers
-                        updatedWidgets.forEach((widget, index) => {
-                            widget.order = index;
-                        });
-
-                        return updatedWidgets;
-                    }
-                }
-
-                // Return the original widgets if no selected widget
-                return prevWidgets;
+                return reorderWidgets(renderedCanvasWidgets, widget, direction);
             });
-        }
-        else {
+        } else {
+            const scopedInnerWidgets = canvasWidgets.find((scopedContainer) => {
+                return (
+                    scopedContainer.props.innerWidgets &&
+                    scopedContainer.props.innerWidgets.some((innerWidget) => innerWidget.id === widget.id)
+                );
+            });
+            console.log(scopedInnerWidgets);
+            setCanvasWidgets((prevWidgets) => {
+                return reorderWidgets(scopedInnerWidgets.props.innerWidgets, widget, direction);
+            });
 
         }
-
     };
 
-    const orderRecalculation = (scope) => {
-        scope.forEach((widget, index) => {
-            widget.order = index;
-        });
-    };
+    const reorderWidgets = (widgetsArray, selectedWidget, direction) => {
+        if (widgetsArray.length > 0) {
+            const selectedWidgetIndex = widgetsArray.findIndex((widget) => widget.id === selectedWidget.id);
+            let updatedWidgets;
 
+            // Calculate the target index based on the direction
+            const targetIndex = direction === 'before' ? selectedWidgetIndex - 1 : selectedWidgetIndex + 1;
+
+            // Ensure the target index is within bounds
+            const clampedTargetIndex = Math.max(0, Math.min(targetIndex, widgetsArray.length));
+
+            // Splice the array to reorder widgets
+            updatedWidgets = widgetsArray;
+
+            const [removedWidget] = updatedWidgets.splice(selectedWidgetIndex, 1);
+            console.log(removedWidget)
+            if (direction === 'before' || direction === 'after') {
+                updatedWidgets.splice(clampedTargetIndex, 0, removedWidget);
+            }
+            else if (direction === 'delete') {
+                removeWidget(removedWidget)
+            }
+
+            // Update the order numbers
+            updatedWidgets.forEach((widget, index) => {
+                widget.order = index;
+            });
+
+            console.log(removedWidget)
+            canvasWidgets.forEach((canvasWidget) => {
+                const isDuplicate = updatedWidgets.some((widget) => widget.id === canvasWidget.id || canvasWidget.id === removedWidget.id);
+                if (!isDuplicate) {
+                    updatedWidgets.push(canvasWidget);
+                }
+            });
+            console.log(updatedWidgets)
+            return updatedWidgets;
+        }
+
+        // Return the original widgets if the array is empty
+        return widgetsArray;
+    };
 
 
     function getRootElement(element) {
@@ -238,7 +198,7 @@ export const WidgetProvider = ({ children }) => {
     // }, [pointedWidget]);
 
     return (
-        <WidgetContext.Provider value={{ widgetLink, widgetCreate, mousePointer, setCanvasWidgets, draggedWidget, selectedWidget, selectWidget, canvasWidgets, clearSelectedWidget, addWidget, removeWidget, updateWidget, pointedWidget, setPointedWidget, widgetFactory, setDragHandler, clearDragHandle, handleReorder, orderRecalculation, setRenderedCanvasWidgets }}>
+        <WidgetContext.Provider value={{ renderedCanvasWidgets, mousePointer, setCanvasWidgets, draggedWidget, selectedWidget, selectWidget, canvasWidgets, clearSelectedWidget, addWidget, removeWidget, updateWidget, pointedWidget, setPointedWidget, widgetFactory, setDragHandler, clearDragHandle, handleReorder, setRenderedCanvasWidgets }}>
             {children}
         </WidgetContext.Provider>
     );

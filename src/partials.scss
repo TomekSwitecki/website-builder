@@ -16,6 +16,7 @@
 @use "./Components/Widgets/Divider/divider";
 @use "./Components/Widgets/Icon/icon";
 @use "./Components/Widgets/Link/link";
+@use "./Components/Widgets/Button/button_";
 
 
 //designer
@@ -26,3 +27,4 @@
 @use "./Components/Designer/ColorSelect/colorSelect";
 @use "./Components/Designer/FileInput/fileInput";
 @use "./Components/Designer/Tabs/tabs";
+@use "./Components/Designer/Badge/badge";

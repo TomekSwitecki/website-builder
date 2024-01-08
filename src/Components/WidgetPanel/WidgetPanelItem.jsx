@@ -1,37 +1,32 @@
-import React from 'react';
-import { DndProvider, useDrag, useDrop } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { ItemTypes } from '../../WidgetTypes';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 const uuid = require('uuid');
-
+import { useWidgetContext } from '../ContextProviders/WidgetProvider';
 
 function WidgetPanelItem({ widget, index }) {
 
+  const { setDragHandler } = useWidgetContext();
 
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: ItemTypes.WIDGET_PANEL_ITEM,
-    item: (monitor) => ({
+  const handleDrag = (e) => {
+    e.dataTransfer.setData('text/plain', '');
+    const createdItem =
+    {
       id: uuidv4(),
       parentID: "",
       order: 0,
       name: widget?.name,
       component: widget?.component,
       props: widget?.props,
-      type: ItemTypes.WIDGET_PANEL_ITEM,
-    }),
-    collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
-      draggedItem: monitor.getItem(),
-    })
-  }))
-
+    }
+    setDragHandler(createdItem);
+  }
 
   return (
     <div
+      draggable
       key={index}
       className='widget-panel__item'
-      ref={drag}
+      onDragStart={(e) => handleDrag(e)}
     >
       <div className='widget-panel_item-container'>
         <img src={widget?.cover} />

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
-function Badge({ label, disabled, checked, onChange }) {
+function Badge({ children }) {
 
     return (
         <div className={"badge"}>
-            
+            {children}
         </div>
     );
 }

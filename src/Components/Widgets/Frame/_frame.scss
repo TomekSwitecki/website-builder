@@ -3,6 +3,7 @@
 .frame__container {
     display: flex;
     flex-grow: 1;
+    height: 100%;
 
     iframe {
         border: none;

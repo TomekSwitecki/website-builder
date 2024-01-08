@@ -16,7 +16,7 @@ function Text({ props }) {
     fontSize: props.font_size.value + props.font_size.unit,
     fontWeight: fontStyleDecoder(props.font_style),
     letterSpacing: props.letter_spacing.value + props.letter_spacing.unit,
-    lineHeight: props.line_height,
+    lineHeight: props.line_height.value + props.letter_spacing.unit,
     truncate: props.truncate,
   };
   console.log(props.value.value)

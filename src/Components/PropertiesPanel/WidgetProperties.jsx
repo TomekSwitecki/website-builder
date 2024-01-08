@@ -80,9 +80,9 @@ function WidgetProperties() {
         switch (propName) {
             case "text": case "value": case "url": case "svg":
                 return <TextInput textArea label={transformLabels(propName)} value={stateProperties[propName]?.value} onChange={(e) => handleTextInputChange(propName, e.target.value)} />
-            case "minWidth": case "maxWidth": case "setWidth": case "font_size": case "border_width": case "size":
+            case "minWidth": case "maxWidth": case "width": case "height": case "font_size": case "border_width": case "size":
                 return <TextInput label={transformLabels(propName)} value={stateProperties[propName]?.value} unit={stateProperties[propName]?.unit} onChange={(e) => handleTextInputChange(propName, e.target.value)} isInvalid={stateProperties[propName]?.isInvalid} validationInfo={stateProperties[propName]?.validationInfo} />
-            case "number": case "border_width": case "stroke_width": case "padding_inline": case "padding_block": case "margin_block": case "margin_inline": case "borderRadius": case "rotation": case "gap": case "line_heigth": case "letter_spacing":
+            case "number": case "border_width": case "stroke_width": case "padding_inline": case "padding_block": case "margin_block": case "margin_inline": case "borderRadius": case "rotation": case "gap": case "line_height": case "letter_spacing":
                 return <TextInput label={transformLabels(propName)} value={stateProperties[propName]?.value} unit={stateProperties[propName]?.unit} onChange={(e) => handleTextInputChange(propName, e.target.value)} isInvalid={stateProperties[propName]?.isInvalid} validationInfo={stateProperties[propName]?.validationInfo} />
             case "file":
                 return <React.Fragment>
@@ -98,8 +98,10 @@ function WidgetProperties() {
                 return selectGenerator("text_decoration", stateProperties, handleInputChange);
             case "header_size":
                 return selectGenerator("header_size", stateProperties, handleInputChange);
-            case "width":
-                return selectGenerator("width", stateProperties, handleInputChange);
+            case "width_type":
+                return selectGenerator("width_type", stateProperties, handleInputChange);
+            case "height_type":
+                return selectGenerator("height_type", stateProperties, handleInputChange);
             case "flex_direction":
                 return selectGenerator("flex_direction", stateProperties, handleInputChange);
             case "flex_align_items":
@@ -110,6 +112,8 @@ function WidgetProperties() {
                 return selectGenerator("flex_align_content", stateProperties, handleInputChange);
             case "border_style":
                 return selectGenerator("border_style", stateProperties, handleInputChange);
+            case "background_size":
+                return selectGenerator("background_size", stateProperties, handleInputChange);
             // case "link_object":
             //     return <SelectInput label={"Link object"} id={"link_object"} value={stateProperties[propName] || ""} options={canvasWidgets.map(widget => widget.id)} onChange={(value) => handleInputChange(propName, value)} />
             case "link_object":

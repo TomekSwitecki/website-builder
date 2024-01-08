@@ -9,6 +9,7 @@ import Frame from "./Components/Widgets/Frame/Frame";
 import Text from "./Components/Widgets/Text/Text";
 import Link from "./Components/Widgets/Link/Link";
 import Icon from "./Components/Widgets/Icon/Icons";
+import Button from "./Components/Widgets/Button/Button";
 import FlexContainer from "./Components/Widgets/FlexContainer/FlexContainer";
 
 import COVER_HEADING from "../src/Resources/Designer/WidgetCovers/COVER_HEADING.png";
@@ -19,6 +20,7 @@ import COVER_LAYOUT from "../src/Resources/Designer/WidgetCovers/COVER_LAYOUT.pn
 import COVER_FRAME from "../src/Resources/Designer/WidgetCovers/COVER_FRAME.png";
 import COVER_DIVIDER from "../src/Resources/Designer/WidgetCovers/COVER_DIVIDER.png";
 import COVER_LINK from "../src/Resources/Designer/WidgetCovers/COVER_LINK.png";
+import COVER_BUTTON from "../src/Resources/Designer/WidgetCovers/COVER_BUTTON.png";
 import COVER_ICON from "../src/Resources/Designer/WidgetCovers/COVER_ICON.png";
 
 import Divider from "./Components/Widgets/Divider/Divider";
@@ -26,6 +28,9 @@ import Divider from "./Components/Widgets/Divider/Divider";
 
 export const DEFAULT_COLOR = "#000000";
 export const DEFAULT_DIVIDER_COLOR = "#C2C2C2";
+export const DEFAULT_BUTTON_COLOR = "#F6F7FA";
+export const DEFAULT_BUTTON_BORDER_COLOR = "#C2C2C2";
+
 export const DEFAULT_ICON = sanitizeSvg('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><circle cx="7.499" cy="9.5" r="1.5"></circle><path d="m10.499 14-1.5-2-3 4h12l-4.5-6z"></path><path d="M19.999 4h-16c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm-16 14V6h16l.002 12H3.999z"></path></svg>')
 export const HEADER_SIZES = ["h1", "h2", "h3", "h4", "h5", "h6"];
 export const FONT_STYLES = ["thin", "extra-light", "light", "regular", "medium", "semi-bold", "bold", "extra-bold", "black"];
@@ -38,7 +43,7 @@ export const FLEX_DIRECTION_VARIANTS = ["vertical", "horizontal"];
 export const FLEX_ITEM_ALIGNMENT_VARIANTS = ["flex-start", "center", "flex-end", "stretch"];
 export const FLEX_CONTENT_ALIGNMENT_VARIANTS = ["flex-start", "center", "flex-end", "stretch", "space-between", "around"];
 export const FLEX_JUSTIFY_CONTENT_VARIANTS = ["flex-start", "center", "flex-end", "space-between", "space-around", "space-evenly"];
-
+export const BACKGROUND_SIZE = ["contain", "cover", "fill", "scale-down", "none"]
 export const widgets_library = [
   {
     order: 0,
@@ -47,29 +52,31 @@ export const widgets_library = [
     cover: COVER_LAYOUT,
     component: <FlexContainer />,
     props: {
-      width: "fixed",
-      setWidth: { value: "25", min: "0", max: "100", unit: "%", },
-
+      width_type: "fixed",
+      width: { value: "45", min: "0", max: "100", unit: "%", },
+      height_type: "fixed",
+      height: { value: "25", min: "0", max: "100", unit: "%", },
       // maxWidth: { value: "", min: "0", max: "100", unit: "%" },
       // minWidth: { value: "", min: "0", max: "100", unit: "%" },
       borderRadius: { value: "0", min: "0", max: "100", unit: "px" },
       rotation: { value: "0", unit: "deg" },
-      flex_direction: "vertical",
+      flex_direction: "horizontal",
       gap: { value: "0", unit: "px" },
-      padding_inline: { value: "12", unit: "px" },
-      padding_block: { value: "12", unit: "px" },
+      padding_inline: { value: "0", unit: "px" },
+      padding_block: { value: "0", unit: "px" },
       backgroundColor: "#ffffff",
       border_color: "#000000",
       border_width: { value: "0", unit: "px" },
       innerWidgets: [],
       innerWidgets: [],
       clipOverflowContent: false,
-      flex_align_items: "",
+      flex_align_items: "flex-start",
       flex_justify_content: "",
       flex_align_content: ""
     },
     blueprints: {
-      __width: WIDTH_VARIANTS,
+      __width_type: WIDTH_VARIANTS,
+      __height_type: WIDTH_VARIANTS,
       __flex_direction: FLEX_DIRECTION_VARIANTS,
       __flex_align_items: FLEX_ITEM_ALIGNMENT_VARIANTS,
       __flex_justify_content: FLEX_JUSTIFY_CONTENT_VARIANTS,
@@ -111,7 +118,7 @@ export const widgets_library = [
       text_align: "left",
       text_casing: "initial",
       text_decoration: "none",
-      line_height: "normal",
+      line_height: { value: "25", unit: "px" },
       letter_spacing: { value: "0", min: "0", max: "100", unit: "px" },
       truncate: false,
     },
@@ -151,13 +158,39 @@ export const widgets_library = [
   },
   {
     order: 0,
+    name: "Button",
+    description: "Button widget",
+    cover: COVER_BUTTON,
+    component: <Button />,
+    props: {
+      value: { value: "Button" },
+      color: DEFAULT_COLOR,
+      font_style: "regular",
+      font_size: { value: "16", min: "1", max: "512", unit: "px" },
+      text_casing: "initial",
+      padding_inline: { value: "32", unit: "px" },
+      padding_block: { value: "12", unit: "px" },
+      backgroundColor: DEFAULT_BUTTON_COLOR,
+      border_color: DEFAULT_BUTTON_BORDER_COLOR,
+      borderRadius: { value: "8", min: "0", max: "100", unit: "px" },
+      border_width: { value: "2", unit: "px" },
+      border_style: "solid",
+    },
+  },
+  {
+    order: 0,
     name: "Image",
     description: "Image/GIF URL embeding widget.",
     cover: COVER_IMG,
     component: <Image />,
     props: {
-      url: { value: "https://images.unsplash.com/photo-1682686580036-b5e25932ce9a?q=80&w=1550&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" }
+      url: { value: "https://images.unsplash.com/photo-1682686580036-b5e25932ce9a?q=80&w=1550&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
+      background_size: "100%"
     },
+    blueprints: {
+      __background_size: BACKGROUND_SIZE,
+
+    }
   },
   {
     order: 0,
@@ -193,8 +226,8 @@ export const widgets_library = [
       color: DEFAULT_DIVIDER_COLOR,
       border_style: "solid",
       border_width: { value: "2", min: "0", max: "50", unit: "px" },
-      margin_inline: { value: "16", min: "0", max: "50", unit: "px" },
-      margin_block: { value: "32", min: "0", max: "50", unit: "px" },
+      margin_inline: { value: "16", min: "0", max: "512", unit: "px" },
+      margin_block: { value: "32", min: "0", max: "512", unit: "px" },
     },
     blueprints: {
       __border_style: BORDER_STYLES,
