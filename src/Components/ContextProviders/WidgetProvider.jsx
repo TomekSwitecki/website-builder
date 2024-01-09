@@ -152,8 +152,10 @@ export const WidgetProvider = ({ children }) => {
             console.log(removedWidget)
             canvasWidgets.forEach((canvasWidget) => {
                 const isDuplicate = updatedWidgets.some((widget) => widget.id === canvasWidget.id || canvasWidget.id === removedWidget.id);
-                if (!isDuplicate) {
-                    updatedWidgets.push(canvasWidget);
+                if (!(direction === "delete" && canvasWidget.id === removedWidget.id)) {
+                    if (!isDuplicate) {
+                        updatedWidgets.push(canvasWidget);
+                    }
                 }
             });
             console.log(updatedWidgets)
@@ -161,7 +163,7 @@ export const WidgetProvider = ({ children }) => {
         }
 
         // Return the original widgets if the array is empty
-        return widgetsArray;
+        //return widgetsArray;
     };
 
 

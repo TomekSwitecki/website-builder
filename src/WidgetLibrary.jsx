@@ -11,6 +11,8 @@ import Link from "./Components/Widgets/Link/Link";
 import Icon from "./Components/Widgets/Icon/Icons";
 import Button from "./Components/Widgets/Button/Button";
 import FlexContainer from "./Components/Widgets/FlexContainer/FlexContainer";
+import List from "./Components/Widgets/List/List";
+import Divider from "./Components/Widgets/Divider/Divider";
 
 import COVER_HEADING from "../src/Resources/Designer/WidgetCovers/COVER_HEADING.png";
 import COVER_TEXT from "../src/Resources/Designer/WidgetCovers/COVER_TEXT.png";
@@ -22,8 +24,7 @@ import COVER_DIVIDER from "../src/Resources/Designer/WidgetCovers/COVER_DIVIDER.
 import COVER_LINK from "../src/Resources/Designer/WidgetCovers/COVER_LINK.png";
 import COVER_BUTTON from "../src/Resources/Designer/WidgetCovers/COVER_BUTTON.png";
 import COVER_ICON from "../src/Resources/Designer/WidgetCovers/COVER_ICON.png";
-
-import Divider from "./Components/Widgets/Divider/Divider";
+import COVER_LIST from "../src/Resources/Designer/WidgetCovers/COVER_LIST.png";
 
 
 export const DEFAULT_COLOR = "#000000";
@@ -44,6 +45,7 @@ export const FLEX_ITEM_ALIGNMENT_VARIANTS = ["flex-start", "center", "flex-end",
 export const FLEX_CONTENT_ALIGNMENT_VARIANTS = ["flex-start", "center", "flex-end", "stretch", "space-between", "around"];
 export const FLEX_JUSTIFY_CONTENT_VARIANTS = ["flex-start", "center", "flex-end", "space-between", "space-around", "space-evenly"];
 export const BACKGROUND_SIZE = ["contain", "cover", "fill", "scale-down", "none"]
+export const LIST_TYPES = ["ordered", "unordered"];
 export const widgets_library = [
   {
     order: 0,
@@ -127,6 +129,28 @@ export const widgets_library = [
       __text_align: TEXT_ALIGNMENTS,
       __text_casing: TEXT_CASING,
       __text_decoration: TEXT_DECORATIONS
+    }
+  },
+  {
+    order: 0,
+    name: "List",
+    description: "List widget",
+    cover: COVER_LIST,
+    component: <List />,
+    props: {
+      list_type: "ordered",
+      value: { value: "List Item 1 \nList Item 2\nList Item 3" },
+      color: DEFAULT_COLOR,
+      font_size: { value: "16", min: "1", max: "512", unit: "px" },
+      font_style: "regular",
+      text_align: "left",
+      text_casing: "initial",
+      text_decoration: "none",
+      line_height: { value: "25", unit: "px" },
+    },
+    blueprints: {
+      __list_type: LIST_TYPES,
+      __text_align: TEXT_ALIGNMENTS,
     }
   },
   {

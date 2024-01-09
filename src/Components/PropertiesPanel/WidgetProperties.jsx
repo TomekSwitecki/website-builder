@@ -114,6 +114,8 @@ function WidgetProperties() {
                 return selectGenerator("border_style", stateProperties, handleInputChange);
             case "background_size":
                 return selectGenerator("background_size", stateProperties, handleInputChange);
+            case "list_type":
+                return selectGenerator("list_type", stateProperties, handleInputChange);
             // case "link_object":
             //     return <SelectInput label={"Link object"} id={"link_object"} value={stateProperties[propName] || ""} options={canvasWidgets.map(widget => widget.id)} onChange={(value) => handleInputChange(propName, value)} />
             case "link_object":
