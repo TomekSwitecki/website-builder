@@ -1,12 +1,13 @@
 @import "../../../mixins";
 
 .widget__container {
+    box-sizing: border-box;
     display: flex;
     position: relative;
     height: fit-content;
     cursor: pointer;
     pointer-events: auto;
-    margin: 6px;
+    padding: 6px;
     z-index: 1;
 
     &.widget__container--flexWrapping {

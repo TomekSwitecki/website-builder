@@ -1,0 +1,32 @@
+.carousel-wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: transparent;
+
+    .carousel-content {
+        width: 100%;
+        height: 100%;
+        display: flex;
+    }
+}
+
+@keyframes slideAnimation {
+    from {
+        transform: translateX(0%);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes slideAnimationReversed {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(0%);
+    }
+}

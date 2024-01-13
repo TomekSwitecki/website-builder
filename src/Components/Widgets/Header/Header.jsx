@@ -13,16 +13,16 @@ function Header({ props }) {
     textTransform: props.text_casing,
     textAlign: props.text_align,
     fontWeight: fontStyleDecoder(props.font_style),
+
   };
 
 
+  const headingLevel = `${props.header_size}`;
 
-
-  return (
-    <div style={generatedStyles} className={classBuilder("header", headerOptions)}>
-      {props.value.value}
-      {props.size}
-    </div>
+  return React.createElement(
+    headingLevel,
+    { style: generatedStyles, className: classBuilder("header", headerOptions) },
+    props.value.value
   );
 }
 

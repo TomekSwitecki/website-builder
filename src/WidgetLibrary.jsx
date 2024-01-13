@@ -13,6 +13,7 @@ import Button from "./Components/Widgets/Button/Button";
 import FlexContainer from "./Components/Widgets/FlexContainer/FlexContainer";
 import List from "./Components/Widgets/List/List";
 import Divider from "./Components/Widgets/Divider/Divider";
+import Carousel from "./Components/Widgets/Carousel/Carousel";
 
 import COVER_HEADING from "../src/Resources/Designer/WidgetCovers/COVER_HEADING.png";
 import COVER_TEXT from "../src/Resources/Designer/WidgetCovers/COVER_TEXT.png";
@@ -25,6 +26,7 @@ import COVER_LINK from "../src/Resources/Designer/WidgetCovers/COVER_LINK.png";
 import COVER_BUTTON from "../src/Resources/Designer/WidgetCovers/COVER_BUTTON.png";
 import COVER_ICON from "../src/Resources/Designer/WidgetCovers/COVER_ICON.png";
 import COVER_LIST from "../src/Resources/Designer/WidgetCovers/COVER_LIST.png";
+import COVER_CAROUSEL from "../src/Resources/Designer/WidgetCovers/COVER_CAROUSEL.png";
 
 
 export const DEFAULT_COLOR = "#000000";
@@ -122,7 +124,7 @@ export const widgets_library = [
       text_decoration: "none",
       line_height: { value: "25", unit: "px" },
       letter_spacing: { value: "0", min: "0", max: "100", unit: "px" },
-      truncate: false,
+      // truncate: false,
     },
     blueprints: {
       __font_style: FONT_STYLES,
@@ -161,6 +163,10 @@ export const widgets_library = [
     component: <Link />,
     props: {
       url: { value: "https://www.google.pl/?hl=pl" },
+      width_type: "fixed",
+      width: { value: "45", min: "0", max: "100", unit: "%", },
+      height_type: "fixed",
+      height: { value: "25", min: "0", max: "100", unit: "%", },
     },
 
   },
@@ -218,6 +224,25 @@ export const widgets_library = [
   },
   {
     order: 0,
+    name: "Photo Carousel",
+    description: "Photo sliding carousel",
+    cover: COVER_CAROUSEL,
+    component: <Carousel />,
+    props: {
+      url: { value: "https://images.unsplash.com/photo-1682686580036-b5e25932ce9a?q=80&w=1550&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
+      speed: { value: 24, min: "0", max: "200", unit: "s", },
+      gap: { value: "32", unit: "px" },
+      reverseAnimDirection: false,
+      background_size: "100%"
+    }
+    ,
+    blueprints: {
+      __background_size: BACKGROUND_SIZE,
+
+    }
+  },
+  {
+    order: 0,
     name: "Video",
     description: "Video URL embeding widget.",
     cover: COVER_VIDEO,
@@ -227,7 +252,7 @@ export const widgets_library = [
       controls: "true",
       autoplay: "false",
       loop: "true",
-      file: null,
+      // file: null,
     },
   },
   {

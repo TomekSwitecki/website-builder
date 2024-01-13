@@ -5,7 +5,7 @@ import FlexContainer from "../FlexContainer/FlexContainer";
 
 
 function Link({ id, props, }) {
-    const { canvasWidgets, updateWidget, draggedWidget } = useWidgetContext();
+    const { canvasWidgets, updateWidget, draggedWidget, linkEnabled } = useWidgetContext();
     const [innerWidgets, setInnerWidgets] = useState([]);
 
 
@@ -18,7 +18,7 @@ function Link({ id, props, }) {
         updateWidget(id, { ["innerWidgets"]: innerWidgets })
     }, [draggedWidget, innerWidgets.length, canvasWidgets.length]);
 
-    let propss = {
+    let props_ = {
         width_type: "hug",
         width: { value: "45", min: "0", max: "100", unit: "%", },
         height_type: "fixed",
@@ -41,15 +41,22 @@ function Link({ id, props, }) {
         flex_justify_content: "",
         flex_align_content: "",
     };
+
     return (
         <div style={{ width: props.width }} className={classBuilder("link")}>
-            {props.url.value && (
-                <a href={props.url.value}>
+            {linkEnabled && props.url.value && (
+                <a href={props.url.value} target="_blank" rel="noopener noreferrer">
                     <FlexContainer
-                        id={id} // Pass the id to FlexContainer
-                        props={propss} // Pass the props object
+                        id={id}
+                        props={props_}
                     />
                 </a>
+            )}
+            {!linkEnabled && (
+                <FlexContainer
+                    id={id}
+                    props={props_}
+                />
             )}
         </div>
     );

@@ -13,6 +13,9 @@ export const WidgetProvider = ({ children }) => {
     const [pointedWidget, setPointedWidget] = useState(null);
     const [draggedWidget, setDraggedWidget] = useState(null);
 
+    //export
+    const [linkEnabled, setLinksEnabled] = useState(false);
+
     const selectWidget = (widgetId) => {
         setSelectedWidget(widgetId);
         console.log(widgetId)
@@ -192,7 +195,12 @@ export const WidgetProvider = ({ children }) => {
         }
     }
 
-
+    function enableLinks() {
+        setLinksEnabled(true);
+    }
+    function disableLinks() {
+        setLinksEnabled(false);
+    }
 
     // useEffect(() => {
     //     if (pointedWidget)
@@ -200,7 +208,7 @@ export const WidgetProvider = ({ children }) => {
     // }, [pointedWidget]);
 
     return (
-        <WidgetContext.Provider value={{ renderedCanvasWidgets, mousePointer, setCanvasWidgets, draggedWidget, selectedWidget, selectWidget, canvasWidgets, clearSelectedWidget, addWidget, removeWidget, updateWidget, pointedWidget, setPointedWidget, widgetFactory, setDragHandler, clearDragHandle, handleReorder, setRenderedCanvasWidgets }}>
+        <WidgetContext.Provider value={{ linkEnabled, enableLinks, disableLinks, renderedCanvasWidgets, mousePointer, setCanvasWidgets, draggedWidget, selectedWidget, selectWidget, canvasWidgets, clearSelectedWidget, addWidget, removeWidget, updateWidget, pointedWidget, setPointedWidget, widgetFactory, setDragHandler, clearDragHandle, handleReorder, setRenderedCanvasWidgets }}>
             {children}
         </WidgetContext.Provider>
     );

@@ -6,11 +6,19 @@ import Button, { ButtonColor, ButtonType, ButtonShape, ButtonSize } from "../Des
 import { Trash } from "@vectopus/atlas-icons-react";
 
 export function PropertiesPanel() {
-  const { selectedWidget, removeWidget, handleReorder } = useWidgetContext();
+  const { selectedWidget, removeWidget, handleReorder, selectWidget, enableLinks, disableLinks } = useWidgetContext();
   const [selectedWidgetOptions, setSelectedWidgetOptions] = useState(null);
 
   const handleExtractHtmlClick = (target) => {
-    extractStaticHtml(target);
+    enableLinks();
+    selectWidget(null)
+    setTimeout(() => {
+      extractStaticHtml(target);
+    }, 1000);
+
+    setTimeout(() => {
+      disableLinks();
+    }, 2000);
   };
 
   useEffect(() => {

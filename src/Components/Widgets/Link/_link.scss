@@ -1,20 +1,13 @@
 @import "../../../containers";
 @import "../../../mixins";
 
-a {
-    text-decoration: none;
-}
+
 
 .link {
     width: 100%;
-    pointer-events: none;
+    height: 100%;
+}
 
-    a {
-        pointer-events: none;
-    }
-
-    .flex_container {
-        pointer-events: none;
-        height: 250px;
-    }
+a {
+    text-decoration: none;
 }

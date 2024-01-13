@@ -97,7 +97,11 @@ function WidgetContainer({ id, parentID, order, children, widget }) {
             inlineWidth = widget.props.width?.value + widget.props.width?.unit;
         }
     }
-    else if (widget.name === "Frame" || widget.name === "Divider" || widget.name === "Link") {
+    else if (widget.name === "Photo Carousel") {
+        inlineHeight = "100%";
+        inlineWidth = "100%";
+    }
+    else if (widget.name === "Frame" || widget.name === "Divider") {
         inlineWidth = "100%";
     }
     else if (widget.name === "Frame" || widget.name === "Image" || widget.name === "Video") {

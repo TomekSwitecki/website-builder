@@ -2,40 +2,15 @@ import css from '!!css-loader?{"sourceMap":false,"exportType":"string"}!../index
 import { extractCssSelectors } from './extractCssSelectors';
 import { downloadManager } from './downloadManager';
 export const extractStaticHtml = (selectedWidget) => {
-  if (selectedWidget) {
-    const staticSelectedWidget = document.getElementById(selectedWidget.id);
-    const staticSelectedWidgetCSS = (extractCssSelectors(css, selectedWidget.name.toLowerCase()))
+  const canvasElement = document.getElementById('designer-canvas');
+  const staticCSS = css;
+  const removePreviewElements = (extractCssSelectors(css, "widget__container"))
+  console.log(removePreviewElements)
+  console.log(staticCSS)
+  const preparedStaticCSS = staticCSS.replaceAll(removePreviewElements, '');
+  const canvasHtml = canvasElement.outerHTML;
 
-    const htmlDocument = `
-       <!DOCTYPE html>
-       <html lang="en">
-       <head>
-         <meta charset="UTF-8">
-         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-         <title>HTML Boilerplate</title>
-         <style>
-         ${staticSelectedWidgetCSS}
-         widg
-         </style>
-       </head>
-       <body>
-         ${staticSelectedWidget.outerHTML}
-       </body>
-       </html>
-     `;
-    downloadManager(htmlDocument, 'text/html', selectedWidget.name + '.html');
-    downloadManager(staticSelectedWidgetCSS, 'text/css', selectedWidget.name + 'css');
-  }
-  else {
-    const canvasElement = document.getElementById('designer-canvas');
-    const staticCSS = css;
-    const removePreviewElements = (extractCssSelectors(css, "widget__container"))
-    console.log(removePreviewElements)
-    console.log(staticCSS)
-    const preparedStaticCSS = staticCSS.replaceAll(removePreviewElements, '');
-    const canvasHtml = canvasElement.outerHTML;
-
-    const htmlDocument = `
+  const htmlDocument = `
        <!DOCTYPE html>
        <html lang="en">
        <head>
@@ -47,12 +22,14 @@ export const extractStaticHtml = (selectedWidget) => {
          widg
          </style>
        </head>
+       <script>
+       var enableLink = true;
+       </script>
        <body>
          ${canvasHtml}
        </body>
        </html>
      `;
 
-    downloadManager(htmlDocument, 'text/html', 'index.html');
-  }
+  downloadManager(htmlDocument, 'text/html', 'index.html');
 };

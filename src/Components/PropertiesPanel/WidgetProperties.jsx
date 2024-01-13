@@ -80,7 +80,7 @@ function WidgetProperties() {
         switch (propName) {
             case "text": case "value": case "url": case "svg":
                 return <TextInput textArea label={transformLabels(propName)} value={stateProperties[propName]?.value} onChange={(e) => handleTextInputChange(propName, e.target.value)} />
-            case "minWidth": case "maxWidth": case "width": case "height": case "font_size": case "border_width": case "size":
+            case "minWidth": case "maxWidth": case "width": case "height": case "font_size": case "border_width": case "size": case "speed":
                 return <TextInput label={transformLabels(propName)} value={stateProperties[propName]?.value} unit={stateProperties[propName]?.unit} onChange={(e) => handleTextInputChange(propName, e.target.value)} isInvalid={stateProperties[propName]?.isInvalid} validationInfo={stateProperties[propName]?.validationInfo} />
             case "number": case "border_width": case "stroke_width": case "padding_inline": case "padding_block": case "margin_block": case "margin_inline": case "borderRadius": case "rotation": case "gap": case "line_height": case "letter_spacing":
                 return <TextInput label={transformLabels(propName)} value={stateProperties[propName]?.value} unit={stateProperties[propName]?.unit} onChange={(e) => handleTextInputChange(propName, e.target.value)} isInvalid={stateProperties[propName]?.isInvalid} validationInfo={stateProperties[propName]?.validationInfo} />
@@ -122,7 +122,7 @@ function WidgetProperties() {
                 return selectGenerator("link_object", stateProperties, handleInputChange);
             case "color": case "backgroundColor": case "stroke_color": case "fill_color": case "border_color":
                 return <ColorSelect label={transformLabels(propName)} value={stateProperties[propName]} onChange={(e) => handleInputChange(propName, e.target.value)} />
-            case "clipOverflowContent": case "controls": case "autoplay": case "loop": case "truncate": case "transparent_fill": case "transparent_stroke":
+            case "clipOverflowContent": case "controls": case "autoplay": case "loop": case "truncate": case "transparent_fill": case "transparent_stroke": case "reverseAnimDirection":
                 return <Checkbox id={transformLabels(propName)} name={transformLabels(propName)} label={transformLabels(propName)} checked={stateProperties[propName]} onChange={(e) => handleInputChange(propName, e.target.checked)} />
             default:
                 // Handle other types or use a default input field
