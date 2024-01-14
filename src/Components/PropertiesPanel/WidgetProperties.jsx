@@ -76,13 +76,12 @@ function WidgetProperties() {
 
 
     const formFactory = (propName, propValue) => {
-
         switch (propName) {
-            case "text": case "value": case "url": case "svg":
+            case "text": case "value": case "url": case "svg": case "logo_svg": case "description": case "map_url":
                 return <TextInput textArea label={transformLabels(propName)} value={stateProperties[propName]?.value} onChange={(e) => handleTextInputChange(propName, e.target.value)} />
-            case "minWidth": case "maxWidth": case "width": case "height": case "font_size": case "border_width": case "size": case "speed":
+            case "minWidth": case "maxWidth": case "width": case "height": case "font_size": case "border_width": case "size": case "speed": case "copyright": case "addres_line_1": case "addres_line_2": case "mail": case "phone":
                 return <TextInput label={transformLabels(propName)} value={stateProperties[propName]?.value} unit={stateProperties[propName]?.unit} onChange={(e) => handleTextInputChange(propName, e.target.value)} isInvalid={stateProperties[propName]?.isInvalid} validationInfo={stateProperties[propName]?.validationInfo} />
-            case "number": case "border_width": case "stroke_width": case "padding_inline": case "padding_block": case "margin_block": case "margin_inline": case "borderRadius": case "rotation": case "gap": case "line_height": case "letter_spacing":
+            case "number": case "border_width": case "stroke_width": case "padding_inline": case "padding_block": case "margin_block": case "margin_inline": case "borderRadius": case "rotation": case "gap": case "line_height": case "letter_spacing": case "horizontal_gap": case "vertical_gap": case "logo_size":
                 return <TextInput label={transformLabels(propName)} value={stateProperties[propName]?.value} unit={stateProperties[propName]?.unit} onChange={(e) => handleTextInputChange(propName, e.target.value)} isInvalid={stateProperties[propName]?.isInvalid} validationInfo={stateProperties[propName]?.validationInfo} />
             case "file":
                 return <React.Fragment>
@@ -120,9 +119,9 @@ function WidgetProperties() {
             //     return <SelectInput label={"Link object"} id={"link_object"} value={stateProperties[propName] || ""} options={canvasWidgets.map(widget => widget.id)} onChange={(value) => handleInputChange(propName, value)} />
             case "link_object":
                 return selectGenerator("link_object", stateProperties, handleInputChange);
-            case "color": case "backgroundColor": case "stroke_color": case "fill_color": case "border_color":
+            case "color": case "backgroundColor": case "stroke_color": case "fill_color": case "border_color": case "textColor":
                 return <ColorSelect label={transformLabels(propName)} value={stateProperties[propName]} onChange={(e) => handleInputChange(propName, e.target.value)} />
-            case "clipOverflowContent": case "controls": case "autoplay": case "loop": case "truncate": case "transparent_fill": case "transparent_stroke": case "reverseAnimDirection":
+            case "clipOverflowContent": case "controls": case "autoplay": case "loop": case "truncate": case "transparent_fill": case "transparent_stroke": case "reverseAnimDirection": case "show_map":
                 return <Checkbox id={transformLabels(propName)} name={transformLabels(propName)} label={transformLabels(propName)} checked={stateProperties[propName]} onChange={(e) => handleInputChange(propName, e.target.checked)} />
             default:
                 // Handle other types or use a default input field

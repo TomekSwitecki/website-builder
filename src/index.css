@@ -15,7 +15,7 @@
   width: 100%;
   max-width: 1260px;
   background-color: #ffffff;
-  padding: 32px;
+  padding: 64px;
   height: 90vh;
   overflow-y: auto;
   overflow-x: hidden;
@@ -345,30 +345,6 @@
   line-height: normal;
 }
 
-h1 {
-  font-size: 64px;
-}
-
-h2 {
-  font-size: 48px;
-}
-
-h3 {
-  font-size: 32px;
-}
-
-h4 {
-  font-size: 20px;
-}
-
-h5 {
-  font-size: 18px;
-}
-
-h6 {
-  font-size: 14px;
-}
-
 .text {
   width: 100%;
   white-space: nowrap;
@@ -384,11 +360,13 @@ h6 {
 
 .image {
   width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
 .video {
   width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
@@ -416,7 +394,7 @@ h6 {
   background: url("/src/Resources/Designer/Placholders/FRAME_PLACEHOLDER.png");
   display: block;
   width: 100%;
-  height: 250px;
+  height: 100%;
 }
 
 .designer .frame__container iframe {
@@ -444,6 +422,7 @@ h6 {
 
 a {
   text-decoration: none;
+  cursor: pointer;
 }
 
 .button {
@@ -479,6 +458,63 @@ a {
     transform: translateX(0%);
   }
 }
+.footer {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer .footer_content {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 64px;
+  padding: 0px 32px;
+}
+
+.footer .footer_description {
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+.footer .footer_logo {
+  padding: 0;
+  width: 128px;
+  height: auto;
+}
+
+.footer .footer_content--copyrigth {
+  display: flex;
+  justify-content: center;
+  opacity: 0.8;
+}
+
+.footer .footer_content--left {
+  max-width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.footer .footer_content--right {
+  width: 100%;
+  height: 100%;
+}
+
+.footer .footer_content--right iframe {
+  border: none;
+  width: 100%;
+  height: 100%;
+}
+
+.footer .footer_contact {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .input__label {
   color: #111315;
   font-size: 15px;

@@ -73,7 +73,7 @@ function WidgetContainer({ id, parentID, order, children, widget }) {
     let inlineMaxWidth = "";
     let inlineMinWidth = "";
 
-    if (widget.name === "Container" || widget.name === "Link") {
+    if (widget.name === "Container" || widget.name === "Link" || widget.name === "Footer") {
         inlineWidth = widget.props.width_type;
         inlineHeight = widget.props.height_type
 
@@ -97,14 +97,14 @@ function WidgetContainer({ id, parentID, order, children, widget }) {
             inlineWidth = widget.props.width?.value + widget.props.width?.unit;
         }
     }
-    else if (widget.name === "Photo Carousel") {
+    else if (widget.name === "Photo Carousel" || widget.name === "Frame") {
         inlineHeight = "100%";
         inlineWidth = "100%";
     }
-    else if (widget.name === "Frame" || widget.name === "Divider") {
+    else if (widget.name === "Divider" || widget.name === "Footer") {
         inlineWidth = "100%";
     }
-    else if (widget.name === "Frame" || widget.name === "Image" || widget.name === "Video") {
+    else if (widget.name === "Image" || widget.name === "Video") {
         inlineHeight = "100%"
     }
     else {
