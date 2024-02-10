@@ -13,7 +13,7 @@ function App() {
       <div className="designer">
         <CanvasProvider>
           <WidgetPanel />
-          <Canvas greedy={false} />
+          <Canvas />
         </CanvasProvider>
         <PropertiesPanel />
       </div>

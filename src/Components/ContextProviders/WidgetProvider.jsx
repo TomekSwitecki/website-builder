@@ -2,11 +2,10 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import WidgetContainer from '../Canvas/WidgetContainer/WidgetContainer';
 const WidgetContext = createContext();
 import { widgets_library } from '../../WidgetLibrary';
-import { v4 as uuidv4 } from 'uuid';
+
 
 
 export const WidgetProvider = ({ children }) => {
-    const uuid = require('uuid');
     const [canvasWidgets, setCanvasWidgets] = useState([]);
     const [renderedCanvasWidgets, setRenderedCanvasWidgets] = useState([]);
     const [selectedWidget, setSelectedWidget] = useState(null);
@@ -18,7 +17,6 @@ export const WidgetProvider = ({ children }) => {
 
     const selectWidget = (widgetId) => {
         setSelectedWidget(widgetId);
-        console.log(widgetId)
     };
 
     const clearSelectedWidget = () => {
@@ -27,9 +25,9 @@ export const WidgetProvider = ({ children }) => {
 
 
     function setDragHandler(widget) {
-        console.log(widget)
         setDraggedWidget(widget);
     }
+
     function clearDragHandle() {
         setSelectedWidget(null)
         setDraggedWidget(null);
@@ -49,15 +47,10 @@ export const WidgetProvider = ({ children }) => {
     };
 
     const removeWidget = (item) => {
-        // setCanvasWidgets((prevWidgets) =>
-        //     prevWidgets.filter((widget) => widget.id !== widgetId)
-        // );
-        console.log(item)
         setCanvasWidgets((prevItems) => {
             const updatedItems = prevItems.filter((prevItem => prevItem.id !== item.id));
             return [...updatedItems];
         });
-
         clearSelectedWidget();
     };
 
@@ -139,7 +132,6 @@ export const WidgetProvider = ({ children }) => {
             updatedWidgets = widgetsArray;
 
             const [removedWidget] = updatedWidgets.splice(selectedWidgetIndex, 1);
-            console.log(removedWidget)
             if (direction === 'before' || direction === 'after') {
                 updatedWidgets.splice(clampedTargetIndex, 0, removedWidget);
             }
@@ -176,7 +168,6 @@ export const WidgetProvider = ({ children }) => {
         while (parent && (!parent.id || (parent.id && !pattern.test(parent.id)))) {
             parent = parent.parentElement;
         }
-        //console.log(parent)
         return parent;
     }
 
@@ -185,7 +176,6 @@ export const WidgetProvider = ({ children }) => {
         e.preventDefault();
 
         let pointedWidgetContainer = getRootElement(e.target);
-        //console.log(pointedWidgetContainer)
         if (pointedWidgetContainer) {
             const dataObject = { id: pointedWidgetContainer.id, type: pointedWidgetContainer.getAttribute('data-type') };
             setPointedWidget(dataObject);

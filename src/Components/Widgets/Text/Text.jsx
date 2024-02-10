@@ -1,12 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
-import classBuilder from "../../../Utils/classBuilder";
 import { fontStyleDecoder } from "../../../Utils/fontStyleDecoder";
 
 
 function Text({ props }) {
-  const textOptions = {
-    size: "default",
-  };
 
   const generatedStyles = {
     color: props.color,
@@ -19,12 +15,15 @@ function Text({ props }) {
     lineHeight: props.line_height.value + props.letter_spacing.unit,
     truncate: props.truncate,
   };
-  console.log(props.value.value)
+
   return (
-    <div style={generatedStyles} className={classBuilder("text", textOptions)}>
+    <div style={generatedStyles} className={"text"}>
       <p>{props.value.value}</p>
     </div>
   );
 }
 
 export default Text;
+
+
+

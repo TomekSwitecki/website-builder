@@ -45,7 +45,7 @@ export const FONT_STYLES = ["thin", "extra-light", "light", "regular", "medium",
 export const BORDER_STYLES = ["solid", "dotted", "dashed", "double", "groove", "ridge", "inset", "outset"]
 export const TEXT_ALIGNMENTS = ["left", "center", "right"];
 export const TEXT_CASING = ["initial", "uppercase", "lowercase", "capitalize"];
-export const TEXT_DECORATIONS = ["none", "underline", "line-through"]
+export const TEXT_DECORATIONS = ["none", "underline", "line-through"];
 export const WIDTH_VARIANTS = ["fill", "hug", "fixed"];
 export const FLEX_DIRECTION_VARIANTS = ["vertical", "horizontal"];
 export const FLEX_ITEM_ALIGNMENT_VARIANTS = ["flex-start", "center", "flex-end", "stretch"];
@@ -64,9 +64,7 @@ export const widgets_library = [
       width_type: "fixed",
       width: { value: "45", min: "0", max: "100", unit: "%", },
       height_type: "fixed",
-      height: { value: "25", min: "0", max: "100", unit: "%", },
-      // maxWidth: { value: "", min: "0", max: "100", unit: "%" },
-      // minWidth: { value: "", min: "0", max: "100", unit: "%" },
+      height: { value: "25", min: "0", max: "100", unit: "%" },
       borderRadius: { value: "0", min: "0", max: "100", unit: "px" },
       rotation: { value: "0", unit: "deg" },
       flex_direction: "horizontal",
@@ -94,12 +92,12 @@ export const widgets_library = [
   },
   {
     order: 0,
-    name: "Header",
+    name: "Heading",
     description: "Section text heading",
     cover: COVER_HEADING,
     component: <Header />,
     props: {
-      value: { value: "Header Initial Value" },
+      value: { value: "Heading Initial Value" },
       color: DEFAULT_COLOR,
       font_style: "regular",
       header_size: "h1",
@@ -257,7 +255,6 @@ export const widgets_library = [
       controls: "true",
       autoplay: "false",
       loop: "true",
-      // file: null,
     },
   },
   {

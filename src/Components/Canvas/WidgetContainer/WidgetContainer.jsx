@@ -41,8 +41,12 @@ function WidgetContainer({ id, parentID, order, children, widget }) {
         }
         setWidgetStates(newStates);
     }, [widget.name, widget.order]);
+    
 
-
+    const handleMouseClick = (e) => {
+        e.stopPropagation();
+        selectWidget(widget)
+    }
 
     const handleMouseOver = (e) => {
         e.stopPropagation();
@@ -54,10 +58,7 @@ function WidgetContainer({ id, parentID, order, children, widget }) {
         setPointedWidget(null)
     }
 
-    const handleMouseClick = (e) => {
-        e.stopPropagation();
-        selectWidget(widget)
-    }
+
 
     const handleWidgetDelete = (e) => {
         e.stopPropagation();

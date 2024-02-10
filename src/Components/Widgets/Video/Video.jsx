@@ -20,17 +20,21 @@ function Video({ props }) {
   //   }
   // }, [props.url.value]);
 
-  if (!videoUrl && props.url.value) {
-    return <video key={videoUrl} className="video" controls={props.controls} autoPlay={props.autoPlay} loop={props.loop}>
-      <source src={props.url.value} type="video/mp4"></source>
-    </video>;
-  }
+  const sourceUrl = videoUrl || (props.url.value ? props.url.value : null);
 
-  return (
-    <video key={videoUrl} className="video" controls={props.controls} autoPlay={props.autoPlay} loop={props.loop}>
-      <source src={videoUrl} type="video/mp4"></source>
-    </video>
-  );
+  if (sourceUrl) {
+    return (
+      <video
+        key={sourceUrl}
+        className="video"
+        controls={props.controls}
+        autoPlay={props.autoPlay}
+        loop={props.loop}
+      >
+        <source src={sourceUrl} type="video/mp4"></source>
+      </video>
+    );
+  }
 
 }
 
